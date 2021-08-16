@@ -1,10 +1,10 @@
-# 💻 Your App Name Here
+# 💻 Recipes
 
-- by Your Name
+- by Sean Boaden 2021
 
 ## 🪐 Info
 
-Information about this web application
+A full-stack web app. Front-end uses React/Redux, while the back-end uses Express. The back-end uses my authentication 'template', you can see the boilerplate project [here](https://github.com/sean-b765/user-auth)
 
 ## 📄 Available Scripts
 
