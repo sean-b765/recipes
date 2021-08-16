@@ -1,0 +1,163 @@
+.home {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	position: relative;
+	background-image: url('../../images/home2.jpg');
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+
+	&__wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.548);
+
+		&__landing {
+			width: 100%;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: row-reverse;
+
+			&__split {
+				flex: 1;
+				color: white;
+				padding: 5rem;
+
+				&--center {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				h1 {
+					font-family: 'Berkshire Swash', cursive;
+					font-size: 3rem;
+					margin-bottom: 40px;
+				}
+				p {
+					font-size: 1.1em;
+					margin-right: 30px;
+					font-family: 'Overpass', sans-serif;
+					letter-spacing: 2px;
+					color: rgba(255, 255, 255, 0.877);
+					text-align: end;
+				}
+			}
+		}
+
+		&__showcase {
+			&__item {
+				padding: 12rem $padding-minimum-inline;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				> * {
+					flex: 1;
+					padding: 0 2rem;
+				}
+
+				header {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin: 20px 0;
+
+					svg,
+					h2 {
+						margin: 0 20px;
+					}
+
+					svg {
+						font-size: 4rem;
+					}
+
+					h2 {
+						font-family: 'Berkshire Swash', cursive;
+						font-size: 2.3rem;
+					}
+				}
+
+				article {
+					p {
+						text-align: center;
+					}
+				}
+
+				&:nth-child(odd) {
+					background: #2f327a;
+				}
+
+				// Mobile - flex-direction will be column reverse
+				&--reverse {
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		background: $blue-gradient;
+
+		&__wrapper {
+			background: none;
+
+			&__landing {
+				flex-direction: column;
+				&__split {
+					flex: none;
+				}
+
+				button {
+					background: white !important;
+					color: $primary-blue-dark;
+
+					&:hover {
+						background: rgba(255, 255, 255, 0.863) !important;
+						color: $primary-blue-dark !important;
+					}
+				}
+			}
+
+			&__showcase {
+				&__item {
+					flex-direction: column;
+
+					article {
+						padding: 0;
+					}
+
+					header {
+						padding: 0;
+						flex-direction: column;
+
+						> * {
+							text-align: center;
+						}
+
+						svg,
+						h2 {
+							margin-bottom: 40px;
+						}
+					}
+
+					&--reverse {
+						flex-direction: column-reverse;
+					}
+				}
+
+				.split {
+					padding: 0;
+				}
+
+				.split:nth-child(1) {
+					margin-bottom: 5rem;
+				}
+			}
+		}
+	}
+}

@@ -2,10 +2,13 @@
 
 @import './components/index';
 
+@import './pages/index';
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
 }
 
 html,
@@ -15,7 +18,8 @@ body {
 
 ul li {
 	list-style: none;
-	a {
-		text-decoration: none;
-	}
+}
+
+a {
+	text-decoration: none;
 }
