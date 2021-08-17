@@ -1,0 +1,11 @@
+.custom_input {
+	border: none;
+	padding: 9px 15px;
+	margin: 2px 2px 9px 2px;
+
+	&--underline {
+		background: none;
+		border-bottom: 1px solid white;
+		color: white;
+	}
+}

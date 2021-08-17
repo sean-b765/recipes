@@ -1,0 +1,128 @@
+.auth {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	background-image: url('../images/auth.jpg');
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+
+	&__login,
+	&__signup {
+		flex: 2;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+
+	&__container {
+		padding: 3rem 2rem 1rem 2rem;
+		background: $blue-gradient;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		> div {
+			.btn {
+				font-size: 2.5rem;
+				padding: 0 !important;
+				margin-inline: 10px;
+				color: rgba(255, 255, 255, 0.788);
+
+				&:hover {
+					transform: scale(1.08);
+					color: rgb(255, 255, 255);
+				}
+			}
+		}
+
+		a {
+			margin: 15px 5px 5px 5px;
+			color: white;
+			font-size: 0.85rem;
+			opacity: 0.8;
+			transition: opacity 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__form {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		input {
+			font-size: 1rem;
+
+			&[type='submit'] {
+				margin: 30px 20px 20px 20px;
+				padding-inline: 30px !important;
+
+				&:hover {
+					color: white;
+					background: rgba(255, 255, 255, 0.13);
+				}
+			}
+		}
+
+		label {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			margin: 2px 2px 9px 2px;
+
+			input {
+				margin: 0;
+			}
+
+			> div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: rgba(255, 255, 255, 0.753);
+				cursor: pointer;
+				position: absolute;
+				font-size: 1.35rem;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 10px;
+			}
+		}
+	}
+
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		h1 {
+			font-size: 2rem;
+			text-align: center;
+			font-family: 'Ubuntu mono', monospace;
+			color: white;
+		}
+	}
+
+	&__wrapper {
+		padding: 7rem $padding-minimum-inline;
+		position: relative;
+		width: 100%;
+		min-height: 100vh;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.425);
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		flex-direction: column;
+	}
+}

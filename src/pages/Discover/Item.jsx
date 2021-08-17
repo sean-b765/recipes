@@ -1,6 +1,4 @@
 import React from 'react'
-import { CgBowl } from 'react-icons/cg'
-import { BiTimer } from 'react-icons/bi'
 
 const Item = ({ object }) => {
 	return (
@@ -11,27 +9,19 @@ const Item = ({ object }) => {
 					backgroundImage: `url("${object.image_url}")`,
 				}}
 			>
-				<div className="recipe__bg__overlay">
-					<div className="recipe__content">
-						<p className="recipe__content__prep">
-							{object.prep_time} <BiTimer />
-						</p>
-						<p className="recipe__content__serves">
-							{object.serves} <CgBowl />
-						</p>
-					</div>
-				</div>
+				<div className="recipe__bg__overlay"></div>
 			</div>
+
 			<header>
+				<div>
+					<h2>{object.title}</h2>
+					<p>{`by ${object.author.name}`}</p>
+				</div>
 				<div className="avatar">
 					<img
 						src={object.author.avatar}
-						alt={`Portrait of ${object.author.avatar}`}
+						alt={`Portrait of ${object.author.name}`}
 					/>
-				</div>
-				<div>
-					<h2>{object.title}</h2>
-					<p>by {object.author.name}</p>
 				</div>
 			</header>
 

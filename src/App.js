@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Discover from './pages/Discover/Discover'
 import { AnimatePresence } from 'framer-motion'
+import Auth from './pages/Auth/Auth'
+import Search from './pages/Search/Search'
 
 function App() {
 	const location = useLocation()
@@ -20,7 +22,16 @@ function App() {
 						<Route path="/discover" exact>
 							<Discover />
 						</Route>
-						<Route path="/search" exact></Route>
+						<Route path="/search" exact>
+							<Search />
+						</Route>
+
+						<Route path="/login">
+							<Auth />
+						</Route>
+						<Route path="/signup">
+							<Auth />
+						</Route>
 					</Switch>
 				</AnimatePresence>
 			</main>

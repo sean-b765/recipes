@@ -1,12 +1,13 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false)
 
 	const location = useLocation()
+	const history = useHistory()
 
 	useEffect(() => {
 		setOpen(false)
@@ -43,21 +44,41 @@ const Navbar = () => {
 					</ul>
 
 					<div className="menu__mobile__actions">
-						<button className="btn btn--no-bg">Login</button>
-						<button className="btn btn--pill btn--solid-blue">Sign up</button>
+						<button
+							className="btn btn--no-bg"
+							onClick={() => history.push('/login')}
+						>
+							Login
+						</button>
+						<button
+							className="btn btn--pill btn--solid-blue"
+							onClick={() => history.push('/signup')}
+						>
+							Sign up
+						</button>
 					</div>
 				</div>
 			</nav>
 
 			<div className="navbar__brand">
-				<Link to="/" className="navbar__brand__logo">
+				<Link to="/" className="navbar__brand__logo" aria-label="Recipes Logo">
 					R
 				</Link>
 			</div>
 
 			<div className="navbar__actions">
-				<button className="btn btn--no-bg">Login</button>
-				<button className="btn btn--pill btn--solid-blue">Sign up</button>
+				<button
+					className="btn btn--no-bg"
+					onClick={() => history.push('/login')}
+				>
+					Login
+				</button>
+				<button
+					className="btn btn--pill btn--solid-blue"
+					onClick={() => history.push('/signup')}
+				>
+					Sign up
+				</button>
 			</div>
 		</header>
 	)

@@ -1,0 +1,141 @@
+.navbar {
+	width: 100%;
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem $padding-minimum-inline;
+	background: rgb(255, 255, 255);
+	z-index: 999;
+
+	&__navigation {
+		&__mobile {
+			display: none;
+			width: 32px;
+			height: 32px;
+			align-items: center;
+			justify-content: space-evenly;
+			flex-direction: column;
+			cursor: pointer;
+
+			span {
+				height: 2px;
+				width: 100%;
+				background: rgb(59, 59, 59);
+				transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			}
+
+			&.close {
+				span:nth-child(1) {
+					transform: translate(0, 9px) rotate(45deg);
+				}
+				span:nth-child(2) {
+					opacity: 0;
+				}
+				span:nth-child(3) {
+					transform: translate(0, -8px) rotate(-45deg);
+				}
+			}
+		}
+
+		.menu {
+			&.mobile-variant {
+				transform: scaleY(1);
+				opacity: 1;
+			}
+
+			ul {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				li {
+					padding: 1rem;
+					a {
+						color: $primary-blue-dark;
+					}
+				}
+			}
+
+			&__mobile__actions {
+				display: none;
+				button {
+					color: $primary-blue-dark;
+					margin: 0 10px;
+				}
+			}
+		}
+	}
+	&__actions {
+		button {
+			color: $primary-blue-dark;
+		}
+	}
+
+	&__brand {
+		position: absolute;
+		width: auto;
+		left: 50%;
+		transform: translate(-50%, 0);
+
+		a {
+			color: $primary-blue-dark;
+			font-size: 2.5rem;
+			font-family: 'Berkshire Swash', cursive;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		padding: 1rem $padding-minimum-inline-mobile !important;
+
+		&__navigation {
+			.menu {
+				transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+				transform-origin: top center;
+				opacity: 0;
+				transform: scaleY(0);
+				top: 100%;
+				left: 0;
+				width: 100%;
+				padding: 2rem 1rem;
+				position: absolute;
+				align-items: center;
+				justify-content: center;
+				background: rgba(240, 240, 240, 0.979);
+
+				ul {
+					flex-direction: column;
+				}
+
+				&__mobile__actions {
+					position: relative;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 2rem 0 0 0;
+					margin-top: 1rem;
+
+					&::after {
+						position: absolute;
+						width: 100%;
+						content: '';
+						height: 1px;
+						background: $primary-blue-dark;
+						opacity: 0.25;
+						top: 0;
+						left: 0;
+					}
+				}
+			}
+			&__mobile {
+				display: flex;
+			}
+		}
+
+		&__actions {
+			button {
+				display: none;
+			}
+		}
+	}
+}

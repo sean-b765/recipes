@@ -3,8 +3,11 @@ import { AiOutlineSearch, AiOutlineShareAlt } from 'react-icons/ai'
 import { RiCompassDiscoverFill } from 'react-icons/ri'
 import { BiUserPlus } from 'react-icons/bi'
 import { motion } from 'framer-motion'
+import { useHistory } from 'react-router-dom'
 
 const Home = () => {
+	const history = useHistory()
+
 	return (
 		<motion.section
 			className="home"
@@ -15,12 +18,17 @@ const Home = () => {
 		>
 			<div className="home__wrapper">
 				<div className="home__wrapper__landing">
-					<div className="home__wrapper__landing__split">
+					<header className="home__wrapper__landing__split">
 						<h1>Your favourite recipes,</h1>
 						<p>all in one place.</p>
-					</div>
+					</header>
 					<div className="home__wrapper__landing__split home__wrapper__landing__split--center">
-						<button className="btn btn--large">Get Started</button>
+						<button
+							className="btn btn--large"
+							onClick={() => history.push('/signup')}
+						>
+							Get Started
+						</button>
 					</div>
 				</div>
 

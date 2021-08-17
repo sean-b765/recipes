@@ -1,0 +1,50 @@
+// Buttons & variations
+
+.btn {
+	border: none;
+	padding: 12px 19px;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+	&--solid {
+		background: white;
+		color: black;
+
+		&-blue {
+			background: $primary-blue-dark;
+			color: white !important;
+
+			&:hover {
+				background: $btn-hover-blue;
+				color: rgb(255, 255, 255) !important;
+			}
+		}
+
+		&:hover {
+			color: white;
+			background: rgb(0, 0, 0);
+		}
+	}
+
+	&--large {
+		border-radius: 3px;
+		padding: 25px 50px;
+		font-size: 1.1em;
+		background: $primary-blue;
+		color: white;
+
+		&:hover {
+			color: rgb(223, 220, 255);
+			background: $primary-blue-dark;
+		}
+	}
+
+	&--pill {
+		border-radius: 40px;
+	}
+
+	&--no-bg {
+		background: none;
+	}
+}
