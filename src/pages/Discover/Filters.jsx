@@ -3,9 +3,6 @@ import React from 'react'
 const Filters = () => {
 	return (
 		<section className="discover__filters">
-			<header>
-				<h2>Sort</h2>
-			</header>
 			<div className="discover__filters__sort">
 				<select
 					aria-label="Sort by"

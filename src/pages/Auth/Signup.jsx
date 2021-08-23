@@ -8,8 +8,14 @@ import {
 } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = ({ handleSignUp }) => {
 	const [showPass, setShowPass] = useState(false)
+	const [formData, setFormData] = useState({
+		username: '',
+		email: '',
+		password: '',
+		repeatPassword: '',
+	})
 
 	return (
 		<section className="auth__signup" data-aos="fade-in" data-aos-delay="150">
@@ -31,9 +37,7 @@ const Signup = () => {
 				</div>
 				<form
 					action=""
-					onSubmit={(e) => {
-						e.preventDefault()
-					}}
+					onSubmit={(e) => handleSignUp(e, formData)}
 					className="auth__form"
 				>
 					<input
@@ -42,6 +46,10 @@ const Signup = () => {
 						name="username"
 						id="username"
 						placeholder="Username"
+						value={formData.username}
+						onChange={(e) =>
+							setFormData({ ...formData, username: e.target.value })
+						}
 					/>
 
 					<input
@@ -50,6 +58,10 @@ const Signup = () => {
 						name="email"
 						id="email"
 						placeholder="Email"
+						value={formData.email}
+						onChange={(e) =>
+							setFormData({ ...formData, email: e.target.value })
+						}
 					/>
 
 					<label for="password">
@@ -59,6 +71,10 @@ const Signup = () => {
 							name="password"
 							id="password"
 							placeholder="Password"
+							value={formData.password}
+							onChange={(e) =>
+								setFormData({ ...formData, password: e.target.value })
+							}
 						/>
 						<div onClick={() => setShowPass(!showPass)}>
 							{showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -72,6 +88,10 @@ const Signup = () => {
 							name="repeatPassword"
 							id="repeatPassword"
 							placeholder="Repeat Password"
+							value={formData.repeatPassword}
+							onChange={(e) =>
+								setFormData({ ...formData, repeatPassword: e.target.value })
+							}
 						/>
 						<div onClick={() => setShowPass(!showPass)}>
 							{showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

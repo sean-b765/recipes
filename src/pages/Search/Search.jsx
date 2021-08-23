@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import React from 'react'
+import Filters from './Filters'
 
 const Search = () => {
 	return (
@@ -11,16 +12,36 @@ const Search = () => {
 			exit={{ opacity: 0 }}
 		>
 			<header className="search__header">
-				<h1 data-aos="zoom-out">
-					<span>search</span>
-				</h1>
+				<div>
+					<h1 data-aos="zoom-out">
+						<span>search</span>
+					</h1>
+					<Filters />
+				</div>
+				<form
+					className="search__header__box"
+					onSubmit={(e) => {
+						e.preventDefault()
+						console.log(e)
+					}}
+				>
+					<input
+						type="text"
+						name="search"
+						id="search"
+						aria-label="Search terms"
+					/>
+					<label for="search">
+						<input type="submit" aria-label="Perform search" value="" />
+					</label>
+				</form>
 			</header>
-			<section className="discover__grid">
+			<section className="search__grid">
 				{/* {data.map((datum, idx) => (
 					<Item key={idx} object={datum} />
 				))} */}
 			</section>
-			<footer className="discover__pagination"></footer>
+			<footer className="search__pagination"></footer>
 		</motion.section>
 	)
 }

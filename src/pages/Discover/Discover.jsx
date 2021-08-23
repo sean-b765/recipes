@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 import data from '../../recipes'
-import Item from './Item'
+import Item from '../RecipeCard/Item'
 import Filters from './Filters'
 
 const Discover = () => {

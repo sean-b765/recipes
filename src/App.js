@@ -6,6 +6,7 @@ import Discover from './pages/Discover/Discover'
 import { AnimatePresence } from 'framer-motion'
 import Auth from './pages/Auth/Auth'
 import Search from './pages/Search/Search'
+import Profile from './pages/Profile/Profile'
 
 function App() {
 	const location = useLocation()
@@ -32,6 +33,11 @@ function App() {
 						<Route path="/signup">
 							<Auth />
 						</Route>
+
+						<Route
+							path="/profiles/:id"
+							render={(p) => <Profile id={p.match.params.id} />}
+						></Route>
 					</Switch>
 				</AnimatePresence>
 			</main>

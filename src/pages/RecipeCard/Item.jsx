@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Item = ({ object }) => {
 	return (
@@ -15,7 +16,9 @@ const Item = ({ object }) => {
 			<header>
 				<div>
 					<h2>{object.title}</h2>
-					<p>{`by ${object.author.name}`}</p>
+					<Link
+						to={`/profiles/${object.id}`}
+					>{`by ${object.author.name}`}</Link>
 				</div>
 				<div className="avatar">
 					<img
