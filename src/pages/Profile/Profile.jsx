@@ -40,6 +40,10 @@ const Profile = ({ id }) => {
 
 	useEffect(() => {
 		getUser(id).then((res) => {
+			// Skip if error
+			if (res.error) return
+			console.log(res)
+
 			dispatch({
 				type: 'USER/SET_USER',
 				payload: res,
@@ -168,18 +172,18 @@ const Profile = ({ id }) => {
 								<h1>{profile.username}</h1>
 								<div className="profile__card__header__details__stats">
 									<button className="btn btn--no-bg" aria-label="User Score">
-										{profile.score} Score
+										{profile?.score} Score
 									</button>
 									<button
 										aria-label={
-											profile.followers.length === 0
+											profile?.followers?.length === 0
 												? '0 followers'
-												: `View ${profile.followers.length} followers`
+												: `View ${profile?.followers?.length} followers`
 										}
 										className="btn btn--no-bg"
 										onClick={() => showFollowers()}
 									>
-										{profile.followers.length} Followers
+										{profile?.followers?.length} Followers
 									</button>
 									<button
 										className="btn btn--no-bg"
