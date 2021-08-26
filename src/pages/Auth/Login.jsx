@@ -8,8 +8,9 @@ import {
 } from 'react-icons/ai'
 import { useState } from 'react'
 
-const Login = () => {
+const Login = ({ handleSignIn }) => {
 	const [showPass, setShowPass] = useState(false)
+	const [formData, setFormData] = useState({ email: '', password: '' })
 	return (
 		<section className="auth__login" data-aos="fade-in" data-aos-delay="150">
 			<div className="auth__container">
@@ -30,9 +31,7 @@ const Login = () => {
 				</div>
 				<form
 					action=""
-					onSubmit={(e) => {
-						e.preventDefault()
-					}}
+					onSubmit={(e) => handleSignIn(e, formData)}
 					className="auth__form"
 				>
 					<input
@@ -41,6 +40,10 @@ const Login = () => {
 						name="email"
 						id="email"
 						placeholder="Email"
+						value={formData.email}
+						onChange={(e) =>
+							setFormData({ ...formData, email: e.target.value })
+						}
 					/>
 
 					<label for="password">
@@ -50,6 +53,10 @@ const Login = () => {
 							name="password"
 							id="password"
 							placeholder="Password"
+							value={formData.password}
+							onChange={(e) =>
+								setFormData({ ...formData, password: e.target.value })
+							}
 						/>
 						<div onClick={() => setShowPass(!showPass)}>
 							{showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

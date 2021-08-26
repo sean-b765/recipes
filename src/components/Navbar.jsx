@@ -1,10 +1,14 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
+import { IoNotificationsOutline } from 'react-icons/io5'
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false)
+
+	const user = useSelector((state) => state.auth.user)
 
 	const location = useLocation()
 	const history = useHistory()
@@ -43,20 +47,22 @@ const Navbar = () => {
 						</li>
 					</ul>
 
-					<div className="menu__mobile__actions">
-						<button
-							className="btn btn--no-bg"
-							onClick={() => history.push('/login')}
-						>
-							Login
-						</button>
-						<button
-							className="btn btn--pill btn--solid-blue"
-							onClick={() => history.push('/signup')}
-						>
-							Sign up
-						</button>
-					</div>
+					{!user && (
+						<div className="menu__mobile__actions">
+							<button
+								className="btn btn--no-bg"
+								onClick={() => history.push('/login')}
+							>
+								Login
+							</button>
+							<button
+								className="btn btn--pill btn--solid-blue"
+								onClick={() => history.push('/signup')}
+							>
+								Sign up
+							</button>
+						</div>
+					)}
 				</div>
 			</nav>
 
@@ -66,20 +72,42 @@ const Navbar = () => {
 				</Link>
 			</div>
 
-			<div className="navbar__actions">
-				<button
-					className="btn btn--no-bg"
-					onClick={() => history.push('/login')}
-				>
-					Login
-				</button>
-				<button
-					className="btn btn--pill btn--solid-blue"
-					onClick={() => history.push('/signup')}
-				>
-					Sign up
-				</button>
-			</div>
+			{/* Login/signup should show when not logged in */}
+			{!user && (
+				<div className="navbar__actions">
+					<button
+						className="btn btn--no-bg"
+						onClick={() => history.push('/login')}
+					>
+						Login
+					</button>
+					<button
+						className="btn btn--pill btn--solid-blue"
+						onClick={() => history.push('/signup')}
+					>
+						Sign up
+					</button>
+				</div>
+			)}
+			{/* See notification bell / user avatar when logged in */}
+			{user && (
+				<div className="navbar__notif">
+					<IoNotificationsOutline
+						aria-label="View your notifications"
+						onClick={() => {}}
+					/>
+					<div
+						className="navbar__notif__profile"
+						aria-label="Visit your profile"
+						onClick={() => history.push(`/profiles/${user._id}`)}
+					>
+						<img
+							src={user.imageUrl ? user.imageUrl : '/images/default-avatar.png'}
+							alt="Your profile picture"
+						/>
+					</div>
+				</div>
+			)}
 		</header>
 	)
 }
