@@ -22,7 +22,6 @@ const Search = () => {
 					className="search__header__box"
 					onSubmit={(e) => {
 						e.preventDefault()
-						console.log(e)
 					}}
 				>
 					<input
