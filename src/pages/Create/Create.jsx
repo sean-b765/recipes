@@ -1,167 +1,395 @@
+import React, { Component } from 'react'
 import { motion } from 'framer-motion'
-import React from 'react'
-import { useState } from 'react'
 import { FiUpload } from 'react-icons/fi'
 import FilePreview from './FilePreview'
+import Preview from './Preview'
+import { useRef } from 'react'
+import ListIngredients from './ListIngredients'
+import ListTags from './ListTags'
+import { useDispatch, useSelector } from 'react-redux'
+import { createRef } from 'react'
 
-const Create = () => {
-	const [formData, setFormData] = useState({
-		title: '',
-		content: '',
-		serves: '',
-		prep_time: '',
-		cook_time: '',
-	})
+export default class Create extends Component {
+	constructor() {
+		super()
 
-	const [files, setFiles] = useState([])
-
-	const bufferToBase64 = (buffer) => {
-		var binary = ''
-		var bytes = new Uint8Array(buffer)
-		var len = bytes.byteLength
-		for (var i = 0; i < len; i++) {
-			binary += String.fromCharCode(bytes[i])
+		this.state = {
+			formData: {
+				title: '',
+				serves: '',
+				prep_time: '',
+				cook_time: '',
+				ingredients: [],
+				tags: [],
+				content: '',
+				method: '',
+			},
+			files: [],
 		}
-		return window.btoa(binary)
-	}
 
-	const handleFiles = async (e) => {
-		const _files = e.target.files
+		this.ingredientsRef = createRef()
+		this.tagsRef = createRef()
 
-		let filesToAdd = []
+		this.bufferToBase64 = (buffer) => {
+			var binary = ''
+			var bytes = new Uint8Array(buffer)
+			var len = bytes.byteLength
+			for (var i = 0; i < len; i++) {
+				binary += String.fromCharCode(bytes[i])
+			}
+			return window.btoa(binary)
+		}
 
-		for (let i = 0; i < _files?.length; i++) {
-			let file = _files[i]
+		this.handleFiles = async (e) => {
+			const _files = e.target.files
 
-			// Don't allow upload if more than 10 MB
-			if (file.size >= 10 * 1000 * 1000) return
+			let filesToAdd = []
 
-			// Only allow images
-			if (!file.type.includes('image')) return
+			for (let i = 0; i < _files?.length; i++) {
+				let file = _files[i]
 
-			// Get buffer from File.arrayBuffer method
-			let bfr = await file.arrayBuffer()
+				// Don't allow upload if more than 10 MB
+				if (file.size >= 10 * 1000 * 1000) return
 
-			filesToAdd.push({
-				name: file.name,
-				type: file.type,
-				size: file.size,
-				lastModified: file.lastModified,
-				base64: `data:${file.type};base64,${bufferToBase64(bfr)}`,
-				originalFile: file,
+				// Only allow images
+				if (!file.type.includes('image')) return
+
+				// Get buffer from File.arrayBuffer method
+				let bfr = await file.arrayBuffer()
+
+				filesToAdd.push({
+					name: file.name,
+					type: file.type,
+					size: file.size,
+					lastModified: file.lastModified,
+					base64: `data:${file.type};base64,${this.bufferToBase64(bfr)}`,
+					originalFile: file,
+				})
+			}
+
+			this.setState({
+				...this.state,
+				files: [...this.state.files, ...filesToAdd],
 			})
 		}
 
-		setFiles([...files, ...filesToAdd])
+		this.addIngredient = () => {
+			if (this.state.formData.ingredients.length >= 30) return
+
+			if (!this.ingredientsRef) return
+
+			const { value } = this.ingredientsRef.current
+			if (value.length > 20 || this.state.formData.ingredients.includes(value))
+				return
+
+			this.setState({
+				...this.state,
+				formData: {
+					...this.state.formData,
+					ingredients: [...this.state.formData.ingredients, value],
+				},
+			})
+
+			this.ingredientsRef.current.value = ''
+		}
+
+		this.addTag = () => {
+			if (this.state.formData.tags.length >= 6) return
+
+			if (!this.tagsRef) return
+
+			const { value } = this.tagsRef.current
+			if (value.length > 20 || this.state.formData.tags.includes(value)) return
+
+			this.setState({
+				...this.state,
+				formData: {
+					...this.state.formData,
+					tags: [...this.state.formData.tags, value],
+				},
+			})
+
+			this.tagsRef.current.value = ''
+		}
 	}
 
-	return (
-		<motion.section
-			transition={{ duration: 0.25 }}
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			className="create"
-		>
-			<div className="create__container">
-				<form
-					action=""
-					onSubmit={(e) => {
-						e.preventDefault()
-					}}
-					className="create__form"
-				>
-					<label htmlFor="title" className="label label--title">
-						<input
-							className="custom_input custom_input--underline"
-							type="text"
-							name="title"
-							id="title"
-							placeholder="Title"
-							value={formData.title}
-							onChange={(e) =>
-								setFormData({ ...formData, title: e.target.value })
-							}
-						/>
-					</label>
+	componentDidMount() {}
 
-					<label htmlFor="serves" className="label">
-						<input
-							type="text"
-							className="custom_input custom_input--underline"
-							id="serves"
-							placeholder="Serves"
-							value={formData.serves}
-							onChange={(e) =>
-								setFormData({ ...formData, serves: e.target.value })
-							}
-						/>
-					</label>
+	componentWillUnmount() {
+		console.log(this.state)
+	}
 
-					<label htmlFor="prepTime" className="label">
-						<input
-							type="text"
-							id="prepTime"
-							placeholder="Prep. Time"
-							className="custom_input custom_input--underline"
-							value={formData.prep_time}
-							onChange={(e) =>
-								setFormData({ ...formData, prep_time: e.target.value })
-							}
-						/>
-					</label>
+	render() {
+		return (
+			<motion.section
+				transition={{ duration: 0.25 }}
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				className="create"
+			>
+				<header>
+					<h1>create a recipe</h1>
+					<ul>
+						<li>- Use up to 6 tags to gain a wider audience.</li>
+						<li>- Add up to 30 ingredients.</li>
+						<li>- Remove a tag or ingredient by clicking on it.</li>
+						<li>
+							- Upload files and name them to control where they appear in the
+							recipe.
+						</li>
+						<li>
+							- Format recipe information and method with markdown syntax.
+						</li>
+					</ul>
+					<button className="btn btn--pill">View Formatting Help</button>
+				</header>
 
-					<label htmlFor="cookTime" className="label">
-						<input
-							type="text"
-							id="cookTime"
-							placeholder="Cook Time"
-							className="custom_input custom_input--underline"
-							value={formData.cook_time}
-							onChange={(e) =>
-								setFormData({ ...formData, cook_time: e.target.value })
-							}
-						/>
-					</label>
+				<div className="create__container">
+					<form
+						action=""
+						onSubmit={(e) => {
+							e.preventDefault()
+						}}
+						className="create__form"
+					>
+						<label htmlFor="title" className="label label--title">
+							<input
+								className="custom_input custom_input--underline"
+								type="text"
+								name="title"
+								id="title"
+								placeholder="Title"
+								value={this.state.formData.title}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: { ...this.state.formData, title: e.target.value },
+									})
+								}
+							/>
+						</label>
 
-					<label htmlFor="content" className="label label--content">
-						<textarea
-							cols="30"
-							rows="10"
-							name="content"
-							id="content"
-							placeholder="Recipe content..."
-							value={formData.content}
-							onChange={(e) =>
-								setFormData({ ...formData, content: e.target.value })
-							}
-							className="custom_input custom_input--underline"
-						></textarea>
-					</label>
+						<label htmlFor="serves" className="label">
+							<input
+								type="text"
+								className="custom_input custom_input--underline"
+								id="serves"
+								placeholder="Serves"
+								value={this.state.formData.serves}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											serves: e.target.value,
+										},
+									})
+								}
+							/>
+						</label>
 
-					<label htmlFor="upload" className="label label--upload">
-						<p className="btn btn--pill btn--solid-blue">
-							<FiUpload style={{ margin: '0 10px 0 0' }} /> Upload
-						</p>
-						<input
-							type="file"
-							multiple
-							name="upload"
-							id="upload"
-							className="custom_input custom_input--underline"
-							encType="multipart/form-data"
-							style={{ display: 'none' }}
-							onChange={handleFiles}
-						/>
-					</label>
+						<label htmlFor="prepTime" className="label">
+							<input
+								type="text"
+								id="prepTime"
+								placeholder="Prep. Time"
+								className="custom_input custom_input--underline"
+								value={this.state.formData.prep_time}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											prep_time: e.target.value,
+										},
+									})
+								}
+							/>
+						</label>
 
-					<input type="submit" className="btn btn--pill" value="Post" />
-				</form>
+						<label htmlFor="cookTime" className="label">
+							<input
+								type="text"
+								id="cookTime"
+								placeholder="Cook Time"
+								className="custom_input custom_input--underline"
+								value={this.state.formData.cook_time}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											cook_time: e.target.value,
+										},
+									})
+								}
+							/>
+						</label>
 
-				<FilePreview files={files} setFiles={setFiles} />
-			</div>
-		</motion.section>
-	)
+						<label htmlFor="ingredients" className="label label--ingredients">
+							<header>
+								<input
+									type="text"
+									name="ingredients"
+									id="ingredients"
+									placeholder="Add Ingredients..."
+									className="custom_input custom_input--underline"
+									ref={this.ingredientsRef}
+									onKeyPress={(e) => {
+										const enterPressed =
+											e.key === 'NumpadEnter' || e.key === 'Enter'
+										if (!enterPressed) return
+
+										this.addIngredient()
+										e.preventDefault()
+									}}
+								/>
+								<button
+									className="btn btn--no-bg"
+									aria-label="Add this ingredient"
+									onClick={() => this.addIngredient()}
+								>
+									<svg
+										stroke="currentColor"
+										fill="currentColor"
+										strokeWidth="0"
+										viewBox="0 0 24 24"
+										height="1em"
+										width="1em"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fill="none"
+											stroke="#ffffff"
+											strokeWidth="2"
+											d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
+										></path>
+									</svg>
+								</button>
+							</header>
+
+							<ListIngredients
+								ingredients={this.state.formData.ingredients}
+								formData={this.state.formData}
+								setFormData={this.setState}
+							/>
+						</label>
+
+						<label htmlFor="tags" className="label label--tags">
+							<header>
+								<input
+									type="text"
+									name="tags"
+									id="tags"
+									placeholder="Add Tags..."
+									className="custom_input custom_input--underline"
+									ref={this.tagsRef}
+									onKeyPress={(e) => {
+										const enterPressed =
+											e.key === 'NumpadEnter' || e.key === 'Enter'
+										if (!enterPressed) return
+
+										this.addTag()
+										e.preventDefault()
+									}}
+								/>
+								<button
+									className="btn btn--no-bg"
+									aria-label="Add this tag"
+									onClick={() => this.addTag()}
+								>
+									<svg
+										stroke="currentColor"
+										fill="currentColor"
+										strokeWidth="0"
+										viewBox="0 0 24 24"
+										height="1em"
+										width="1em"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fill="none"
+											stroke="#ffffff"
+											strokeWidth="2"
+											d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
+										></path>
+									</svg>
+								</button>
+							</header>
+							<ListTags
+								tags={this.state.formData.tags}
+								formData={this.state.formData}
+								setFormData={this.setState}
+							/>
+						</label>
+
+						<label htmlFor="content" className="label label--content">
+							<textarea
+								cols="30"
+								rows="10"
+								name="content"
+								id="content"
+								placeholder="Recipe information... allergens, gluten-free, vegan-friendly?"
+								value={this.state.formData.content}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											content: e.target.value,
+										},
+									})
+								}
+								className="custom_input custom_input--underline"
+							></textarea>
+						</label>
+
+						<label htmlFor="method" className="label label--method">
+							<textarea
+								cols="30"
+								rows="10"
+								name="method"
+								id="method"
+								placeholder="Recipe method... describe the steps needed to complete this recipe"
+								value={this.state.formData.method}
+								onChange={(e) =>
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											method: e.target.value,
+										},
+									})
+								}
+								className="custom_input custom_input--underline"
+							></textarea>
+						</label>
+
+						<label htmlFor="upload" className="label label--upload">
+							<p className="btn btn--pill btn--solid-blue">
+								<FiUpload style={{ margin: '0 10px 0 0' }} /> Upload
+							</p>
+							<input
+								type="file"
+								multiple
+								name="upload"
+								id="upload"
+								className="custom_input custom_input--underline"
+								encType="multipart/form-data"
+								style={{ display: 'none' }}
+								onChange={this.handleFiles}
+							/>
+						</label>
+
+						<input type="submit" className="btn btn--pill" value="Post" />
+					</form>
+
+					<FilePreview files={this.state.files} setFiles={this.setState} />
+				</div>
+
+				<Preview formData={this.state.formData} files={this.state.files} />
+			</motion.section>
+		)
+	}
 }
-
-export default Create
