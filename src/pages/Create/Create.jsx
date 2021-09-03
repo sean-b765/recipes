@@ -3,13 +3,12 @@ import { motion } from 'framer-motion'
 import { FiUpload } from 'react-icons/fi'
 import FilePreview from './FilePreview'
 import Preview from './Preview'
-import { useRef } from 'react'
 import ListIngredients from './ListIngredients'
 import ListTags from './ListTags'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { createRef } from 'react'
 
-export default class Create extends Component {
+class Create extends Component {
 	constructor() {
 		super()
 
@@ -113,10 +112,12 @@ export default class Create extends Component {
 		}
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.formData && this.setState(this.props)
+	}
 
 	componentWillUnmount() {
-		console.log(this.state)
+		this.props.setStore(this.state)
 	}
 
 	render() {
@@ -135,7 +136,7 @@ export default class Create extends Component {
 						<li>- Add up to 30 ingredients.</li>
 						<li>- Remove a tag or ingredient by clicking on it.</li>
 						<li>
-							- Upload files and name them to control where they appear in the
+							- Upload images and name them to control where they appear in the
 							recipe.
 						</li>
 						<li>
@@ -170,7 +171,7 @@ export default class Create extends Component {
 							/>
 						</label>
 
-						<label htmlFor="serves" className="label">
+						<label htmlFor="serves" className="label label--serves">
 							<input
 								type="text"
 								className="custom_input custom_input--underline"
@@ -189,7 +190,7 @@ export default class Create extends Component {
 							/>
 						</label>
 
-						<label htmlFor="prepTime" className="label">
+						<label htmlFor="prepTime" className="label label--preptime">
 							<input
 								type="text"
 								id="prepTime"
@@ -208,7 +209,7 @@ export default class Create extends Component {
 							/>
 						</label>
 
-						<label htmlFor="cookTime" className="label">
+						<label htmlFor="cookTime" className="label label--cooktime">
 							<input
 								type="text"
 								id="cookTime"
@@ -271,8 +272,19 @@ export default class Create extends Component {
 
 							<ListIngredients
 								ingredients={this.state.formData.ingredients}
-								formData={this.state.formData}
-								setFormData={this.setState}
+								onClickIngredient={(item) => {
+									const newIngredients = this.state.formData.ingredients.filter(
+										(_item) => _item !== item
+									)
+
+									this.setState({
+										...this.state,
+										formData: {
+											...this.state.formData,
+											ingredients: newIngredients,
+										},
+									})
+								}}
 							/>
 						</label>
 
@@ -319,8 +331,16 @@ export default class Create extends Component {
 							</header>
 							<ListTags
 								tags={this.state.formData.tags}
-								formData={this.state.formData}
-								setFormData={this.setState}
+								onClickTag={(item) => {
+									const newTags = this.state.formData.tags.filter(
+										(_item) => _item !== item
+									)
+
+									this.setState({
+										...this.state,
+										formData: { ...this.state.formData, tags: newTags },
+									})
+								}}
 							/>
 						</label>
 
@@ -385,7 +405,12 @@ export default class Create extends Component {
 						<input type="submit" className="btn btn--pill" value="Post" />
 					</form>
 
-					<FilePreview files={this.state.files} setFiles={this.setState} />
+					<FilePreview
+						files={this.state.files}
+						onFilesChange={(files) => {
+							this.setState({ ...this.state, files })
+						}}
+					/>
 				</div>
 
 				<Preview formData={this.state.formData} files={this.state.files} />
@@ -393,3 +418,22 @@ export default class Create extends Component {
 		)
 	}
 }
+
+// On mount get state of redux and set props
+const mapStateToProps = (state) => {
+	return {
+		formData: state.postForm.formData,
+		files: state.postForm.files,
+	}
+}
+
+// On unmount set the state of redux with component state
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setStore: (newState) =>
+			dispatch({ type: 'POST_FORM/SET', payload: { ...newState } }),
+	}
+}
+
+// Connect helps by implementing redux store in a class component
+export default connect(mapStateToProps, mapDispatchToProps)(Create)
