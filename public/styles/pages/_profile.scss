@@ -18,15 +18,17 @@
 		}
 
 		&__bio {
-			padding: 0 2rem 2rem 2rem;
+			padding: 2rem 2rem 2rem 2rem;
 		}
 
 		&__actions {
+			padding: 2rem 2rem 0 2rem;
 			background: $primary-blue;
 			display: flex;
 
 			> button {
 				margin: 0 10px;
+
 				&:first-of-type {
 					margin: 0 10px 0 0;
 				}
@@ -78,7 +80,7 @@
 				height: 90px;
 				min-width: 90px;
 				min-height: 90px;
-				border-radius: 30px;
+				border-radius: 50%;
 				overflow: hidden;
 
 				img {
@@ -91,7 +93,7 @@
 
 			&__details {
 				display: flex;
-				align-items: flex-end;
+				align-items: center;
 				justify-content: center;
 				flex-direction: row;
 
@@ -103,9 +105,13 @@
 				&__stats {
 					display: flex;
 					flex-direction: row;
-					p {
+
+					button {
+						color: white;
+						font-size: 1rem;
 						font-family: 'Overpass', sans-serif;
 						margin: 0 10px;
+						cursor: pointer;
 					}
 				}
 			}

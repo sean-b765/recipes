@@ -1,0 +1,157 @@
+.profile {
+	padding: 7rem $padding-minimum-inline;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&__card {
+		width: 100%;
+		max-width: 1000px;
+		border-radius: 7px;
+		overflow: hidden;
+
+		&__bio,
+		&__actions {
+			background: $primary-blue;
+			padding: 2rem;
+			color: white;
+		}
+
+		&__bio {
+			padding: 0 2rem 2rem 2rem;
+		}
+
+		&__actions {
+			background: $primary-blue;
+			display: flex;
+
+			> button {
+				margin: 0 10px;
+				&:first-of-type {
+					margin: 0 10px 0 0;
+				}
+				&:last-of-type {
+					margin: 0 0 0 10px;
+				}
+			}
+
+			button {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-size: 1.2rem;
+
+				&:not(.btn--no-bg) {
+					background: rgba(255, 255, 255, 0.192);
+
+					&:hover {
+						background: white;
+						color: $primary-blue;
+					}
+				}
+
+				&.btn--no-bg {
+					color: rgba(255, 255, 255, 0.877);
+					&:hover {
+						color: rgba(226, 106, 106, 0.877);
+					}
+				}
+
+				svg {
+					margin-right: 10px;
+					font-size: 1.3rem;
+				}
+			}
+		}
+
+		&__header {
+			background: $blue-gradient;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			color: white;
+			padding: 1rem 2rem;
+
+			&__avatar {
+				width: 90px;
+				height: 90px;
+				min-width: 90px;
+				min-height: 90px;
+				border-radius: 30px;
+				overflow: hidden;
+
+				img {
+					max-height: 100%;
+					max-width: 100%;
+					height: 100%;
+					width: 100%;
+				}
+			}
+
+			&__details {
+				display: flex;
+				align-items: flex-end;
+				justify-content: center;
+				flex-direction: row;
+
+				h1 {
+					margin: 0 10px;
+					font-family: 'Ubuntu mono', monospace;
+				}
+
+				&__stats {
+					display: flex;
+					flex-direction: row;
+					p {
+						font-family: 'Overpass', sans-serif;
+						margin: 0 10px;
+					}
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		padding: 7rem 1rem;
+
+		&__card {
+			&__actions {
+				align-items: center;
+				justify-content: space-evenly;
+				flex-wrap: wrap;
+
+				button {
+					margin: 10px !important;
+				}
+			}
+
+			&__header {
+				flex-direction: column;
+
+				&__avatar {
+					margin: 0 1rem 1rem 1rem;
+				}
+
+				&__details {
+					align-items: center;
+
+					h1 {
+						margin-bottom: 1rem;
+						text-align: center;
+					}
+
+					flex-direction: column;
+
+					&__stats {
+						display: flex;
+
+						p {
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+	}
+}

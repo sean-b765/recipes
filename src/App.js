@@ -7,9 +7,20 @@ import { AnimatePresence } from 'framer-motion'
 import Auth from './pages/Auth/Auth'
 import Search from './pages/Search/Search'
 import Profile from './pages/Profile/Profile'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 function App() {
+	const dispatch = useDispatch()
 	const location = useLocation()
+
+	useEffect(() => {
+		// Initialize the AUTH user state from browser's localstorage
+		dispatch({
+			type: 'AUTH/INIT',
+			payload: JSON.parse(localStorage.getItem('profile')),
+		})
+	}, [])
 
 	return (
 		<>

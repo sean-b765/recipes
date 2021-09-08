@@ -15,11 +15,14 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
+		max-width: 100%;
 	}
 
 	&__container {
-		padding: 3rem 2rem 1rem 2rem;
+		position: relative;
+		padding: 3rem 1rem 1rem 1rem;
 		background: $blue-gradient;
+		max-width: 100%;
 		border-radius: 10px;
 		display: flex;
 		align-items: center;
@@ -54,10 +57,19 @@
 	}
 
 	&__form {
+		max-width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
+
+		> * {
+			max-width: 100% !important;
+
+			> input {
+				max-width: 100%;
+			}
+		}
 
 		input {
 			font-size: 1rem;
@@ -104,6 +116,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		margin-bottom: 1rem;
 
 		h1 {
 			font-size: 2rem;
@@ -124,5 +137,11 @@
 		align-items: stretch;
 		justify-content: space-between;
 		flex-direction: column;
+	}
+
+	@media screen and (max-width: 768px) {
+		&__wrapper {
+			padding: 7rem 1rem;
+		}
 	}
 }

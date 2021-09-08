@@ -1,0 +1,29 @@
+.discover__filters,
+.search__filters {
+	right: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	header {
+		h2 {
+			margin-right: 10px;
+			font-size: 1.5rem;
+			font-family: 'Overpass', sans-serif;
+		}
+	}
+
+	> * {
+		select {
+			font-style: italic;
+			background: rgb(230, 230, 230);
+			margin: 0 4px;
+			font-size: 1.2rem;
+			font-family: 'Overpass', sans-serif;
+			border-radius: none;
+			border: none;
+			padding: 10px 20px;
+			white-space: nowrap;
+		}
+	}
+}

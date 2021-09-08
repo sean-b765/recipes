@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import Login from './Login'
 import Signup from './Signup'
 import TopMostLogger from '../../components/TopMostLogger'
-import { signUp } from '../../_actions/auth'
+import { signIn, signUp } from '../../_actions/auth'
 
 const Auth = () => {
 	const location = useLocation()
@@ -15,7 +15,7 @@ const Auth = () => {
 	const [message, setMessage] = useState('')
 	const [showing, setShowing] = useState(false)
 
-	const showDialog = (title, message) => {
+	const showDialog = (title, message, duration = 2000) => {
 		if (showing) return
 
 		setTitle(title)
@@ -24,27 +24,44 @@ const Auth = () => {
 
 		setTimeout(() => {
 			setShowing(false)
-		}, 2000)
+		}, duration)
 	}
 
 	const handleSignUp = async (e, body) => {
 		e.preventDefault()
 
-		console.log(body)
 		if (
 			!body?.email ||
 			!body?.username ||
 			!body?.password ||
 			!body?.repeatPassword
 		) {
-			showDialog('Error', 'Please fill in required details')
+			showDialog('Error', 'Please fill in required details.')
 			return
 		}
 
 		const res = await signUp(body)
 
+		if (res.verificationSent) {
+			showDialog('Alert', `Verification email sent to ${res.user.email}`, 3500)
+		}
+
 		// Show an error if a there was one, otherwise dispatch
-		if (!res.error) dispatch({ payload: res, type: 'SIGN_UP' })
+		if (!res.error) dispatch({ payload: res, type: 'AUTH/SIGN_UP' })
+		else showDialog('Error', res.error)
+	}
+
+	const handleSignIn = async (e, body) => {
+		e.preventDefault()
+
+		if (!body?.email || !body?.password) {
+			showDialog('Error', 'Please fill in the required details.')
+			return
+		}
+
+		const res = await signIn(body)
+
+		if (!res.error) dispatch({ payload: res, type: 'AUTH/SIGN_IN' })
 		else showDialog('Error', res.error)
 	}
 
@@ -58,7 +75,7 @@ const Auth = () => {
 						<header>
 							<h1 data-aos="zoom-out">Login</h1>
 						</header>
-						<Login />
+						<Login handleSignIn={handleSignIn} />
 					</>
 				)}
 				{location.pathname === '/signup' && (
