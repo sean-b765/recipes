@@ -67,6 +67,7 @@
 		}
 	}
 	&__actions {
+		display: flex;
 		button {
 			color: $primary-blue-dark;
 		}
