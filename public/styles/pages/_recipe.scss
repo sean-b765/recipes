@@ -1,0 +1,11 @@
+.fullrecipe {
+	padding: 7rem $padding-minimum-inline;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	> div {
+		max-width: 1000px;
+	}
+}

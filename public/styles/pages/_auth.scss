@@ -30,15 +30,24 @@
 		flex-direction: column;
 
 		> div {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 20px;
+
 			.btn {
-				font-size: 2.5rem;
 				padding: 0 !important;
-				margin-inline: 10px;
-				color: rgba(255, 255, 255, 0.788);
+				margin: 5px;
+				opacity: 0.85 !important;
 
 				&:hover {
-					transform: scale(1.08);
-					color: rgb(255, 255, 255);
+					opacity: 1 !important;
+				}
+
+				div {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 1rem;
 				}
 			}
 		}

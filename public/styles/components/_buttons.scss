@@ -6,10 +6,19 @@
 	cursor: pointer;
 	white-space: nowrap;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
 
 	&--solid {
 		background: white;
-		color: black;
+		color: $primary-blue-dark;
+
+		&:hover {
+			color: white;
+			background: rgb(0, 0, 0);
+		}
 
 		&-blue {
 			background: $primary-blue-dark;
@@ -19,11 +28,6 @@
 				background: $btn-hover-blue;
 				color: rgb(255, 255, 255) !important;
 			}
-		}
-
-		&:hover {
-			color: white;
-			background: rgb(0, 0, 0);
 		}
 	}
 
@@ -42,6 +46,12 @@
 
 	&--pill {
 		border-radius: 40px;
+		color: $primary-blue-dark;
+
+		&:hover {
+			background: $primary-blue;
+			color: white;
+		}
 	}
 
 	&--no-bg {
