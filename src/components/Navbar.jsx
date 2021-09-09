@@ -10,6 +10,8 @@ const Navbar = () => {
 
 	const user = useSelector((state) => state.auth.user)
 
+	console.log(!user)
+
 	const location = useLocation()
 	const history = useHistory()
 
@@ -45,24 +47,25 @@ const Navbar = () => {
 						<li>
 							<Link to="/search">Search</Link>
 						</li>
+						<li>
+							<Link to="/post">Post</Link>
+						</li>
 					</ul>
 
-					{!user && (
-						<div className="menu__mobile__actions">
-							<button
-								className="btn btn--no-bg"
-								onClick={() => history.push('/login')}
-							>
-								Login
-							</button>
-							<button
-								className="btn btn--pill btn--solid-blue"
-								onClick={() => history.push('/signup')}
-							>
-								Sign up
-							</button>
-						</div>
-					)}
+					<div className="menu__mobile__actions">
+						<button
+							className="btn btn--no-bg"
+							onClick={() => history.push('/login')}
+						>
+							Login
+						</button>
+						<button
+							className="btn btn--pill btn--solid-blue"
+							onClick={() => history.push('/signup')}
+						>
+							Sign up
+						</button>
+					</div>
 				</div>
 			</nav>
 
@@ -103,7 +106,7 @@ const Navbar = () => {
 					>
 						<img
 							src={user.imageUrl ? user.imageUrl : '/images/default-avatar.png'}
-							alt="Your profile picture"
+							alt="Your profile"
 						/>
 					</div>
 				</div>

@@ -1,8 +1,6 @@
 export default (state = { all: [], single: null }, action) => {
 	if (typeof state === 'undefined') return
 
-	console.log(state.single)
-
 	switch (action.type) {
 		case 'USER/SET_USER':
 			return { ...state, single: action.payload }

@@ -15,7 +15,7 @@ API.interceptors.request.use((req) => {
 // Auth
 export const apiSignIn = (body) => API.post('/auth/signin', body)
 export const apiSignUp = (body) => API.post('/auth/signup', body)
-export const apiGoogleSignIn = (body) => API.post('/auth/googleSignin', body)
+export const apiGoogleSignIn = (body) => API.post('/auth/signin-google', body)
 
 // Users
 export const apiGetUser = (userId) => API.get(`/user/${userId}`)
@@ -48,3 +48,9 @@ export const apiChangePassword = (userId) =>
 export const apiVerifyUser = (hash) => API.get(`/verify/${hash}`)
 export const apiRequestVerification = (email) =>
 	API.get(`/verify/request/${email}`)
+
+// Posts
+export const apiGetDiscover = (filters = '?sort=rating&by=alltime') =>
+	API.get(`/posts/discover`)
+export const apiCreatePost = (body) => API.post(`/posts/`, body)
+export const apiGetPost = (id) => API.get(`/posts/recipe/${id}`)

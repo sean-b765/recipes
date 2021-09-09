@@ -7,6 +7,8 @@ import ListIngredients from './ListIngredients'
 import ListTags from './ListTags'
 import { connect } from 'react-redux'
 import { createRef } from 'react'
+import { createPost } from '../../_actions/post'
+import { bufferToBase64 } from '../../util/util'
 
 class Create extends Component {
 	constructor() {
@@ -28,16 +30,6 @@ class Create extends Component {
 
 		this.ingredientsRef = createRef()
 		this.tagsRef = createRef()
-
-		this.bufferToBase64 = (buffer) => {
-			var binary = ''
-			var bytes = new Uint8Array(buffer)
-			var len = bytes.byteLength
-			for (var i = 0; i < len; i++) {
-				binary += String.fromCharCode(bytes[i])
-			}
-			return window.btoa(binary)
-		}
 
 		this.handleFiles = async (e) => {
 			const _files = e.target.files
@@ -61,7 +53,7 @@ class Create extends Component {
 					type: file.type,
 					size: file.size,
 					lastModified: file.lastModified,
-					base64: `data:${file.type};base64,${this.bufferToBase64(bfr)}`,
+					base64: `data:${file.type};base64,${bufferToBase64(bfr)}`,
 					originalFile: file,
 				})
 			}
@@ -110,6 +102,14 @@ class Create extends Component {
 
 			this.tagsRef.current.value = ''
 		}
+
+		this.post = async () => {
+			const result = await createPost({
+				formData: this.state?.formData,
+				files: this.state?.files,
+			})
+			console.log(result)
+		}
 	}
 
 	componentDidMount() {
@@ -151,6 +151,7 @@ class Create extends Component {
 						action=""
 						onSubmit={(e) => {
 							e.preventDefault()
+							this.post()
 						}}
 						className="create__form"
 					>

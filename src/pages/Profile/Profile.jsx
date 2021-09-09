@@ -42,7 +42,6 @@ const Profile = ({ id }) => {
 		getUser(id).then((res) => {
 			// Skip if error
 			if (res.error) return
-			console.log(res)
 
 			dispatch({
 				type: 'USER/SET_USER',

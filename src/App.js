@@ -1,14 +1,16 @@
-import { Route, Switch, useLocation } from 'react-router-dom'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Discover from './pages/Discover/Discover'
-import { AnimatePresence } from 'framer-motion'
 import Auth from './pages/Auth/Auth'
 import Search from './pages/Search/Search'
 import Profile from './pages/Profile/Profile'
+import Recipe from './pages/Recipe/Recipe'
+import Create from './pages/Create/Create'
+import { Route, Switch, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 function App() {
 	const dispatch = useDispatch()
@@ -37,6 +39,9 @@ function App() {
 						<Route path="/search" exact>
 							<Search />
 						</Route>
+						<Route path="/post" exact>
+							<Create />
+						</Route>
 
 						<Route path="/login">
 							<Auth />
@@ -48,6 +53,10 @@ function App() {
 						<Route
 							path="/profiles/:id"
 							render={(p) => <Profile id={p.match.params.id} />}
+						></Route>
+						<Route
+							path="/recipe/:id"
+							render={(p) => <Recipe id={p.match.params.id} />}
 						></Route>
 					</Switch>
 				</AnimatePresence>

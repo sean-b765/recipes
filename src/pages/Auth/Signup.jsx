@@ -7,8 +7,13 @@ import {
 	AiOutlineEyeInvisible,
 } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { googleSignin } from '../../_actions/auth'
+import ThirdPartyAuth from './ThirdPartyAuth'
+import { useDispatch } from 'react-redux'
 
 const Signup = ({ handleSignUp }) => {
+	const dispatch = useDispatch()
+
 	const [showPass, setShowPass] = useState(false)
 	const [formData, setFormData] = useState({
 		username: '',
@@ -20,21 +25,6 @@ const Signup = ({ handleSignUp }) => {
 	return (
 		<section className="auth__signup" data-aos="fade-in" data-aos-delay="150">
 			<div className="auth__container">
-				<div>
-					<button
-						className="btn btn--no-border btn--no-bg"
-						aria-label="Sign up with your Facebook account"
-					>
-						<AiFillFacebook />
-					</button>
-
-					<button
-						className="btn btn--no-border btn--no-bg"
-						aria-label="Sign up with a Google account"
-					>
-						<AiFillGoogleCircle />
-					</button>
-				</div>
 				<form
 					action=""
 					onSubmit={(e) => handleSignUp(e, formData)}
@@ -100,6 +90,29 @@ const Signup = ({ handleSignUp }) => {
 
 					<input type="submit" className="btn btn--pill" value="Sign up" />
 				</form>
+
+				<ThirdPartyAuth
+					onSuccessGoogle={(e) => {
+						const { tokenId, profileObj } = e
+
+						googleSignin({
+							tokenId,
+							imageUrl: profileObj.imageUrl,
+							googleId: profileObj.googleId,
+							email: profileObj.email,
+							username: profileObj.name,
+						})
+							.then((res) => {
+								dispatch({
+									type: 'AUTH/SIGN_IN',
+									payload: { ...res },
+								})
+							})
+							.catch((err) => {
+								console.log(err)
+							})
+					}}
+				/>
 
 				<Link to="/login" aria-label="Switch to login form">
 					Already have an account? Login

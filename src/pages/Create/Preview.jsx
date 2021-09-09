@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Preview = ({ formData, files }) => {
+const Preview = ({ state }) => {
 	return (
 		<section className="create__preview">
 			<header>
-				<h2>{formData?.title}</h2>
+				<h2>{state?.formData?.title}</h2>
 				<ul>
-					{formData.tags.map((tag, index) => (
+					{state?.formData.tags.map((tag, index) => (
 						<li key={index}>
 							<Link to="">{tag}</Link>
 						</li>
@@ -15,17 +15,35 @@ const Preview = ({ formData, files }) => {
 				</ul>
 			</header>
 
-			<p className="create__preview__info">{formData?.content}</p>
+			<p className="create__preview__info">{state?.formData?.content}</p>
 
 			<ul className="create__preview__ingredients">
-				{formData?.ingredients.map((ingredient, index) => (
+				{state?.formData?.ingredients.map((ingredient, index) => (
 					<li key={index}>
 						<Link to="">{ingredient}</Link>
 					</li>
 				))}
 			</ul>
 
-			<footer>{formData?.serves}</footer>
+			<footer>
+				{state?.formData?.serves && (
+					<span>
+						<span>{state?.formData?.serves}</span> Serves
+					</span>
+				)}
+
+				{state?.formData?.prep_time && (
+					<span>
+						<span>{state?.formData?.prep_time}m</span> Prep time
+					</span>
+				)}
+
+				{state?.formData?.cook_time && (
+					<span>
+						<span>{state?.formData?.cook_time}m</span> Cook time
+					</span>
+				)}
+			</footer>
 		</section>
 	)
 }

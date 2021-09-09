@@ -18,6 +18,9 @@ const Footer = () => {
 					<li>
 						<Link to="/search">Search</Link>
 					</li>
+					<li>
+						<Link to="/post">Post</Link>
+					</li>
 				</ul>
 			</nav>
 			<div className="footer__info">

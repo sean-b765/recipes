@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 const FilePreview = ({ files, onFilesChange }) => {
+	const inputRef = useRef()
+	const [open, setOpen] = useState({ open: false, file: null })
+
 	const handleClick = (e, file) => {
 		e.preventDefault()
 
@@ -12,38 +15,69 @@ const FilePreview = ({ files, onFilesChange }) => {
 		onFilesChange(_files)
 	}
 
-	const [open, setOpen] = useState(false)
-
 	return (
 		<section className="create__filepreview">
-			<div className="create__filepreview__modal create__filepreview__modal--showing">
+			<div
+				className="create__filepreview__modal create__filepreview__modal--showing"
+				style={{ display: open.open && open.file ? 'flex' : 'none' }}
+			>
 				<label htmlFor="refName">
 					Give a name to this image <span>*</span>
 				</label>
-				<input
-					id="refName"
-					name="refName"
-					type="text"
-					placeholder="Reference name"
-					className="custom_input custom_input--underline"
-				/>
+				<div>
+					<input
+						id="refName"
+						ref={inputRef}
+						name="refName"
+						type="text"
+						placeholder="Reference name"
+						className="custom_input custom_input--underline"
+						onKeyPress={(e) => {
+							if (e.key !== 'Enter' && e.key !== 'NumpadReturn') return
+							const _files = files.map((f) => {
+								if (f === open.file) f = { ...f, name: e.target.value }
+								return f
+							})
+
+							onFilesChange(_files)
+
+							setOpen({ open: false, file: null })
+						}}
+					/>
+					<button
+						className="btn"
+						onClick={() => {
+							if (!open.open && !open.file) return
+
+							const _files = files.map((f) => {
+								if (f === open.file) f = { ...f, name: inputRef.current.value }
+								return f
+							})
+
+							onFilesChange(_files)
+
+							setOpen({ open: false, file: null })
+							inputRef.current.value = ''
+						}}
+					>
+						Save
+					</button>
+				</div>
 				<span>
 					* A reference name makes it possible to position an image within your
 					recipe method/information
 				</span>
 			</div>
 			{files.map((file, index) => (
-				<div
+				<button
+					aria-label="Set a name for this image"
 					className="create__filepreview__file"
 					key={index}
 					onContextMenu={(e) => handleClick(e, file)}
 					onClick={() => {
 						// alter the 'name' field of this file object. used to reference in markdown content
-						const _files = files.map((f) => {
-							if (f === file) f = { ...f, name: 'test' }
-							return f
-						})
-						console.log(_files)
+						inputRef.current.value = file.name
+						setOpen({ open: true, file: file })
 					}}
 				>
 					<header>
@@ -51,7 +85,7 @@ const FilePreview = ({ files, onFilesChange }) => {
 						{file.name.length > 15 && '...'}
 					</header>
 					<img src={file.base64} alt={file.name} />
-				</div>
+				</button>
 			))}
 		</section>
 	)

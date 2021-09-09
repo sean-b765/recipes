@@ -1,34 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-	AiOutlineEye,
-	AiOutlineEyeInvisible,
-	AiFillFacebook,
-	AiFillGoogleCircle,
-} from 'react-icons/ai'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useState } from 'react'
+import ThirdPartyAuth from './ThirdPartyAuth'
+import { googleSignin } from '../../_actions/auth'
+import { useDispatch } from 'react-redux'
 
 const Login = ({ handleSignIn }) => {
+	const dispatch = useDispatch()
+
 	const [showPass, setShowPass] = useState(false)
 	const [formData, setFormData] = useState({ email: '', password: '' })
 	return (
 		<section className="auth__login" data-aos="fade-in" data-aos-delay="150">
 			<div className="auth__container">
-				<div>
-					<button
-						className="btn btn--no-border btn--no-bg"
-						aria-label="Login with your Facebook account"
-					>
-						<AiFillFacebook />
-					</button>
-
-					<button
-						className="btn btn--no-border btn--no-bg"
-						aria-label="Login with a Google account"
-					>
-						<AiFillGoogleCircle />
-					</button>
-				</div>
 				<form
 					action=""
 					onSubmit={(e) => handleSignIn(e, formData)}
@@ -46,7 +31,7 @@ const Login = ({ handleSignIn }) => {
 						}
 					/>
 
-					<label for="password">
+					<label htmlFor="password">
 						<input
 							className="custom_input custom_input--underline"
 							type={showPass ? 'text' : 'password'}
@@ -65,6 +50,29 @@ const Login = ({ handleSignIn }) => {
 
 					<input type="submit" className="btn btn--pill" value="Login" />
 				</form>
+
+				<ThirdPartyAuth
+					onSuccessGoogle={(e) => {
+						const { tokenId, profileObj } = e
+
+						googleSignin({
+							tokenId,
+							imageUrl: profileObj.imageUrl,
+							googleId: profileObj.googleId,
+							email: profileObj.email,
+							username: profileObj.name,
+						})
+							.then((res) => {
+								dispatch({
+									type: 'AUTH/SIGN_IN',
+									payload: { ...res },
+								})
+							})
+							.catch((err) => {
+								console.log(err)
+							})
+					}}
+				/>
 
 				<Link to="/forgot-password" aria-label="Forgot password link">
 					Forgot your password?
