@@ -32,15 +32,15 @@ const Preview = ({ state }) => {
 					</span>
 				)}
 
-				{state?.formData?.prep_time && (
+				{state?.formData?.prepTime && (
 					<span>
-						<span>{state?.formData?.prep_time}m</span> Prep time
+						<span>{state?.formData?.prepTime}m</span> Prep time
 					</span>
 				)}
 
-				{state?.formData?.cook_time && (
+				{state?.formData?.cookTime && (
 					<span>
-						<span>{state?.formData?.cook_time}m</span> Cook time
+						<span>{state?.formData?.cookTime}m</span> Cook time
 					</span>
 				)}
 			</footer>

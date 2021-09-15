@@ -12,14 +12,16 @@ const Discover = () => {
 	const [filters, setFilters] = useState({
 		primary: 'rating',
 		secondary: 'alltime',
+		page: 0,
 	})
 
 	const posts = useSelector((state) => state.post.all)
 
-	const formatFilters = () => `sort=${filters.primary}&by=${filters.secondary}`
+	const formatFilters = (_filters) =>
+		`?sort=${_filters.primary}&period=${_filters.secondary}&page=${_filters.page}`
 
 	useEffect(() => {
-		getDiscover().then((res) => {
+		getDiscover(formatFilters(filters)).then((res) => {
 			dispatch({
 				type: 'POST/SET_ALL',
 				payload: res.result,
@@ -29,6 +31,13 @@ const Discover = () => {
 
 	const handleSetFilters = (value) => {
 		setFilters(value)
+
+		getDiscover(formatFilters(value)).then((res) => {
+			dispatch({
+				type: 'POST/SET_ALL',
+				payload: res.result,
+			})
+		})
 	}
 
 	return (

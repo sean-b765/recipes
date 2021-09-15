@@ -30,7 +30,7 @@ const Search = () => {
 						id="search"
 						aria-label="Search terms"
 					/>
-					<label for="search">
+					<label htmlFor="search">
 						<input type="submit" aria-label="Perform search" value="" />
 					</label>
 				</form>

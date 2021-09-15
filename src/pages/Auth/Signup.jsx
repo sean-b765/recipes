@@ -54,7 +54,7 @@ const Signup = ({ handleSignUp }) => {
 						}
 					/>
 
-					<label for="password">
+					<label htmlFor="password">
 						<input
 							className="custom_input custom_input--underline"
 							type={showPass ? 'text' : 'password'}
@@ -71,7 +71,7 @@ const Signup = ({ handleSignUp }) => {
 						</div>
 					</label>
 
-					<label for="repeatPassword">
+					<label htmlFor="repeatPassword">
 						<input
 							className="custom_input custom_input--underline"
 							type={showPass ? 'text' : 'password'}

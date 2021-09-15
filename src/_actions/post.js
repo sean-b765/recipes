@@ -1,8 +1,8 @@
 import { apiCreatePost, apiGetDiscover, apiGetPost } from '../_api'
 
-export const getDiscover = async () => {
+export const getDiscover = async (filters) => {
 	try {
-		const { data } = await apiGetDiscover()
+		const { data } = await apiGetDiscover(filters)
 		return data
 	} catch (err) {
 		return {

@@ -18,8 +18,8 @@ class Create extends Component {
 			formData: {
 				title: '',
 				serves: '',
-				prep_time: '',
-				cook_time: '',
+				prepTime: '',
+				cookTime: '',
 				ingredients: [],
 				tags: [],
 				content: '',
@@ -197,13 +197,13 @@ class Create extends Component {
 								id="prepTime"
 								placeholder="Prep. Time"
 								className="custom_input custom_input--underline"
-								value={this.state.formData.prep_time}
+								value={this.state.formData.prepTime}
 								onChange={(e) =>
 									this.setState({
 										...this.state,
 										formData: {
 											...this.state.formData,
-											prep_time: e.target.value,
+											prepTime: e.target.value,
 										},
 									})
 								}
@@ -216,13 +216,13 @@ class Create extends Component {
 								id="cookTime"
 								placeholder="Cook Time"
 								className="custom_input custom_input--underline"
-								value={this.state.formData.cook_time}
+								value={this.state.formData.cookTime}
 								onChange={(e) =>
 									this.setState({
 										...this.state,
 										formData: {
 											...this.state.formData,
-											cook_time: e.target.value,
+											cookTime: e.target.value,
 										},
 									})
 								}
