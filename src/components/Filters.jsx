@@ -2,9 +2,9 @@ import React from 'react'
 
 const Filters = ({ filters, setFilters }) => {
 	return (
-		<section className="discover__filters">
+		<section className="filters">
 			<div>
-				<div className="discover__filters__sort">
+				<div className="filters__sort">
 					<select
 						aria-label="Sort by"
 						onChange={(e) =>
@@ -15,7 +15,7 @@ const Filters = ({ filters, setFilters }) => {
 						<option value="new">new</option>
 					</select>
 				</div>
-				<div className="discover__filters__period">
+				<div className="filters__period">
 					<select
 						aria-label="Sort with date filters"
 						onChange={(e) =>
