@@ -1,6 +1,15 @@
 .search {
 	padding: 7rem $padding-minimum-inline;
 
+	&__grid {
+		> h2 {
+			text-align: center;
+			margin-top: 2rem;
+			width: 100%;
+			color: $primary-blue-dark;
+		}
+	}
+
 	&__header {
 		display: flex;
 		align-items: center;
@@ -70,6 +79,10 @@
 
 		&__header {
 			flex-direction: column;
+			> div {
+				flex-direction: column;
+				margin-top: 1rem;
+			}
 		}
 	}
 }

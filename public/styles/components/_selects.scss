@@ -1,9 +1,12 @@
-.discover__filters,
-.search__filters {
+.filters {
 	right: 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	> div {
+		display: flex;
+	}
 
 	header {
 		h2 {

@@ -4,21 +4,20 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiscover } from '../../_actions/post'
 import Item from '../RecipeCard/Item'
-import Filters from './Filters'
+import Filters from '../../components/Filters'
+import { formatFilters } from '../../util/util'
 
 const Discover = () => {
 	const dispatch = useDispatch()
 
 	const [filters, setFilters] = useState({
-		primary: 'rating',
-		secondary: 'alltime',
+		sort: 'rating',
+		period: 'alltime',
 		page: 0,
+		skip: 0,
 	})
 
 	const posts = useSelector((state) => state.post.all)
-
-	const formatFilters = (_filters) =>
-		`?sort=${_filters.primary}&period=${_filters.secondary}&page=${_filters.page}`
 
 	useEffect(() => {
 		getDiscover(formatFilters(filters)).then((res) => {

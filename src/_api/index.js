@@ -50,7 +50,9 @@ export const apiRequestVerification = (email) =>
 	API.get(`/verify/request/${email}`)
 
 // Posts
-export const apiGetDiscover = (filters = '?sort=rating&by=alltime') =>
+export const apiGetDiscover = (filters = '?sort=rating&period=alltime') =>
 	API.get(`/posts/discover${filters}`)
 export const apiCreatePost = (body) => API.post(`/posts/`, body)
 export const apiGetPost = (id) => API.get(`/posts/recipe/${id}`)
+export const apiSearch = (filters = '?sort=rating&period=alltime') =>
+	API.get(`/posts/search${filters}`)

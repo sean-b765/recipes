@@ -7,3 +7,13 @@ export const bufferToBase64 = (buffer) => {
 	}
 	return window.btoa(binary)
 }
+
+/**
+ *
+ * @param {Object} filters
+ * @returns {String}
+ */
+export const formatFilters = (filters, search = '') =>
+	`?sort=${filters.sort}&period=${filters.period}&page=${filters.page}&skip=${
+		filters.skip
+	}${search !== '' ? `&terms=${search}` : ''}`
