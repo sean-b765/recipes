@@ -44,18 +44,6 @@
 			word-break: break-all;
 		}
 
-		ul {
-			display: flex;
-			li:not(li:last-of-type) {
-				&::after {
-					content: ',';
-				}
-				margin-right: 7px;
-				font-family: 'Overpass', sans-serif;
-				opacity: 0.86;
-			}
-		}
-
 		footer {
 			display: flex;
 			flex-direction: row;

@@ -1,50 +1,49 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Markdown from '../../components/Markdown'
+import { placeImageInContent } from '../../util/util'
 
 const Preview = ({ state }) => {
 	console.log(state)
 	return (
-		<section className="create__preview">
-			<header>
-				<h2>{state?.formData?.title}</h2>
-				<ul>
-					{state?.formData.tags.map((tag, index) => (
-						<li key={index}>
-							<Link to="">#{tag}</Link>
-						</li>
-					))}
-				</ul>
+		<section className="fullrecipe">
+			<header className="fullrecipe__header">
+				<h1>{state?.formData?.title}</h1>
+				<div className="fullrecipe__header__info">
+					{state?.formData?.serves && (
+						<span>
+							<span>{state?.formData?.serves}</span> Serves
+						</span>
+					)}
+
+					{state?.formData?.prepTime && (
+						<span>
+							<span>{state?.formData?.prepTime}min</span> Prep time
+						</span>
+					)}
+
+					{state?.formData?.cookTime && (
+						<span>
+							<span>{state?.formData?.cookTime}min</span> Cook time
+						</span>
+					)}
+				</div>
 			</header>
-
-			<p className="create__preview__info">{state?.formData?.content}</p>
-
-			<ul className="create__preview__ingredients">
-				{state?.formData?.ingredients.map((ingredient, index) => (
+			<ul className="fullrecipe__tags">
+				{state?.formData?.tags?.map((tag, index) => (
 					<li key={index}>
-						<Link to="">{ingredient}</Link>
+						<Link to="">#{tag}</Link>
 					</li>
 				))}
 			</ul>
-
-			<footer>
-				{state?.formData?.serves && (
-					<span>
-						<span>{state?.formData?.serves}</span> Serves
-					</span>
-				)}
-
-				{state?.formData?.prepTime && (
-					<span>
-						<span>{state?.formData?.prepTime}m</span> Prep time
-					</span>
-				)}
-
-				{state?.formData?.cookTime && (
-					<span>
-						<span>{state?.formData?.cookTime}m</span> Cook time
-					</span>
-				)}
-			</footer>
+			<Markdown
+				className="fullrecipe__info"
+				content={placeImageInContent(state?.formData?.content, state?.files)}
+			/>
+			<Markdown
+				className="fullrecipe__method"
+				content={placeImageInContent(state?.formData?.method, state?.files)}
+			/>
 		</section>
 	)
 }

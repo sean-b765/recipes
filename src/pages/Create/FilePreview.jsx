@@ -15,8 +15,9 @@ const FilePreview = ({ files, onFilesChange }) => {
 		onFilesChange(_files)
 	}
 
+	// set focus of input when open is set as true - modal showing
 	useEffect(() => {
-		if (open) {
+		if (open.open) {
 			inputRef.current.focus()
 			inputRef.current.select(inputRef.current.value.length)
 		}

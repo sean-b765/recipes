@@ -72,7 +72,11 @@ class Create extends Component {
 			if (!this.ingredientsRef) return
 
 			const { value } = this.ingredientsRef.current
-			if (value.length > 20 || this.state.formData.ingredients.includes(value))
+			if (
+				value.length > 20 ||
+				this.state.formData.ingredients.includes(value) ||
+				!value
+			)
 				return
 
 			this.setState({
@@ -92,7 +96,13 @@ class Create extends Component {
 			if (!this.tagsRef) return
 
 			const { value } = this.tagsRef.current
-			if (value.length > 20 || this.state.formData.tags.includes(value)) return
+
+			if (
+				value.length > 20 ||
+				this.state.formData.tags.includes(value) ||
+				!value
+			)
+				return
 
 			this.setState({
 				...this.state,
@@ -176,6 +186,9 @@ class Create extends Component {
 								name="title"
 								id="title"
 								placeholder="Title"
+								onKeyDownCapture={(e) =>
+									e.key === 'Enter' && e.preventDefault()
+								}
 								value={this.state.formData.title}
 								onChange={(e) =>
 									this.setState({
@@ -192,6 +205,9 @@ class Create extends Component {
 								className="custom_input custom_input--underline"
 								id="serves"
 								placeholder="Serves"
+								onKeyDownCapture={(e) =>
+									e.key === 'Enter' && e.preventDefault()
+								}
 								value={this.state.formData.serves}
 								onChange={(e) =>
 									this.setState({
@@ -211,6 +227,9 @@ class Create extends Component {
 								id="prepTime"
 								placeholder="Prep. Time"
 								className="custom_input custom_input--underline"
+								onKeyDownCapture={(e) =>
+									e.key === 'Enter' && e.preventDefault()
+								}
 								value={this.state.formData.prepTime}
 								onChange={(e) =>
 									this.setState({
@@ -229,6 +248,9 @@ class Create extends Component {
 								type="text"
 								id="cookTime"
 								placeholder="Cook Time"
+								onKeyDownCapture={(e) =>
+									e.key === 'Enter' && e.preventDefault()
+								}
 								className="custom_input custom_input--underline"
 								value={this.state.formData.cookTime}
 								onChange={(e) =>
