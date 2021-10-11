@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Preview = ({ state }) => {
+	console.log(state)
 	return (
 		<section className="create__preview">
 			<header>
@@ -9,7 +10,7 @@ const Preview = ({ state }) => {
 				<ul>
 					{state?.formData.tags.map((tag, index) => (
 						<li key={index}>
-							<Link to="">{tag}</Link>
+							<Link to="">#{tag}</Link>
 						</li>
 					))}
 				</ul>

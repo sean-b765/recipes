@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const FilePreview = ({ files, onFilesChange }) => {
 	const inputRef = useRef()
@@ -14,6 +14,13 @@ const FilePreview = ({ files, onFilesChange }) => {
 
 		onFilesChange(_files)
 	}
+
+	useEffect(() => {
+		if (open) {
+			inputRef.current.focus()
+			inputRef.current.select(inputRef.current.value.length)
+		}
+	}, [open])
 
 	return (
 		<section className="create__filepreview">
@@ -64,13 +71,13 @@ const FilePreview = ({ files, onFilesChange }) => {
 					</button>
 				</div>
 				<span>
-					* A reference name makes it possible to position an image within your
-					recipe method/information
+					* A reference name makes it easier to position an image within your
+					recipe content
 				</span>
 			</div>
 			{files.map((file, index) => (
 				<button
-					aria-label="Set a name for this image"
+					aria-label="Rename this image"
 					className="create__filepreview__file"
 					key={index}
 					onContextMenu={(e) => handleClick(e, file)}

@@ -4,7 +4,7 @@ import { getSearch } from '../../_actions/post'
 import { formatFilters } from '../../util/util'
 import Filters from '../../components/Filters'
 import { useDispatch, useSelector } from 'react-redux'
-import Item from '../RecipeCard/Item'
+import Item from '../../components/RecipeCard/Item'
 
 const Search = () => {
 	const dispatch = useDispatch()

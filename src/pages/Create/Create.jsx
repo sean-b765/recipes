@@ -39,6 +39,8 @@ class Create extends Component {
 			for (let i = 0; i < _files?.length; i++) {
 				let file = _files[i]
 
+				const name = `image-${this.state.files.length + 1 + i}`
+
 				// Don't allow upload if more than 10 MB
 				if (file.size >= 10 * 1000 * 1000) return
 
@@ -49,7 +51,7 @@ class Create extends Component {
 				let bfr = await file.arrayBuffer()
 
 				filesToAdd.push({
-					name: file.name,
+					name,
 					type: file.type,
 					size: file.size,
 					lastModified: file.lastModified,
@@ -110,13 +112,25 @@ class Create extends Component {
 			})
 			console.log(result)
 		}
+
+		this.setStorage = () => {
+			localStorage.setItem(
+				'post_form',
+				JSON.stringify({
+					formData: this.state?.formData,
+					files: this.state?.files,
+				})
+			)
+		}
 	}
 
 	componentDidMount() {
+		window.addEventListener('beforeunload', this.setStorage)
 		this.props.formData && this.setState(this.props)
 	}
 
 	componentWillUnmount() {
+		window.removeEventListener('beforeunload', this.setStorage)
 		this.props.setStore(this.state)
 	}
 
@@ -414,17 +428,29 @@ class Create extends Component {
 					/>
 				</div>
 
-				<Preview formData={this.state.formData} files={this.state.files} />
+				<Preview state={this.state} />
 			</motion.section>
 		)
 	}
 }
 
 // On mount get state of redux and set props
+//  if redux has no postForm set, check localStorage
 const mapStateToProps = (state) => {
+	if (
+		state?.postForm?.formData === null ||
+		state?.postForm?.files?.length === 0
+	) {
+		let _form = JSON.parse(localStorage.getItem('post_form'))
+
+		state = {
+			postForm: _form,
+		}
+	}
+
 	return {
-		formData: state.postForm.formData,
-		files: state.postForm.files,
+		formData: state?.postForm?.formData || null,
+		files: state?.postForm?.files || [],
 	}
 }
 

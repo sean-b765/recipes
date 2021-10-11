@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiscover } from '../../_actions/post'
-import Item from '../RecipeCard/Item'
 import Filters from '../../components/Filters'
 import { formatFilters } from '../../util/util'
+import Item from '../../components/RecipeCard/Item'
 
 const Discover = () => {
 	const dispatch = useDispatch()
