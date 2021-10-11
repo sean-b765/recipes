@@ -884,18 +884,15 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .home__wrapper__landing__split {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   color: white;
-  padding: 5rem;
+  padding: 0 5rem 3rem 5rem;
 }
 
 .home__wrapper__landing__split--center {
@@ -1745,6 +1742,22 @@
   content: ',';
 }
 
+.create__preview footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .create__preview footer > span {
   margin: 20px;
   display: -webkit-box;
@@ -1888,6 +1901,22 @@
   -ms-grid-columns: (minmax(50px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   gap: 1rem;
+}
+
+.create__form > * ::-webkit-input-placeholder {
+  color: #c4c4c4 !important;
+}
+
+.create__form > * :-ms-input-placeholder {
+  color: #c4c4c4 !important;
+}
+
+.create__form > * ::-ms-input-placeholder {
+  color: #c4c4c4 !important;
+}
+
+.create__form > * ::placeholder {
+  color: #c4c4c4 !important;
 }
 
 .create__form .label {
@@ -2257,6 +2286,7 @@
 
 * :focus-visible {
   outline-style: dashed;
+  outline-color: white;
 }
 
 html,

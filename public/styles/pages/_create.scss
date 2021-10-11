@@ -57,6 +57,11 @@
 		}
 
 		footer {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+
 			> span {
 				margin: 20px;
 				display: flex;
@@ -166,6 +171,11 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 		gap: 1rem;
+		> * {
+			::placeholder {
+				color: rgb(196, 196, 196) !important;
+			}
+		}
 
 		.label {
 			position: relative;
