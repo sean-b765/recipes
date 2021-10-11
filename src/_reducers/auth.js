@@ -1,3 +1,6 @@
+/*
+	Details of current user
+*/
 export default (state = { user: null }, action) => {
 	if (typeof state === 'undefined') return
 

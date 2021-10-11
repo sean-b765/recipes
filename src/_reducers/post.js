@@ -1,3 +1,8 @@
+/*
+	ALL posts = list from discover or search
+	SINGLE post = post page
+*/
+
 export default (state = { all: [], single: null }, action) => {
 	if (typeof state === 'undefined') return
 

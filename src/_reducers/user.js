@@ -1,3 +1,7 @@
+/*
+	ALL = list of users
+	SINGLE = current user / profile page
+*/
 export default (state = { all: [], single: null }, action) => {
 	if (typeof state === 'undefined') return
 

@@ -1,6 +1,6 @@
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import Discover from './pages/Discover/Discover'
 import Auth from './pages/Auth/Auth'
 import Search from './pages/Search/Search'
