@@ -57,4 +57,23 @@
 	&--no-bg {
 		background: none;
 	}
+
+	&--red {
+		background: $primary-red !important;
+		color: white !important;
+
+		&:hover {
+			background: rgba(170, 23, 23, 0.829) !important;
+		}
+	}
+
+	&--blue {
+		background: $primary-blue-dark !important;
+		color: white !important;
+
+		&:hover {
+			background: $btn-hover-blue !important;
+			color: rgb(255, 255, 255) !important;
+		}
+	}
 }
