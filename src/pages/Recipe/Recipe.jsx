@@ -1,18 +1,25 @@
 import { motion } from 'framer-motion'
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Markdown from '../../components/Markdown'
 import Spinner from '../../components/Spinner'
-import { getPostByFriendlyId } from '../../_actions/post'
+import { deletePost, getPostByFriendlyId } from '../../_actions/post'
 import DOMPurify from 'dompurify'
 import { placeImageInContent } from '../../util/util'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import Button from '../../components/Button'
+import TopMostLogger from '../../components/TopMostLogger'
 
 const Recipe = ({ id }) => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	const post = useSelector((state) => state.post.single)
+	const user = useSelector((state) => state.auth.user)
+
+	const [showLog, setShowLog] = useState(false)
+	const [logTitle, setLogTitle] = useState('')
+	const [logMessage, setLogMessage] = useState('')
 
 	useEffect(() => {
 		getPostByFriendlyId(id)
@@ -26,6 +33,35 @@ const Recipe = ({ id }) => {
 		<motion.section className="fullrecipe">
 			{post ? (
 				<>
+					<TopMostLogger show={showLog} title={logTitle} message={logMessage} />
+					{post.user === user?._id && (
+						<div className="fullrecipe__editarea">
+							<Button
+								type="delete"
+								onClick={async () => {
+									const result = await deletePost(post._id)
+									console.log(result)
+									if (result.error) {
+										// could not delete post
+										setLogMessage(result.error)
+										setLogTitle('Error')
+										setShowLog(true)
+									} else {
+										setLogMessage(result.message)
+										setLogTitle('Alert')
+										setShowLog(true)
+									}
+
+									setTimeout(() => {
+										setShowLog(false)
+										history.goBack()
+									}, 2000)
+								}}
+							/>
+
+							<Button type="edit" onClick={async () => {}} />
+						</div>
+					)}
 					<header className="fullrecipe__header">
 						<h1>{post.title}</h1>
 						<div className="fullrecipe__header__info">

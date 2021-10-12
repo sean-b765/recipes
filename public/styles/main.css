@@ -64,6 +64,25 @@
   background: none;
 }
 
+.btn--red {
+  background: #f54c4c !important;
+  color: white !important;
+}
+
+.btn--red:hover {
+  background: rgba(170, 23, 23, 0.829) !important;
+}
+
+.btn--blue {
+  background: #2f327a !important;
+  color: white !important;
+}
+
+.btn--blue:hover {
+  background: #45489b !important;
+  color: white !important;
+}
+
 .navbar {
   width: 100%;
   position: fixed;
@@ -728,7 +747,8 @@
 .modal {
   position: fixed;
   padding: 2rem 1rem;
-  width: 90vw;
+  width: auto;
+  min-width: 400px;
   height: 70vh;
   opacity: 0;
   z-index: 9999999999999;
@@ -747,6 +767,7 @@
 .modal header {
   width: 100%;
   color: white;
+  margin-bottom: 1.5rem;
 }
 
 .modal header h1 {
@@ -819,6 +840,7 @@
 @media screen and (max-width: 768px) {
   .modal {
     width: calc(100vw - 2rem);
+    min-width: none;
     height: 90vh;
   }
   .modal header {
@@ -2265,12 +2287,43 @@
   max-width: 1000px;
 }
 
+.fullrecipe__editarea {
+  width: 100%;
+  padding: 0 1rem 1.5rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.fullrecipe__editarea > .btn {
+  margin: 0.5rem;
+}
+
 .fullrecipe__info, .fullrecipe__method {
   margin-bottom: 2rem;
 }
 
 .fullrecipe__info img, .fullrecipe__method img {
   max-width: 500px;
+}
+
+.fullrecipe__info ul,
+.fullrecipe__info ol, .fullrecipe__method ul,
+.fullrecipe__method ol {
+  margin-left: 2rem;
+}
+
+.fullrecipe__info ul > li::marker,
+.fullrecipe__info ol > li::marker, .fullrecipe__method ul > li::marker,
+.fullrecipe__method ol > li::marker {
+  font-family: 'Ubuntu Mono', monospace;
+  font-weight: 400;
 }
 
 .fullrecipe__header {
@@ -2340,39 +2393,20 @@
   grid-column: 3;
 }
 
-.fullrecipe ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.fullrecipe ul li:not(li:last-of-type) {
-  margin-right: 7px;
-  font-family: 'Overpass', sans-serif;
-  opacity: 0.86;
-}
-
-.fullrecipe ul li:not(li:last-of-type)::after {
-  content: ',';
-}
-
 .fullrecipe__tags {
   margin-bottom: 2rem;
-}
-
-.fullrecipe__tags ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.fullrecipe__tags ul li:not(li:last-of-type) {
+.fullrecipe__tags li:not(li:last-of-type) {
   margin-right: 7px;
   font-family: 'Overpass', sans-serif;
   opacity: 0.86;
 }
 
-.fullrecipe__tags ul li:not(li:last-of-type)::after {
+.fullrecipe__tags li:not(li:last-of-type)::after {
   content: ',';
 }
 

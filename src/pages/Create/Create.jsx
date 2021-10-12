@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { createRef } from 'react'
 import { createPost } from '../../_actions/post'
 import { bufferToBase64 } from '../../util/util'
+import { withRouter } from 'react-router'
 
 class Create extends Component {
 	constructor() {
@@ -26,6 +27,7 @@ class Create extends Component {
 				method: '',
 			},
 			files: [],
+			posted: false,
 		}
 
 		this.ingredientsRef = createRef()
@@ -116,11 +118,30 @@ class Create extends Component {
 		}
 
 		this.post = async () => {
-			const result = await createPost({
-				formData: this.state?.formData,
-				files: this.state?.files,
-			})
-			console.log(result)
+			try {
+				const result = await createPost({
+					formData: this.state?.formData,
+					files: this.state?.files,
+				})
+
+				if (!result?.post?.userFriendlyId) return
+
+				this.setState({ ...this.state, posted: true })
+
+				// remove event listener which sets local storage
+				window.removeEventListener('beforeunload', this.setStorage)
+
+				// remove from storage
+				localStorage.removeItem('post_form')
+
+				// set redux postForm as default
+				this.props.setStore({ formData: null, files: [] })
+
+				// redirect to post page
+				this.props.history.push(`/recipe/${result?.post?.userFriendlyId}`)
+			} catch (err) {
+				console.log(err)
+			}
 		}
 
 		this.setStorage = () => {
@@ -140,6 +161,8 @@ class Create extends Component {
 	}
 
 	componentWillUnmount() {
+		if (this.state?.posted) return
+
 		window.removeEventListener('beforeunload', this.setStorage)
 		this.props.setStore(this.state)
 	}
@@ -485,4 +508,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // Connect helps by implementing redux store in a class component
-export default connect(mapStateToProps, mapDispatchToProps)(Create)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Create))

@@ -1,7 +1,8 @@
 .modal {
 	position: fixed;
 	padding: 2rem 1rem;
-	width: 90vw;
+	width: auto;
+	min-width: 400px;
 	height: 70vh;
 	opacity: 0;
 	z-index: 9999999999999;
@@ -17,6 +18,8 @@
 	header {
 		width: 100%;
 		color: white;
+		margin-bottom: 1.5rem;
+
 		h1 {
 			width: 100%;
 			text-align: center;
@@ -69,6 +72,7 @@
 
 	@media screen and (max-width: 768px) {
 		width: calc(100vw - 2rem);
+		min-width: none;
 		height: 90vh;
 
 		header {

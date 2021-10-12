@@ -10,8 +10,6 @@ const Navbar = () => {
 
 	const user = useSelector((state) => state.auth.user)
 
-	console.log(!user)
-
 	const location = useLocation()
 	const history = useHistory()
 
@@ -52,20 +50,22 @@ const Navbar = () => {
 						</li>
 					</ul>
 
-					<div className="menu__mobile__actions">
-						<button
-							className="btn btn--no-bg"
-							onClick={() => history.push('/login')}
-						>
-							Login
-						</button>
-						<button
-							className="btn btn--pill btn--solid-blue"
-							onClick={() => history.push('/signup')}
-						>
-							Sign up
-						</button>
-					</div>
+					{!user?._id && (
+						<div className="menu__mobile__actions">
+							<button
+								className="btn btn--no-bg"
+								onClick={() => history.push('/login')}
+							>
+								Login
+							</button>
+							<button
+								className="btn btn--pill btn--solid-blue"
+								onClick={() => history.push('/signup')}
+							>
+								Sign up
+							</button>
+						</div>
+					)}
 				</div>
 			</nav>
 

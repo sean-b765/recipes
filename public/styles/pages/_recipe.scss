@@ -14,6 +14,18 @@
 		max-width: 1000px;
 	}
 
+	&__editarea {
+		width: 100%;
+		padding: 0 1rem 1.5rem 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		> .btn {
+			margin: 0.5rem;
+		}
+	}
+
 	&__info,
 	&__method {
 		margin-bottom: 2rem;
@@ -22,7 +34,15 @@
 			max-width: 500px;
 		}
 
-		h1 {
+		ul,
+		ol {
+			> li {
+				&::marker {
+					font-family: 'Ubuntu Mono', monospace;
+					font-weight: 400;
+				}
+			}
+			margin-left: 2rem;
 		}
 	}
 
@@ -67,7 +87,9 @@
 			}
 		}
 	}
-	ul {
+
+	&__tags {
+		margin-bottom: 2rem;
 		display: flex;
 		li:not(li:last-of-type) {
 			&::after {
@@ -76,20 +98,6 @@
 			margin-right: 7px;
 			font-family: 'Overpass', sans-serif;
 			opacity: 0.86;
-		}
-	}
-	&__tags {
-		margin-bottom: 2rem;
-		ul {
-			display: flex;
-			li:not(li:last-of-type) {
-				&::after {
-					content: ',';
-				}
-				margin-right: 7px;
-				font-family: 'Overpass', sans-serif;
-				opacity: 0.86;
-			}
 		}
 	}
 
