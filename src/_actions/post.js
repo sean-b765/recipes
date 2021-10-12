@@ -1,4 +1,10 @@
-import { apiCreatePost, apiGetDiscover, apiGetPost, apiSearch } from '../_api'
+import {
+	apiCreatePost,
+	apiDeletePost,
+	apiGetDiscover,
+	apiGetPost,
+	apiSearch,
+} from '../_api'
 
 export const getDiscover = async (filters) => {
 	try {
@@ -6,7 +12,7 @@ export const getDiscover = async (filters) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -17,7 +23,7 @@ export const getSearch = async (filters) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -28,7 +34,7 @@ export const getPostByFriendlyId = async (id) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -40,7 +46,18 @@ export const createPost = async (body) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const deletePost = async (id) => {
+	try {
+		const { data } = await apiDeletePost(id)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }

@@ -56,3 +56,4 @@ export const apiCreatePost = (body) => API.post(`/posts/`, body)
 export const apiGetPost = (id) => API.get(`/posts/recipe/${id}`)
 export const apiSearch = (filters = '?sort=rating&period=alltime') =>
 	API.get(`/posts/search${filters}`)
+export const apiDeletePost = (id) => API.delete(`/posts/${id}`)
