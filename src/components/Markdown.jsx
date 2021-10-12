@@ -5,15 +5,15 @@ const Markdown = ({ content, className }) => {
 	let text = marked.parse(content || '')
 
 	/* 
-    Since the title is reserved for h1, only use h2s and lower
+    Since the title is reserved for h1, only use h2s and lower.
       however if people have lots of nested headings (unlikely),
-      it may seem off for the h6's.
+      the structure may seem inaccurate
     Ultimately accessibility is a more pressing concern
   */
 	for (let i = 5; i > 0; i--) {
-		const regex = `h${i}`
+		const regex = `<h${i}`
 
-		text = text.replace(new RegExp(regex), `h${i + 1}`)
+		text = text.replace(new RegExp(regex, 'g'), `<h${i + 1}`)
 	}
 
 	return (
