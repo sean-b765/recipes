@@ -15,8 +15,11 @@ class Create extends Component {
 	constructor() {
 		super()
 
+		// As opposed to Create.jsx we need to
+		//  know the _id of the existing post
 		this.state = {
 			formData: {
+				_id: '',
 				title: '',
 				serves: '',
 				prepTime: '',
@@ -117,12 +120,26 @@ class Create extends Component {
 			this.tagsRef.current.value = ''
 		}
 
-		this.post = async () => {
+		this.submit = async () => {
 			try {
-				const result = await editPost({
-					formData: this.state?.formData,
-					files: this.state?.files,
-				})
+				const result = await editPost(
+					{
+						formData: {
+							title: this.state?.formData?.title,
+							serves: String(this.state?.formData?.serves),
+							cookTime: String(this.state?.formData?.cookTime),
+							prepTime: String(this.state?.formData?.prepTime),
+							ingredients: this.state?.formData?.ingredients,
+							tags: this.state?.formData?.tags,
+							content: this.state?.formData?.content,
+							method: this.state?.formData?.method,
+						},
+						files: this.state?.files,
+					},
+					this.state?.formData?._id
+				)
+
+				console.log(result)
 
 				if (!result?.post?.userFriendlyId) return
 
@@ -177,19 +194,7 @@ class Create extends Component {
 				className="create"
 			>
 				<header>
-					<h1>create a recipe</h1>
-					<ul>
-						<li>- Use up to 6 tags to gain a wider audience.</li>
-						<li>- Add up to 30 ingredients.</li>
-						<li>- Remove a tag or ingredient by clicking on it.</li>
-						<li>
-							- Upload images and name them to control where they appear in the
-							recipe.
-						</li>
-						<li>
-							- Format recipe information and method with markdown syntax.
-						</li>
-					</ul>
+					<h1>edit a recipe</h1>
 					<button className="btn btn--pill">View Formatting Help</button>
 				</header>
 
@@ -198,7 +203,7 @@ class Create extends Component {
 						action=""
 						onSubmit={(e) => {
 							e.preventDefault()
-							this.post()
+							this.submit()
 						}}
 						className="create__form"
 					>
@@ -462,7 +467,11 @@ class Create extends Component {
 							/>
 						</label>
 
-						<input type="submit" className="btn btn--pill" value="Post" />
+						<input
+							type="submit"
+							className="btn btn--pill"
+							value="Submit Edit"
+						/>
 					</form>
 
 					<FilePreview
