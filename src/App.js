@@ -7,6 +7,7 @@ import Search from './pages/Search/Search'
 import Profile from './pages/Profile/Profile'
 import Recipe from './pages/Recipe/Recipe'
 import Create from './pages/Create/Create'
+import Edit from './pages/Create/Edit'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
@@ -41,6 +42,9 @@ function App() {
 						</Route>
 						<Route path="/post" exact>
 							<Create />
+						</Route>
+						<Route path="/edit" exact>
+							<Edit />
 						</Route>
 
 						<Route path="/login">

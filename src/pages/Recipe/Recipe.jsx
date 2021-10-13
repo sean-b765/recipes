@@ -59,7 +59,21 @@ const Recipe = ({ id }) => {
 								}}
 							/>
 
-							<Button type="edit" onClick={async () => {}} />
+							<Button
+								type="edit"
+								onClick={() => {
+									// set edit form
+									dispatch({
+										type: 'EDIT_FORM/SET',
+										payload: {
+											formData: { ...post, images: null },
+											files: [...post.images],
+										},
+									})
+									// redirect to edit page
+									history.push('/edit')
+								}}
+							/>
 						</div>
 					)}
 					<header className="fullrecipe__header">

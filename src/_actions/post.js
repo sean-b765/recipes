@@ -63,9 +63,9 @@ export const deletePost = async (id) => {
 	}
 }
 
-export const editPost = async (body) => {
+export const editPost = async (body, id) => {
 	try {
-		const { data } = await apiEditPost(body)
+		const { data } = await apiEditPost(body, id)
 		return data
 	} catch (err) {
 		return {
