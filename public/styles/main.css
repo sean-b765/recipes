@@ -17,6 +17,10 @@
   font-size: 1rem;
 }
 
+.btn svg {
+  font-size: 1rem;
+}
+
 .btn--solid {
   background: white;
   color: #2f327a;
