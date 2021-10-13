@@ -11,6 +11,10 @@
 	justify-content: center;
 	font-size: 1rem;
 
+	svg {
+		font-size: 1rem;
+	}
+
 	&--solid {
 		background: white;
 		color: $primary-blue-dark;
