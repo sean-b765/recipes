@@ -44,6 +44,36 @@
 			}
 			margin-left: 2rem;
 		}
+
+		ul {
+			li {
+				list-style: disc !important;
+			}
+		}
+
+		ol {
+			li {
+				list-style: decimal !important;
+			}
+		}
+	}
+
+	&__method,
+	&__info {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin: 1rem 0rem 1rem 0rem;
+		}
+
+		img {
+			position: relative;
+			max-width: 100%;
+			margin: 1rem 0;
+		}
 	}
 
 	&__header {
@@ -103,5 +133,22 @@
 
 	&__tags,
 	&__ingredients {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	@media screen and (max-width: 768px) {
+		width: 100%;
+		padding: 7rem 1rem;
+
+		&__tags,
+		&__ingredients {
+			align-items: center;
+			justify-content: center;
+		}
+
+		> * {
+			width: 100%;
+		}
 	}
 }
