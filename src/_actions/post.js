@@ -1,6 +1,7 @@
 import {
 	apiCreatePost,
 	apiDeletePost,
+	apiEditPost,
 	apiGetDiscover,
 	apiGetPost,
 	apiSearch,
@@ -54,6 +55,17 @@ export const createPost = async (body) => {
 export const deletePost = async (id) => {
 	try {
 		const { data } = await apiDeletePost(id)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const editPost = async (body) => {
+	try {
+		const { data } = await apiEditPost(body)
 		return data
 	} catch (err) {
 		return {
