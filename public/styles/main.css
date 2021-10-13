@@ -64,6 +64,11 @@
   color: white;
 }
 
+.btn--round {
+  border-radius: 50%;
+  padding: 1rem;
+}
+
 .btn--no-bg {
   background: none;
 }
@@ -84,6 +89,32 @@
 
 .btn--blue:hover {
   background: #45489b !important;
+  color: white !important;
+}
+
+.btn--green {
+  background: #66bb6a !important;
+  color: white !important;
+}
+
+.btn--green:hover {
+  background: #49cf5b !important;
+  color: white !important;
+}
+
+.btn--heart {
+  color: white;
+}
+
+.btn--heart:hover {
+  color: #f54c4c !important;
+}
+
+.btn--heart-liked {
+  color: #f54c4c !important;
+}
+
+.btn--heart-liked:hover {
   color: white !important;
 }
 

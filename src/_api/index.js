@@ -52,9 +52,13 @@ export const apiRequestVerification = (email) =>
 // Posts
 export const apiGetDiscover = (filters = '?sort=rating&period=alltime') =>
 	API.get(`/posts/discover${filters}`)
-export const apiCreatePost = (body) => API.post(`/posts/`, body)
-export const apiEditPost = (body, id) => API.patch(`/posts/${id}`, body)
-export const apiGetPost = (id) => API.get(`/posts/recipe/${id}`)
+export const apiCreatePost = (body) => API.post(`/posts/create`, body)
+export const apiEditPost = (body, id) => API.patch(`/posts/edit/${id}`, body)
+export const apiGetPost = (id) => API.get(`/posts/post/${id}`)
 export const apiSearch = (filters = '?sort=rating&period=alltime') =>
 	API.get(`/posts/search${filters}`)
-export const apiDeletePost = (id) => API.delete(`/posts/${id}`)
+export const apiDeletePost = (id) => API.delete(`/posts/delete/${id}`)
+export const apiLikePost = (id) => API.patch(`/posts/like/${id}`)
+export const apiCommentOnPost = (id, commentString) =>
+	API.post(`/posts/comment/${id}`, commentString)
+export const apiReportPost = (id) => API.patch(`/posts/report/${id}`)
