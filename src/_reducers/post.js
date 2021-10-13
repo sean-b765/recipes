@@ -15,6 +15,8 @@ export default (state = { all: [], single: null }, action) => {
 			return { ...state, all: action.payload }
 		case 'POST/EDIT_ALL':
 			return { ...state }
+		case 'POST/LIKE_SINGLE':
+			return { ...state, single: { ...state.single, likes: action.payload } }
 		default:
 			return state
 	}

@@ -57,6 +57,10 @@
 			color: white;
 		}
 	}
+	&--round {
+		border-radius: 50%;
+		padding: 1rem;
+	}
 
 	&--no-bg {
 		background: none;
@@ -78,6 +82,31 @@
 		&:hover {
 			background: $btn-hover-blue !important;
 			color: rgb(255, 255, 255) !important;
+		}
+	}
+
+	&--green {
+		background: $primary-green !important;
+		color: white !important;
+
+		&:hover {
+			background: $btn-hover-green !important;
+			color: rgb(255, 255, 255) !important;
+		}
+	}
+
+	&--heart {
+		color: white;
+
+		&:hover {
+			color: $primary-red !important;
+		}
+
+		&-liked {
+			color: $primary-red !important;
+			&:hover {
+				color: white !important;
+			}
 		}
 	}
 }

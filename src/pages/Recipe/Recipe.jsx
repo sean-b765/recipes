@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Markdown from '../../components/Markdown'
 import Spinner from '../../components/Spinner'
-import { deletePost, getPostByFriendlyId } from '../../_actions/post'
+import { deletePost, getPostByFriendlyId, likePost } from '../../_actions/post'
 import DOMPurify from 'dompurify'
 import { placeImageInContent } from '../../util/util'
 import { Link, useHistory } from 'react-router-dom'
@@ -76,6 +76,7 @@ const Recipe = ({ id }) => {
 							/>
 						</div>
 					)}
+
 					<header className="fullrecipe__header">
 						<h1>{post.title}</h1>
 						<div className="fullrecipe__header__info">
@@ -113,6 +114,26 @@ const Recipe = ({ id }) => {
 						className="fullrecipe__method"
 						content={placeImageInContent(post.method, post.images)}
 					/>
+
+					{/* 
+						Interact with post (like, comment, report)
+						only if post is not yours
+					 */}
+					{post.user !== user._id && (
+						<div className="fullrecipe__interactions">
+							<Button
+								onClick={async () => {
+									const result = await likePost(post._id)
+									console.log(result)
+									dispatch({
+										type: 'POST/LIKE_SINGLE',
+										payload: result.post.likes,
+									})
+								}}
+								type={post.likes.includes(user._id) ? 'liked' : 'like'}
+							/>
+						</div>
+					)}
 				</>
 			) : (
 				<Spinner />
