@@ -2326,6 +2326,34 @@
   font-weight: 400;
 }
 
+.fullrecipe__info ul li, .fullrecipe__method ul li {
+  list-style: disc !important;
+}
+
+.fullrecipe__info ol li, .fullrecipe__method ol li {
+  list-style: decimal !important;
+}
+
+.fullrecipe__method h1,
+.fullrecipe__method h2,
+.fullrecipe__method h3,
+.fullrecipe__method h4,
+.fullrecipe__method h5,
+.fullrecipe__method h6, .fullrecipe__info h1,
+.fullrecipe__info h2,
+.fullrecipe__info h3,
+.fullrecipe__info h4,
+.fullrecipe__info h5,
+.fullrecipe__info h6 {
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+.fullrecipe__method img, .fullrecipe__info img {
+  position: relative;
+  max-width: 100%;
+  margin: 1rem 0;
+}
+
 .fullrecipe__header {
   position: relative;
   width: 100%;
@@ -2408,6 +2436,32 @@
 
 .fullrecipe__tags li:not(li:last-of-type)::after {
   content: ',';
+}
+
+.fullrecipe__tags, .fullrecipe__ingredients {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .fullrecipe {
+    width: 100%;
+    padding: 7rem 1rem;
+  }
+  .fullrecipe__tags, .fullrecipe__ingredients {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .fullrecipe > * {
+    width: 100%;
+  }
 }
 
 * {
