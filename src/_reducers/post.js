@@ -16,7 +16,23 @@ export default (state = { all: [], single: null }, action) => {
 		case 'POST/EDIT_ALL':
 			return { ...state }
 		case 'POST/LIKE_SINGLE':
-			return { ...state, single: { ...state.single, likes: action.payload } }
+			return {
+				...state,
+				single: {
+					...state.single,
+					likes: [...state.single.likes, action.payload],
+				},
+			}
+		case 'POST/LIKE_SINGLE/REMOVE':
+			// remove the given user _id (action payload) from likes
+			return {
+				...state,
+				single: {
+					...state.single,
+					likes: state.single.likes.map((userId) => userId !== action.payload),
+				},
+			}
+
 		default:
 			return state
 	}

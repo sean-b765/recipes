@@ -124,11 +124,17 @@ const Recipe = ({ id }) => {
 							<Button
 								onClick={async () => {
 									const result = await likePost(post._id)
-									console.log(result)
-									dispatch({
-										type: 'POST/LIKE_SINGLE',
-										payload: result.post.likes,
-									})
+									if (result.result !== 0) {
+										dispatch({
+											type: 'POST/LIKE_SINGLE',
+											payload: result.result,
+										})
+									} else {
+										dispatch({
+											type: 'POST/LIKE_SINGLE/REMOVE',
+											payload: user._id,
+										})
+									}
 								}}
 								type={post.likes.includes(user._id) ? 'liked' : 'like'}
 							/>
