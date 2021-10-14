@@ -59,6 +59,8 @@ export const apiSearch = (filters = '?sort=rating&period=alltime') =>
 	API.get(`/posts/search${filters}`)
 export const apiDeletePost = (id) => API.delete(`/posts/delete/${id}`)
 export const apiLikePost = (id) => API.patch(`/posts/like/${id}`)
-export const apiCommentOnPost = (id, commentString) =>
+export const apiAddComment = (id, commentString) =>
 	API.post(`/posts/comment/${id}`, commentString)
+export const apiRemoveComment = (commentId) =>
+	API.delete(`/posts/remove-comment/${commentId}`)
 export const apiReportPost = (id) => API.patch(`/posts/report/${id}`)
