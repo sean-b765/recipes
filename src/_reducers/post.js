@@ -33,6 +33,28 @@ export default (state = { all: [], single: null }, action) => {
 				},
 			}
 
+		case 'POST/COMMENT_SINGLE':
+			// add comment to single post
+			return {
+				...state,
+				single: {
+					...state.single,
+					comments: [...state.single.comments, action.payload],
+				},
+			}
+
+		case 'POST/COMMENT_SINGLE/REMOVE':
+			// remove comment from post
+			return {
+				...state,
+				single: {
+					...state.single,
+					comments: state.single.comments.filter(
+						(comment) => comment._id !== action.payload
+					),
+				},
+			}
+
 		default:
 			return state
 	}
