@@ -1,11 +1,12 @@
 import {
-	apiCommentOnPost,
+	apiAddComment,
 	apiCreatePost,
 	apiDeletePost,
 	apiEditPost,
 	apiGetDiscover,
 	apiGetPost,
 	apiLikePost,
+	apiRemoveComment,
 	apiReportPost,
 	apiSearch,
 } from '../_api'
@@ -101,7 +102,18 @@ export const reportPost = async (id) => {
 
 export const commentOnPost = async (id, comment) => {
 	try {
-		const { data } = await apiCommentOnPost(id, comment)
+		const { data } = await apiAddComment(id, { comment })
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const removeComment = async (commentId) => {
+	try {
+		const { data } = await apiRemoveComment(commentId)
 		return data
 	} catch (err) {
 		return {

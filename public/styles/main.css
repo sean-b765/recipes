@@ -662,6 +662,15 @@
   color: white;
 }
 
+.custom_input--comment-field {
+  border: 1px solid #2f327a;
+  background: none;
+  color: black;
+  max-height: 200px !important;
+  min-height: 3rem !important;
+  margin: 0 !important;
+}
+
 .filters {
   right: 1rem;
   display: -webkit-box;
@@ -910,6 +919,98 @@
           transform: translate(-50%, -50%);
   width: 4rem;
   height: 4rem;
+}
+
+.comments {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 4rem 0rem 3rem 0rem;
+}
+
+.comments__field {
+  position: relative;
+  width: 100%;
+  padding: 0 0 2rem 0;
+  max-width: 768px !important;
+}
+
+.comments__field form {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.comments__field form .custom_input {
+  -webkit-box-flex: 6;
+      -ms-flex: 6;
+          flex: 6;
+}
+
+.comments__field form input[type='submit'] {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.comments__comment {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.comments__comment > svg {
+  left: 0;
+  position: absolute;
+  font-size: 1.5rem;
+  -webkit-transform: translateX(-150%);
+          transform: translateX(-150%);
+  cursor: pointer;
+  -webkit-transition: all 0.09s ease-in-out;
+  transition: all 0.09s ease-in-out;
+}
+
+.comments__comment > svg:hover {
+  -webkit-transform: translateX(-150%) scale(1.1);
+          transform: translateX(-150%) scale(1.1);
+}
+
+.comments__comment header {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1rem;
+}
+
+.comments__comment header img {
+  margin-right: 0.4rem;
+  max-width: 28px;
+  max-height: 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.comments__comment p {
+  padding-left: 0.5rem;
 }
 
 .home {
@@ -2479,6 +2580,10 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.fullrecipe__interactions {
+  width: 100% !important;
 }
 
 @media screen and (max-width: 768px) {

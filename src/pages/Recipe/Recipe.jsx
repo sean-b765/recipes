@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Markdown from '../../components/Markdown'
 import Spinner from '../../components/Spinner'
 import { deletePost, getPostByFriendlyId, likePost } from '../../_actions/post'
-import DOMPurify from 'dompurify'
 import { placeImageInContent } from '../../util/util'
 import { Link, useHistory } from 'react-router-dom'
 import Button from '../../components/Button'
 import TopMostLogger from '../../components/TopMostLogger'
+import Comments from '../../components/Comments/Comments'
 
 const Recipe = ({ id }) => {
 	const dispatch = useDispatch()
@@ -34,6 +34,7 @@ const Recipe = ({ id }) => {
 			{post ? (
 				<>
 					<TopMostLogger show={showLog} title={logTitle} message={logMessage} />
+
 					{post.user === user?._id && (
 						<div className="fullrecipe__editarea">
 							<Button
@@ -117,29 +118,42 @@ const Recipe = ({ id }) => {
 
 					{/* 
 						Interact with post (like, comment, report)
-						only if post is not yours
 					 */}
-					{post.user !== user._id && (
-						<div className="fullrecipe__interactions">
-							<Button
-								onClick={async () => {
-									const result = await likePost(post._id)
-									if (result.result !== 0) {
-										dispatch({
-											type: 'POST/LIKE_SINGLE',
-											payload: result.result,
-										})
-									} else {
-										dispatch({
-											type: 'POST/LIKE_SINGLE/REMOVE',
-											payload: user._id,
-										})
-									}
-								}}
-								type={post.likes.includes(user._id) ? 'liked' : 'like'}
+					{
+						<section className="fullrecipe__interactions">
+							{/*
+								Only show like/report buttons if logged in, 
+								and if post is not your own
+							 */}
+							{user?._id && post.user !== user?._id && (
+								<div className="fullrecipe__interactions__controls">
+									<Button
+										onClick={async () => {
+											const result = await likePost(post._id)
+											if (result.result !== 0) {
+												dispatch({
+													type: 'POST/LIKE_SINGLE',
+													payload: result.result,
+												})
+											} else {
+												dispatch({
+													type: 'POST/LIKE_SINGLE/REMOVE',
+													payload: user._id,
+												})
+											}
+										}}
+										type={post.likes.includes(user?._id) ? 'liked' : 'like'}
+									/>
+								</div>
+							)}
+
+							<Comments
+								comments={post.comments}
+								postId={post._id}
+								user={user || null}
 							/>
-						</div>
-					)}
+						</section>
+					}
 				</>
 			) : (
 				<Spinner />

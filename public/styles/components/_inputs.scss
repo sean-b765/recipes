@@ -8,4 +8,13 @@
 		border-bottom: 1px solid white;
 		color: white;
 	}
+
+	&--comment-field {
+		border: 1px solid $primary-blue-dark;
+		background: none;
+		color: black;
+		max-height: 200px !important;
+		min-height: 3rem !important;
+		margin: 0 !important;
+	}
 }
