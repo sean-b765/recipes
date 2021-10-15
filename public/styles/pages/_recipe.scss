@@ -143,6 +143,19 @@
 	&__interactions {
 		width: 100% !important;
 		max-width: 800px;
+
+		&__controls {
+			> div {
+				display: flex;
+				align-items: center;
+
+				p {
+					margin-left: 0.68rem;
+					font-size: 0.93rem;
+					font-family: 'Ubunto Mono', monospace;
+				}
+			}
+		}
 	}
 
 	@media screen and (max-width: 768px) {

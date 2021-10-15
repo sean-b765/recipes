@@ -29,7 +29,9 @@ export default (state = { all: [], single: null }, action) => {
 				...state,
 				single: {
 					...state.single,
-					likes: state.single.likes.map((userId) => userId !== action.payload),
+					likes: state.single.likes.filter(
+						(userId) => userId !== action.payload
+					),
 				},
 			}
 
