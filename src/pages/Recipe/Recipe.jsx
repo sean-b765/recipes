@@ -21,6 +21,17 @@ const Recipe = ({ id }) => {
 	const [logTitle, setLogTitle] = useState('')
 	const [logMessage, setLogMessage] = useState('')
 
+	const formatLikeNumber = (num) => {
+		if (num > 1_000_000)
+			return `${parseFloat(Number(num / 1000000).toFixed(1))}M`
+		else if (num > 100_000)
+			return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+		else if (num > 10_000)
+			return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+		else if (num > 1_000) return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+		else return `${num}`
+	}
+
 	useEffect(() => {
 		getPostByFriendlyId(id)
 			.then((response) => {
@@ -145,7 +156,7 @@ const Recipe = ({ id }) => {
 											}}
 											type={post.likes.includes(user?._id) ? 'liked' : 'like'}
 										/>
-										<p>{post?.likes?.length}</p>
+										<p>{formatLikeNumber(post?.likes?.length)}</p>
 									</div>
 									<div></div>
 								</div>
