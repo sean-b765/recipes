@@ -5,13 +5,12 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-direction: column;
-	padding: 4rem 0rem 3rem 0rem;
+	padding: 2rem 0rem 3rem 0rem;
 
 	&__field {
 		position: relative;
 		width: 100%;
 		padding: 0 0 2rem 0;
-		max-width: 768px !important;
 
 		form {
 			position: relative;
@@ -28,20 +27,23 @@
 	}
 
 	&__comment {
+		position: relative;
 		margin: 0.5rem 0;
 		padding: 0.5rem;
 		width: 100%;
 
-		> svg {
-			left: 0;
+		.btn {
+			z-index: 2;
+			right: 0;
+			top: 0;
 			position: absolute;
+			margin-right: 1rem;
 			font-size: 1.5rem;
-			transform: translateX(-150%);
 			cursor: pointer;
 			transition: all 0.09s ease-in-out;
 
-			&:hover {
-				transform: translateX(-150%) scale(1.1);
+			* {
+				cursor: pointer;
 			}
 		}
 

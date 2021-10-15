@@ -127,23 +127,27 @@ const Recipe = ({ id }) => {
 							 */}
 							{user?._id && post.user !== user?._id && (
 								<div className="fullrecipe__interactions__controls">
-									<Button
-										onClick={async () => {
-											const result = await likePost(post._id)
-											if (result.result !== 0) {
-												dispatch({
-													type: 'POST/LIKE_SINGLE',
-													payload: result.result,
-												})
-											} else {
-												dispatch({
-													type: 'POST/LIKE_SINGLE/REMOVE',
-													payload: user._id,
-												})
-											}
-										}}
-										type={post.likes.includes(user?._id) ? 'liked' : 'like'}
-									/>
+									<div>
+										<Button
+											onClick={async () => {
+												const result = await likePost(post._id)
+												if (result.result !== 0) {
+													dispatch({
+														type: 'POST/LIKE_SINGLE',
+														payload: result.result,
+													})
+												} else {
+													dispatch({
+														type: 'POST/LIKE_SINGLE/REMOVE',
+														payload: user._id,
+													})
+												}
+											}}
+											type={post.likes.includes(user?._id) ? 'liked' : 'like'}
+										/>
+										<p>{post?.likes?.length}</p>
+									</div>
+									<div></div>
 								</div>
 							)}
 

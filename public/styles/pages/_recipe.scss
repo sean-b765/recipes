@@ -10,7 +10,7 @@
 		margin: 0.5rem 0;
 	}
 
-	div {
+	> div {
 		max-width: 1000px;
 	}
 
@@ -142,6 +142,7 @@
 
 	&__interactions {
 		width: 100% !important;
+		max-width: 800px;
 	}
 
 	@media screen and (max-width: 768px) {

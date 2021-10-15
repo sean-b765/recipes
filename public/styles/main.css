@@ -66,7 +66,14 @@
 
 .btn--round {
   border-radius: 50%;
-  padding: 1rem;
+  padding: 0.62rem !important;
+  -webkit-box-shadow: 1px 4px 12px 3px rgba(0, 0, 0, 0.207);
+          box-shadow: 1px 4px 12px 3px rgba(0, 0, 0, 0.207);
+}
+
+.btn--round:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
 }
 
 .btn--no-bg {
@@ -79,7 +86,7 @@
 }
 
 .btn--red:hover {
-  background: rgba(170, 23, 23, 0.829) !important;
+  background: #f35c5c !important;
 }
 
 .btn--blue {
@@ -103,19 +110,19 @@
 }
 
 .btn--heart {
-  color: white;
+  background: white !important;
+  color: #f54c4c !important;
 }
 
 .btn--heart:hover {
+  background: white !important;
   color: #f54c4c !important;
 }
 
-.btn--heart-liked {
-  color: #f54c4c !important;
-}
-
-.btn--heart-liked:hover {
-  color: white !important;
+@media screen and (max-width: 768px) {
+  .btn--round {
+    padding: 0.765rem !important;
+  }
 }
 
 .navbar {
@@ -937,14 +944,13 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 4rem 0rem 3rem 0rem;
+  padding: 2rem 0rem 3rem 0rem;
 }
 
 .comments__field {
   position: relative;
   width: 100%;
   padding: 0 0 2rem 0;
-  max-width: 768px !important;
 }
 
 .comments__field form {
@@ -968,25 +974,26 @@
 }
 
 .comments__comment {
+  position: relative;
   margin: 0.5rem 0;
   padding: 0.5rem;
   width: 100%;
 }
 
-.comments__comment > svg {
-  left: 0;
+.comments__comment .btn {
+  z-index: 2;
+  right: 0;
+  top: 0;
   position: absolute;
+  margin-right: 1rem;
   font-size: 1.5rem;
-  -webkit-transform: translateX(-150%);
-          transform: translateX(-150%);
   cursor: pointer;
   -webkit-transition: all 0.09s ease-in-out;
   transition: all 0.09s ease-in-out;
 }
 
-.comments__comment > svg:hover {
-  -webkit-transform: translateX(-150%) scale(1.1);
-          transform: translateX(-150%) scale(1.1);
+.comments__comment .btn * {
+  cursor: pointer;
 }
 
 .comments__comment header {
@@ -2419,7 +2426,7 @@
   margin: 0.5rem 0;
 }
 
-.fullrecipe div {
+.fullrecipe > div {
   max-width: 1000px;
 }
 
@@ -2584,6 +2591,7 @@
 
 .fullrecipe__interactions {
   width: 100% !important;
+  max-width: 800px;
 }
 
 @media screen and (max-width: 768px) {

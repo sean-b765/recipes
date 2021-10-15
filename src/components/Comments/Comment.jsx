@@ -19,10 +19,13 @@ const Comment = ({ comment, userId }) => {
 	return (
 		<div className="comments__comment">
 			{userId === comment?.user?._id && (
-				<MdDeleteForever
+				<button
+					className="btn btn--red btn--round"
 					aria-label="Remove your comment"
 					onClick={_removeComment}
-				/>
+				>
+					<MdDeleteForever />
+				</button>
 			)}
 			<header>
 				<img src={comment?.user?.imageUrl} />

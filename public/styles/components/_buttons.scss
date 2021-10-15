@@ -59,7 +59,12 @@
 	}
 	&--round {
 		border-radius: 50%;
-		padding: 1rem;
+		padding: 0.62rem !important;
+		box-shadow: 1px 4px 12px 3px rgba(0, 0, 0, 0.207);
+
+		&:hover {
+			transform: scale(1.04);
+		}
 	}
 
 	&--no-bg {
@@ -71,7 +76,7 @@
 		color: white !important;
 
 		&:hover {
-			background: rgba(170, 23, 23, 0.829) !important;
+			background: $btn-hover-red !important;
 		}
 	}
 
@@ -96,17 +101,18 @@
 	}
 
 	&--heart {
-		color: white;
+		background: white !important;
+		color: $primary-red !important;
 
 		&:hover {
+			background: white !important;
 			color: $primary-red !important;
 		}
+	}
 
-		&-liked {
-			color: $primary-red !important;
-			&:hover {
-				color: white !important;
-			}
+	@media screen and (max-width: 768px) {
+		&--round {
+			padding: 0.765rem !important;
 		}
 	}
 }
