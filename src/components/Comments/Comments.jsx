@@ -23,6 +23,7 @@ const Comments = ({ comments, postId, user }) => {
 					},
 				},
 			})
+			setComment('')
 		}
 	}
 
@@ -40,7 +41,12 @@ const Comments = ({ comments, postId, user }) => {
 							onChange={(e) => setComment(e.target.value)}
 						/>
 
-						<input type="submit" value="Post" onClick={submitComment} />
+						<input
+							type="submit"
+							value="Post"
+							onClick={submitComment}
+							className="btn btn--solid btn--solid-blue"
+						/>
 					</form>
 				</div>
 			)}

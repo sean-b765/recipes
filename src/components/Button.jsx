@@ -1,9 +1,9 @@
 import React from 'react'
 import { MdDeleteForever, MdEdit } from 'react-icons/md'
-import { BsHeartFill } from 'react-icons/bs'
+import { BsHeart, BsHeartFill } from 'react-icons/bs'
 
 const Button = ({ onClick, type }) => {
-	if (!['delete', 'edit', 'like', 'liked'].includes(type))
+	if (!['delete', 'edit', 'like', 'liked', 'report'].includes(type))
 		throw new Error(`Invalid type "${type}" in Button.jsx`)
 
 	let cName = 'btn btn--round '
@@ -23,6 +23,9 @@ const Button = ({ onClick, type }) => {
 			cName += 'btn--green btn--heart'
 			ariaLabel = 'Like post'
 		}
+	} else if (type === 'report') {
+		cName += 'btn--report btn--red'
+		ariaLabel = 'Report post'
 	}
 
 	return (
@@ -34,7 +37,9 @@ const Button = ({ onClick, type }) => {
 		>
 			{type === 'delete' && <MdDeleteForever />}
 			{type === 'edit' && <MdEdit />}
-			{(type === 'like' || type === 'liked') && <BsHeartFill />}
+			{type === 'liked' && <BsHeartFill />}
+			{type === 'like' && <BsHeart />}
+			{type === 'report' && <></>}
 		</button>
 	)
 }
