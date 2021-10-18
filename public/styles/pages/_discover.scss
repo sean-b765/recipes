@@ -8,16 +8,63 @@
 		padding: 2rem 1rem;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
+		flex-direction: column;
 
 		h1 {
 			color: $primary-blue-dark;
 			font-weight: 400;
 			text-align: center;
+			margin-bottom: 2rem;
 
 			span {
 				font-family: 'Ubuntu mono', monospace;
 				font-size: 1.25em;
+			}
+		}
+
+		&__search {
+			// Search box
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 1rem;
+			max-width: 400px;
+
+			input {
+				width: 100%;
+				border: none;
+
+				&[type='text'] {
+					background: rgba(0, 0, 0, 0.082);
+					height: 40px;
+					padding: 5px 10px;
+				}
+			}
+
+			label {
+				background: rgba(0, 0, 0, 0.103);
+				position: absolute;
+				right: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+				&:hover {
+					background: rgba(0, 0, 0, 0.205);
+				}
+
+				input {
+					cursor: pointer;
+					height: 40px;
+					width: 40px;
+					background: url('../images/search.svg');
+					background-position: center;
+					background-size: 20px 20px;
+					background-repeat: no-repeat;
+				}
 			}
 		}
 	}

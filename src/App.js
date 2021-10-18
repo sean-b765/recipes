@@ -3,7 +3,6 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home/Home'
 import Discover from './pages/Discover/Discover'
 import Auth from './pages/Auth/Auth'
-import Search from './pages/Search/Search'
 import Profile from './pages/Profile/Profile'
 import Recipe from './pages/Recipe/Recipe'
 import Create from './pages/Create/Create'
@@ -36,9 +35,6 @@ function App() {
 						</Route>
 						<Route path="/discover" exact>
 							<Discover />
-						</Route>
-						<Route path="/search" exact>
-							<Search />
 						</Route>
 						<Route path="/post" exact>
 							<Create />
