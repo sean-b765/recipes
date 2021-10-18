@@ -154,7 +154,13 @@ const Profile = ({ id }) => {
 		<>
 			<Modal closeModal={closeModal} modal={modal} />
 
-			<motion.section className="profile">
+			<motion.section
+				className="profile"
+				transition={{ duration: 0.25 }}
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+			>
 				{profile && me ? (
 					<div className="profile__card">
 						<header className="profile__card__header">

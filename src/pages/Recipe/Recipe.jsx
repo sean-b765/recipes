@@ -30,15 +30,21 @@ const Recipe = ({ id }) => {
 			.catch((err) => console.log(err))
 	}, [])
 
-	console.log(post)
+	console.log(post?.user?._id === user?._id)
 
 	return (
-		<motion.section className="fullrecipe">
+		<motion.section
+			className="fullrecipe"
+			transition={{ duration: 0.25 }}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+		>
 			{post ? (
 				<>
 					<TopMostLogger show={showLog} title={logTitle} message={logMessage} />
 
-					{post.user === user?._id && (
+					{post?.user?._id === user?._id && (
 						<div className="fullrecipe__editarea">
 							<Button
 								type="delete"
@@ -137,7 +143,7 @@ const Recipe = ({ id }) => {
 					{
 						<section className="fullrecipe__interactions">
 							{/* Show likes of post if you are the owner */}
-							{user?._id && post.user === user?._id && (
+							{user?._id && post?.user?._id === user?._id && (
 								<div className="fullrecipe__interactions__stats">
 									<span className="likes">
 										<BsHeartFill />
@@ -149,7 +155,7 @@ const Recipe = ({ id }) => {
 								Only show like/report buttons if logged in, 
 								and if post is not your own
 							 */}
-							{user?._id && post.user !== user?._id && (
+							{user?._id && post?.user?._id !== user?._id && (
 								<div className="fullrecipe__interactions__controls">
 									<div>
 										<Button
