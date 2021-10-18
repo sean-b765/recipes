@@ -7,6 +7,10 @@
 	background-size: cover;
 	background-attachment: fixed;
 
+	p {
+		color: white;
+	}
+
 	&__login,
 	&__signup {
 		flex: 2;
@@ -20,7 +24,7 @@
 
 	&__container {
 		position: relative;
-		padding: 3rem 1rem 1rem 1rem;
+		padding: 3rem 2rem 1rem 2rem;
 		background: $blue-gradient;
 		max-width: 100%;
 		border-radius: 10px;

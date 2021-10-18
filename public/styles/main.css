@@ -665,6 +665,22 @@
   margin: 2px 2px 9px 2px;
 }
 
+.custom_input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.664);
+}
+
+.custom_input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.664);
+}
+
+.custom_input::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.664);
+}
+
+.custom_input::placeholder {
+  color: rgba(255, 255, 255, 0.664);
+}
+
 .custom_input--underline {
   background: none;
   border-bottom: 1px solid white;
@@ -1360,6 +1376,10 @@
   background-attachment: fixed;
 }
 
+.auth p {
+  color: white;
+}
+
 .auth__login, .auth__signup {
   -webkit-box-flex: 2;
       -ms-flex: 2;
@@ -1380,7 +1400,7 @@
 
 .auth__container {
   position: relative;
-  padding: 3rem 1rem 1rem 1rem;
+  padding: 3rem 2rem 1rem 2rem;
   background: linear-gradient(154.85deg, #4549b5 19.73%, #2f327a 97.33%);
   max-width: 100%;
   border-radius: 10px;
