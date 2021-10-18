@@ -19,6 +19,9 @@
 
 			.custom_input {
 				flex: 6;
+				&::placeholder {
+					color: rgba(0, 0, 0, 0.705) !important;
+				}
 			}
 			input[type='submit'] {
 				flex: 1;

@@ -33,8 +33,7 @@ const Comments = ({ comments, postId, user }) => {
 				<div className="comments__field">
 					<form onSubmit={(e) => e.preventDefault()}>
 						<textarea
-							placeholder="Type a comment..."
-							aria-placeholder="Type a comment..."
+							placeholder="Add a comment..."
 							className="custom_input custom_input--comment-field"
 							name="comment"
 							value={comment}

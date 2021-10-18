@@ -171,6 +171,7 @@
 	}
 
 	&__interactions {
+		margin: 0.7rem 0 1rem 0;
 		width: 100% !important;
 		max-width: 800px;
 
@@ -192,12 +193,13 @@
 		&__stats {
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-start;
 
 			.likes {
 				display: flex;
 				align-items: center;
 				justify-content: center;
+
 				svg {
 					margin-right: 0.5rem;
 					color: $primary-red;

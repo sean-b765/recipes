@@ -121,21 +121,6 @@ const Recipe = ({ id }) => {
 							/>
 						</Link>
 					</header>
-					<ul className="fullrecipe__tags">
-						{post.tags.map((tag, index) => (
-							<li key={index}>
-								<Link to="">#{tag}</Link>
-							</li>
-						))}
-					</ul>
-					<Markdown
-						className="fullrecipe__info"
-						content={placeImageInContent(post.content, post.images)}
-					/>
-					<Markdown
-						className="fullrecipe__method"
-						content={placeImageInContent(post.method, post.images)}
-					/>
 
 					{/* 
 						Interact with post (like, comment, report)
@@ -155,12 +140,25 @@ const Recipe = ({ id }) => {
 								Only show like/report buttons if logged in, 
 								and if post is not your own
 							 */}
-							{user?._id && post?.user?._id !== user?._id && (
+							{post?.user?._id !== user?._id && (
 								<div className="fullrecipe__interactions__controls">
 									<div>
 										<Button
 											onClick={async () => {
 												const result = await likePost(post._id)
+												// there was an error liking post; likely because of unverified email
+												if (result.error) {
+													setLogTitle('Error')
+													setLogMessage(result.error)
+													setShowLog(true)
+													setTimeout(() => {
+														setShowLog(false)
+													}, 2000)
+
+													return
+												}
+
+												// all good, add/remove the like to redux store
 												if (result.result !== 0) {
 													dispatch({
 														type: 'POST/LIKE_SINGLE',
@@ -180,14 +178,30 @@ const Recipe = ({ id }) => {
 									{/* <div></div> */}
 								</div>
 							)}
-
-							<Comments
-								comments={post.comments}
-								postId={post._id}
-								user={user || null}
-							/>
 						</section>
 					}
+
+					<ul className="fullrecipe__tags">
+						{post.tags.map((tag, index) => (
+							<li key={index}>
+								<Link to="">#{tag}</Link>
+							</li>
+						))}
+					</ul>
+					<Markdown
+						className="fullrecipe__info"
+						content={placeImageInContent(post.content, post.images)}
+					/>
+					<Markdown
+						className="fullrecipe__method"
+						content={placeImageInContent(post.method, post.images)}
+					/>
+
+					<Comments
+						comments={post.comments}
+						postId={post._id}
+						user={user || null}
+					/>
 				</>
 			) : (
 				<Spinner />

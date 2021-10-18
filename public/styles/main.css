@@ -734,7 +734,7 @@
 }
 
 .logger {
-  position: absolute;
+  position: fixed;
   background: #2f327a;
   padding: 1rem;
   display: -webkit-box;
@@ -811,6 +811,12 @@
 
 .logger--alert .logger__title {
   color: #3fe039 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .logger {
+    max-width: calc(90vw) !important;
+  }
 }
 
 .modal {
@@ -983,6 +989,22 @@
   -webkit-box-flex: 6;
       -ms-flex: 6;
           flex: 6;
+}
+
+.comments__field form .custom_input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.705) !important;
+}
+
+.comments__field form .custom_input:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.705) !important;
+}
+
+.comments__field form .custom_input::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.705) !important;
+}
+
+.comments__field form .custom_input::placeholder {
+  color: rgba(0, 0, 0, 0.705) !important;
 }
 
 .comments__field form input[type='submit'] {
@@ -2617,6 +2639,7 @@
 }
 
 .fullrecipe__interactions {
+  margin: 0.7rem 0 1rem 0;
   width: 100% !important;
   max-width: 800px;
 }
@@ -2643,9 +2666,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .fullrecipe__interactions__stats .likes {
