@@ -4,9 +4,11 @@ import { RiCompassDiscoverFill } from 'react-icons/ri'
 import { BiUserPlus } from 'react-icons/bi'
 import { motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
 	const history = useHistory()
+	const user = useSelector((state) => state.auth.user)
 
 	return (
 		<motion.section
@@ -22,14 +24,16 @@ const Home = () => {
 						<h1>Your favourite recipes,</h1>
 						<p>all in one place.</p>
 					</header>
-					<div className="home__wrapper__landing__split home__wrapper__landing__split--center">
-						<button
-							className="btn btn--large"
-							onClick={() => history.push('/signup')}
-						>
-							Get Started
-						</button>
-					</div>
+					{!user?._id && (
+						<div className="home__wrapper__landing__split home__wrapper__landing__split--center">
+							<button
+								className="btn btn--large"
+								onClick={() => history.push('/signup')}
+							>
+								Get Started
+							</button>
+						</div>
+					)}
 				</div>
 
 				<section className="home__wrapper__showcase">
