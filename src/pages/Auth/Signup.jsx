@@ -91,6 +91,8 @@ const Signup = ({ handleSignUp }) => {
 					<input type="submit" className="btn btn--pill" value="Sign up" />
 				</form>
 
+				<p>Or...</p>
+
 				<ThirdPartyAuth
 					onSuccessGoogle={(e) => {
 						const { tokenId, profileObj } = e

@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import Login from './Login'
 import Signup from './Signup'
 import TopMostLogger from '../../components/TopMostLogger'
 import { signIn, signUp } from '../../_actions/auth'
 
 const Auth = () => {
+	const history = useHistory()
 	const location = useLocation()
 	const dispatch = useDispatch()
 
@@ -61,8 +62,10 @@ const Auth = () => {
 
 		const res = await signIn(body)
 
-		if (!res.error) dispatch({ payload: res, type: 'AUTH/SIGN_IN' })
-		else showDialog('Error', res.error)
+		if (!res.error) {
+			dispatch({ payload: res, type: 'AUTH/SIGN_IN' })
+			history.push('/discover')
+		} else showDialog('Error', res.error)
 	}
 
 	return (
