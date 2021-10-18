@@ -7,7 +7,7 @@ export const signIn = async (body) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -18,7 +18,7 @@ export const signUp = async (body) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -29,7 +29,7 @@ export const googleSignin = async (body) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }

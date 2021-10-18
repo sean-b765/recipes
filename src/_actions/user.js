@@ -14,7 +14,7 @@ export const getUser = async (userId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -25,7 +25,7 @@ export const followUser = async (targetId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -35,7 +35,7 @@ export const unfollowUser = async (targetId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -46,7 +46,7 @@ export const blockUser = async (targetId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -57,7 +57,7 @@ export const unblockUser = async (targetId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -68,7 +68,7 @@ export const getFollowers = async (userId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
@@ -79,7 +79,7 @@ export const getFollowing = async (userId) => {
 		return data
 	} catch (err) {
 		return {
-			error: err?.response?.data?.message,
+			error: err?.response?.data?.message || err?.response?.data?.error,
 		}
 	}
 }
