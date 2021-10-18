@@ -82,26 +82,56 @@
 	&__header {
 		position: relative;
 		width: 100%;
-		text-align: center;
 		margin-bottom: 2rem;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 
-		> h1 {
-			font-size: 1.7rem;
-			margin-bottom: 1rem;
-			text-align: start;
+		&__user {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			flex: 1;
+			font-family: 'Overpass', sans-serif;
+			font-weight: 600;
 			color: $primary-blue-dark;
+
+			p {
+				margin: 0 0.4rem;
+				&.user-score {
+					opacity: 0.6;
+				}
+			}
+
+			img {
+				$max-img: 3rem;
+				width: $max-img;
+				height: $max-img;
+				max-width: $max-img;
+				max-height: $max-img;
+				border-radius: 50%;
+				margin-left: 0.7rem;
+			}
 		}
 
 		&__info {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			gap: 1rem;
+			flex: 1;
+
+			h1 {
+				font-size: 1.7rem;
+				margin-bottom: 1rem;
+				text-align: start;
+				color: $primary-blue-dark;
+				grid-row: 1;
+				grid-column: 1/-1;
+			}
 
 			> span {
+				grid-row: 2;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -144,6 +174,7 @@
 		width: 100% !important;
 		max-width: 800px;
 
+		// controls for post viewer
 		&__controls {
 			> div {
 				display: flex;
@@ -156,11 +187,41 @@
 				}
 			}
 		}
+
+		// stats for post owner
+		&__stats {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.likes {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				svg {
+					margin-right: 0.5rem;
+					color: $primary-red;
+				}
+			}
+		}
 	}
 
 	@media screen and (max-width: 768px) {
 		width: 100%;
-		padding: 7rem 1rem;
+		padding: 8rem 1rem 5rem 1rem;
+
+		&__header {
+			flex-direction: column-reverse;
+			align-items: center;
+			justify-content: center;
+
+			&__info {
+				margin-top: 1.5rem;
+				h1 {
+					text-align: center;
+				}
+			}
+		}
 
 		&__tags,
 		&__ingredients {

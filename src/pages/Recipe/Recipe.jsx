@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Markdown from '../../components/Markdown'
 import Spinner from '../../components/Spinner'
 import { deletePost, getPostByFriendlyId, likePost } from '../../_actions/post'
-import { placeImageInContent } from '../../util/util'
+import { formatLargeNumber, placeImageInContent } from '../../util/util'
 import { Link, useHistory } from 'react-router-dom'
 import Button from '../../components/Button'
 import TopMostLogger from '../../components/TopMostLogger'
 import Comments from '../../components/Comments/Comments'
+import { BsHeartFill } from 'react-icons/bs'
 
 const Recipe = ({ id }) => {
 	const dispatch = useDispatch()
@@ -21,17 +22,6 @@ const Recipe = ({ id }) => {
 	const [logTitle, setLogTitle] = useState('')
 	const [logMessage, setLogMessage] = useState('')
 
-	const formatLikeNumber = (num) => {
-		if (num > 1_000_000)
-			return `${parseFloat(Number(num / 1000000).toFixed(1))}M`
-		else if (num > 100_000)
-			return `${parseFloat(Number(num / 1000).toFixed(1))}K`
-		else if (num > 10_000)
-			return `${parseFloat(Number(num / 1000).toFixed(1))}K`
-		else if (num > 1_000) return `${parseFloat(Number(num / 1000).toFixed(1))}K`
-		else return `${num}`
-	}
-
 	useEffect(() => {
 		getPostByFriendlyId(id)
 			.then((response) => {
@@ -39,6 +29,8 @@ const Recipe = ({ id }) => {
 			})
 			.catch((err) => console.log(err))
 	}, [])
+
+	console.log(post)
 
 	return (
 		<motion.section className="fullrecipe">
@@ -90,8 +82,8 @@ const Recipe = ({ id }) => {
 					)}
 
 					<header className="fullrecipe__header">
-						<h1>{post.title}</h1>
 						<div className="fullrecipe__header__info">
+							<h1>{post.title}</h1>
 							{post.serves && (
 								<span>
 									<span>{post.serves}</span> Serves
@@ -110,6 +102,18 @@ const Recipe = ({ id }) => {
 								</span>
 							)}
 						</div>
+
+						<Link
+							to={`/profiles/${post?.user?._id}`}
+							className="fullrecipe__header__user"
+						>
+							<p className="user-username">{post?.user?.username}</p>
+							<p className="user-score">{post?.user?.score}</p>
+							<img
+								src={post?.user?.imageUrl}
+								alt={`${post?.user?.username}'s avatar`}
+							/>
+						</Link>
 					</header>
 					<ul className="fullrecipe__tags">
 						{post.tags.map((tag, index) => (
@@ -132,6 +136,15 @@ const Recipe = ({ id }) => {
 					 */}
 					{
 						<section className="fullrecipe__interactions">
+							{/* Show likes of post if you are the owner */}
+							{user?._id && post.user === user?._id && (
+								<div className="fullrecipe__interactions__stats">
+									<span className="likes">
+										<BsHeartFill />
+										{formatLargeNumber(post?.likes?.length)} likes
+									</span>
+								</div>
+							)}
 							{/*
 								Only show like/report buttons if logged in, 
 								and if post is not your own
@@ -156,9 +169,9 @@ const Recipe = ({ id }) => {
 											}}
 											type={post.likes.includes(user?._id) ? 'liked' : 'like'}
 										/>
-										<p>{formatLikeNumber(post?.likes?.length)}</p>
+										<p>{formatLargeNumber(post?.likes?.length)}</p>
 									</div>
-									<div></div>
+									{/* <div></div> */}
 								</div>
 							)}
 

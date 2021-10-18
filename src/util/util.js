@@ -33,6 +33,7 @@ export const placeImageInContent = (content, images) => {
 	const imgNames = images.map((img) => img.name)
 
 	let value
+	// loop through all ![...] occurences
 	while (!(value = result.next()).done) {
 		const imgName = value.value[0].substring(2, value.value[0].length - 1)
 		if (!imgNames.includes(imgName)) {
@@ -40,15 +41,26 @@ export const placeImageInContent = (content, images) => {
 			continue
 		}
 
+		// find the image
 		const img = images.find((image, idx) => image.name === imgName)
 
+		// replace the string occurence with ![...](image base64 string)
 		contentString = contentString.replace(
 			value.value[0],
 			`\n![${imgName}](${img.base64})`
 		)
 	}
 
+	// sanitize the content string to avoid any malicious tags e.g. <script>
 	contentString = DOMPurify.sanitize(contentString)
 
 	return contentString
+}
+
+export const formatLargeNumber = (num) => {
+	if (num > 1_000_000) return `${parseFloat(Number(num / 1000000).toFixed(1))}M`
+	else if (num > 100_000) return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+	else if (num > 10_000) return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+	else if (num > 1_000) return `${parseFloat(Number(num / 1000).toFixed(1))}K`
+	else return `${num}`
 }

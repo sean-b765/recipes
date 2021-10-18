@@ -452,9 +452,9 @@ class Create extends Component {
 						</label>
 
 						<label htmlFor="upload" className="label label--upload">
-							<p className="btn btn--pill btn--solid-blue">
+							<button className="btn btn--pill btn--solid-blue">
 								<FiUpload style={{ margin: '0 10px 0 0' }} /> Upload
-							</p>
+							</button>
 							<input
 								type="file"
 								multiple

@@ -41,8 +41,7 @@ const Home = () => {
 						<article>
 							<p>
 								Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-								Voluptatibus ratione facilis dolorum cupiditate rem enim non
-								perferendis laborum quibusdam consequuntur?
+								Voluptatibus ratione facilis dolorum cupiditate rem enim non?
 							</p>
 						</article>
 					</div>
@@ -67,8 +66,7 @@ const Home = () => {
 							<article>
 								<p>
 									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-									Atque placeat rerum error consectetur minus nulla ad,
-									necessitatibus rem et.
+									Atque placeat rerum error consectetur minus nulla ad.
 								</p>
 							</article>
 						</div>

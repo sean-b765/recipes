@@ -97,9 +97,17 @@
 				justify-content: center;
 				flex-direction: row;
 
+				* {
+					font-family: 'Overpass', sans-serif;
+				}
+
 				h1 {
-					margin: 0 10px;
+					margin: 0 1rem;
 					font-family: 'Ubuntu mono', monospace;
+				}
+
+				.score {
+					margin: 0 0.8rem;
 				}
 
 				&__stats {
@@ -109,7 +117,6 @@
 					button {
 						color: white;
 						font-size: 1rem;
-						font-family: 'Overpass', sans-serif;
 						margin: 0 10px;
 						cursor: pointer;
 					}
@@ -151,6 +158,11 @@
 
 					&__stats {
 						display: flex;
+						flex-wrap: wrap;
+
+						button {
+							margin: 0;
+						}
 
 						p {
 							text-align: center;

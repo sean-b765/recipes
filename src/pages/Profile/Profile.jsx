@@ -22,6 +22,7 @@ import {
 } from '../../_actions/user'
 import Modal from './Modal'
 import { useState } from 'react'
+import { formatLargeNumber } from '../../util/util'
 
 const Profile = ({ id }) => {
 	// get the profile via id on mount (useEffect)
@@ -169,10 +170,8 @@ const Profile = ({ id }) => {
 							</div>
 							<div className="profile__card__header__details">
 								<h1>{profile.username}</h1>
+								<span className="score">{profile?.score} Score</span>
 								<div className="profile__card__header__details__stats">
-									<button className="btn btn--no-bg" aria-label="User Score">
-										{profile?.score} Score
-									</button>
 									<button
 										aria-label={
 											profile?.followers?.length === 0
@@ -182,7 +181,7 @@ const Profile = ({ id }) => {
 										className="btn btn--no-bg"
 										onClick={() => showFollowers()}
 									>
-										{profile?.followers?.length} Followers
+										{formatLargeNumber(profile?.followers?.length)} Followers
 									</button>
 									<button
 										className="btn btn--no-bg"
@@ -193,7 +192,7 @@ const Profile = ({ id }) => {
 												: `View ${profile.following.length} following`
 										}
 									>
-										{profile.following.length} Following
+										{formatLargeNumber(profile.following.length)} Following
 									</button>
 								</div>
 							</div>

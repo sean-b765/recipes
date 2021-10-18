@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Item = ({ object }) => {
-	console.log(object)
 	return (
 		<div className="recipe">
 			<div
