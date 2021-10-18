@@ -15,12 +15,17 @@ const Discover = () => {
 		period: 'alltime',
 		page: 0,
 		skip: 0,
+		query: '',
 	})
 
 	const posts = useSelector((state) => state.post.all)
 
 	useEffect(() => {
-		getDiscover(formatFilters(filters)).then((res) => {
+		getDiscover(
+			filters.query
+				? formatFilters(filters, filters.query)
+				: formatFilters(filters)
+		).then((res) => {
 			dispatch({
 				type: 'POST/SET_ALL',
 				payload: res.result,
@@ -31,7 +36,9 @@ const Discover = () => {
 	const handleSetFilters = (value) => {
 		setFilters(value)
 
-		getDiscover(formatFilters(value)).then((res) => {
+		console.log(value)
+
+		getDiscover(formatFilters(value, filters.query)).then((res) => {
 			dispatch({
 				type: 'POST/SET_ALL',
 				payload: res.result,
@@ -51,7 +58,11 @@ const Discover = () => {
 				<h1 data-aos="zoom-out">
 					<span>discover</span> a taste
 				</h1>
-				<Filters filters={filters} setFilters={handleSetFilters} />
+				<Filters
+					filters={filters}
+					setFilters={handleSetFilters}
+					setFilterState={setFilters}
+				/>
 			</header>
 			<section className="discover__grid">
 				{posts && posts.map((post, idx) => <Item key={idx} object={post} />)}
