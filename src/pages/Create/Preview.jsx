@@ -8,8 +8,8 @@ const Preview = ({ state }) => {
 	return (
 		<section className="fullrecipe">
 			<header className="fullrecipe__header">
-				<h1>{state?.formData?.title}</h1>
 				<div className="fullrecipe__header__info">
+					<h1>{state?.formData?.title}</h1>
 					{state?.formData?.serves && (
 						<span>
 							<span>{state?.formData?.serves}</span> Serves
