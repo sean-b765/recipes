@@ -6,13 +6,14 @@ import {
 	AiOutlineEye,
 	AiOutlineEyeInvisible,
 } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { googleSignin } from '../../_actions/auth'
 import ThirdPartyAuth from './ThirdPartyAuth'
 import { useDispatch } from 'react-redux'
 
 const Signup = ({ handleSignUp }) => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	const [showPass, setShowPass] = useState(false)
 	const [formData, setFormData] = useState({
@@ -109,6 +110,8 @@ const Signup = ({ handleSignUp }) => {
 									type: 'AUTH/SIGN_IN',
 									payload: { ...res },
 								})
+
+								history.push('/discover')
 							})
 							.catch((err) => {
 								console.log(err)
