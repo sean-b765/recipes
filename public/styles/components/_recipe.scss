@@ -21,12 +21,18 @@
 
 		.avatar {
 			position: relative;
-			width: 50px;
-			min-width: 50px;
-			height: 50px;
-			min-height: 50px;
+			$avatar-box: 2.8rem;
+			width: $avatar-box;
+			min-width: $avatar-box;
+			height: $avatar-box;
+			min-height: $avatar-box;
 			border-radius: 50%;
 			overflow: hidden;
+
+			a {
+				margin: 0 !important;
+				opacity: 1 !important;
+			}
 
 			img {
 				min-width: 100%;
@@ -50,17 +56,26 @@
 			}
 		}
 
-		a {
+		a,
+		p {
+			display: flex;
+			align-items: center;
 			text-align: start;
 			position: relative;
 			font-family: 'Overpass', sans-serif;
-			opacity: 0.35;
+			opacity: 0.575;
 			font-size: 0.9rem;
 			letter-spacing: 1px;
-			font-style: italic;
 			margin-left: 5px;
+			margin-top: 0.3rem;
 			transition: opacity 0.5s cubic-bezier(0.86, 0, 0.07, 1);
 			color: white;
+
+			> svg {
+				margin-right: 0.4rem;
+				font-size: 0.75rem;
+				color: $primary-red;
+			}
 		}
 	}
 
@@ -83,13 +98,32 @@
 			height: 100%;
 			display: flex;
 			align-items: flex-end;
-			justify-content: center;
+			justify-content: flex-start;
 
-			.recipe__content {
-				padding-bottom: 1rem;
+			div {
+				padding: 1rem;
+				width: 100%;
+				color: white;
+				background: linear-gradient(
+					180deg,
+					rgba(0, 0, 0, 0) 0%,
+					rgba(0, 0, 0, 0.438) 25%,
+					rgba(0, 0, 0, 0.78) 50%,
+					rgba(0, 0, 0, 0.972) 75%,
+					rgba(0, 0, 0, 1) 100%
+				);
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				justify-content: flex-start;
+
+				p {
+					font-family: 'Ubuntu Mono', monospace;
+					margin-right: 0.5rem;
+				}
+
+				svg {
+					margin-right: 0.3rem;
+				}
 			}
 		}
 	}
@@ -108,7 +142,8 @@
 	@media screen and (min-width: 768px) {
 		&:hover {
 			header {
-				a {
+				a,
+				p {
 					opacity: 1;
 				}
 			}
