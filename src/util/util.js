@@ -16,9 +16,13 @@ export const bufferToBase64 = (buffer) => {
  * @returns {String}
  */
 export const formatFilters = (filters, search = '') =>
-	`?sort=${filters.sort}&period=${filters.period}&page=${filters.page}&skip=${
-		filters.skip
-	}${search !== '' ? `&terms=${search}` : ''}`
+	`?sort=${filters.sort}&period=${filters.period}&serves=${filters.serves[0]}-${
+		filters.serves[1]
+	}&prepTime=${filters.prepTime[0]}-${filters.prepTime[1]}&cookTime=${
+		filters.cookTime[0]
+	}-${filters.cookTime[1]}&page=${filters.page}&perPage=${filters.perPage}${
+		search !== '' ? `&terms=${search}` : ''
+	}`
 const imagePattern = /(![\[][\w\d-_]{0,})[\]]/g
 
 /**
