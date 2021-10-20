@@ -1,41 +1,68 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { CgBowl } from 'react-icons/cg'
+import { BsHeartFill } from 'react-icons/bs'
+import { BiTimeFive } from 'react-icons/bi'
+import { formatLargeNumber } from '../../util/util'
 
-const Item = ({ object }) => {
+const Item = ({ object: recipe, delay }) => {
 	return (
-		<div className="recipe">
+		<div
+			className="recipe"
+			data-aos="zoom-in"
+			data-aos-delay={delay * 100}
+			data-aos-once="true"
+			data-aos-anchor-placement="bottom"
+		>
 			<div
 				className="recipe__bg"
 				style={{
 					backgroundImage: `url("${
-						object?.images[0]?.base64 ? object?.images[0]?.base64 : ''
+						recipe?.images[0]?.base64 ? recipe?.images[0]?.base64 : ''
 					}")`,
 				}}
 			>
-				<div className="recipe__bg__overlay"></div>
+				<div className="recipe__bg__overlay">
+					<div>
+						<p>
+							<CgBowl />
+							{recipe?.serves}
+						</p>
+						<p>
+							<BiTimeFive />
+							{`${recipe?.cookTime}m`}
+						</p>
+						<p>
+							<BiTimeFive />
+							{`${recipe?.prepTime}m`}
+						</p>
+					</div>
+				</div>
 			</div>
 
-			{object.user && (
+			{recipe.user && (
 				<header>
 					<div>
 						<h2>
-							<Link to={`/recipe/${object.userFriendlyId}`}>
-								{object.title}
+							<Link to={`/recipe/${recipe.userFriendlyId}`}>
+								{recipe.title}
 							</Link>
 						</h2>
-						<Link
-							to={`/profiles/${object.user._id}`}
-						>{`by ${object.user.username}`}</Link>
+						<p>
+							<BsHeartFill /> {formatLargeNumber(recipe?.likes?.length)}
+						</p>
 					</div>
 					<div className="avatar">
-						<img
-							src={
-								object.user.imageUrl
-									? object.user.imageUrl
-									: '/images/default-avatar.png'
-							}
-							alt={`Portrait of ${object.user.username}`}
-						/>
+						<Link to={`profiles/${recipe?.user?._id}`}>
+							<img
+								src={
+									recipe.user.imageUrl
+										? recipe.user.imageUrl
+										: '/images/default-avatar.png'
+								}
+								alt={`${recipe.user.username}'s avatar'`}
+							/>
+						</Link>
 					</div>
 				</header>
 			)}
@@ -44,7 +71,7 @@ const Item = ({ object }) => {
 				className="recipe__preview"
 				style={{
 					backgroundImage: `url(${
-						object?.images[0]?.base64 ? object?.images[0]?.base64 : ''
+						recipe?.images[0]?.base64 ? recipe?.images[0]?.base64 : ''
 					})`,
 				}}
 			></div>
