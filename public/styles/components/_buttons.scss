@@ -71,6 +71,18 @@
 		background: none;
 	}
 
+	&--page {
+		font-family: 'Ubunto Mono', monospace;
+		color: $primary-blue-dark;
+		opacity: 0.85;
+		font-weight: 400;
+
+		&-selected {
+			font-weight: 700;
+			opacity: 1;
+		}
+	}
+
 	&--red {
 		background: $primary-red !important;
 		color: white !important;

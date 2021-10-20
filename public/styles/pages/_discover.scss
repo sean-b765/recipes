@@ -76,6 +76,15 @@
 	}
 
 	&__pagination {
+		padding: 3rem 0 0 0;
+
+		&__pages {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		&__perPage {
+		}
 	}
 
 	@media screen and (min-width: 768px) {
