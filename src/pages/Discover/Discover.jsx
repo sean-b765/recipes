@@ -6,6 +6,7 @@ import { getDiscover } from '../../_actions/post'
 import Filters from '../../components/Filters'
 import { formatFilters } from '../../util/util'
 import Item from '../../components/RecipeCard/Item'
+import Pages from './Pages'
 
 const Discover = () => {
 	const dispatch = useDispatch()
@@ -13,8 +14,11 @@ const Discover = () => {
 	const [filters, setFilters] = useState({
 		sort: 'rating',
 		period: 'alltime',
+		serves: [1, 12],
+		prepTime: [1, 120],
+		cookTime: [1, 240],
 		page: 0,
-		skip: 0,
+		perPage: 25,
 		query: '',
 	})
 
@@ -65,9 +69,31 @@ const Discover = () => {
 				/>
 			</header>
 			<section className="discover__grid">
-				{posts && posts.map((post, idx) => <Item key={idx} object={post} />)}
+				{posts &&
+					posts.map((post, idx) => (
+						<Item delay={idx} key={idx} object={post} />
+					))}
 			</section>
-			<footer className="discover__pagination"></footer>
+			<footer className="discover__pagination">
+				<div className="discover__pagination__pages">
+					<Pages setFilters={setFilters} filters={filters} />
+				</div>
+				<div className="discover__pagination__perPage">
+					<form onSubmit={(e) => e.preventDefault()}>
+						<select
+							name="perPage"
+							aria-label="Amount of items per page"
+							onChange={(e) =>
+								setFilters({ ...filters, perPage: Number(e.target.value) })
+							}
+						>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+					</form>
+				</div>
+			</footer>
 		</motion.section>
 	)
 }
