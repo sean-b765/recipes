@@ -36,6 +36,9 @@ export const apiDeactivateUser = (userId) =>
 export const apiReactivateUser = (userId) =>
 	API.patch(`/user/${userId}/reactivate`)
 
+// user posts
+export const apiGetPostsFromUser = (userId) => API.get(`/user/${userId}/posts`)
+
 // Password Reset
 export const apiResetPasswordRequest = (userId) =>
 	API.get(`/user/${userId}/reset-password-request`)
@@ -66,3 +69,7 @@ export const apiAddComment = (id, commentString) =>
 export const apiRemoveComment = (commentId) =>
 	API.delete(`/posts/remove-comment/${commentId}`)
 export const apiReportPost = (id) => API.patch(`/posts/report/${id}`)
+
+// get posts from tags
+export const apiGetPostsWithTags = (filters) =>
+	API.get(`/posts/tags/${filters}`)

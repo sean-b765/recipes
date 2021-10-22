@@ -3,6 +3,7 @@ import {
 	apiFollowUser,
 	apiGetFollowers,
 	apiGetFollowing,
+	apiGetPostsFromUser,
 	apiGetUser,
 	apiUnblockUser,
 	apiUnfollowUser,
@@ -76,6 +77,17 @@ export const getFollowers = async (userId) => {
 export const getFollowing = async (userId) => {
 	try {
 		const { data } = await apiGetFollowing(userId)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const getUserPosts = async (userId) => {
+	try {
+		const { data } = await apiGetPostsFromUser(userId)
 		return data
 	} catch (err) {
 		return {

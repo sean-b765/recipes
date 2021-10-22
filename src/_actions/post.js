@@ -5,11 +5,23 @@ import {
 	apiEditPost,
 	apiGetDiscover,
 	apiGetPost,
+	apiGetPostsWithTags,
 	apiLikePost,
 	apiRemoveComment,
 	apiReportPost,
 	apiSearch,
 } from '../_api'
+
+export const getPostsWithTags = async (filters) => {
+	try {
+		const { data } = await apiGetPostsWithTags(filters)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
 
 export const getDiscover = async (filters) => {
 	try {
