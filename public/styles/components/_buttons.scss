@@ -73,9 +73,13 @@
 
 	&--page {
 		font-family: 'Ubunto Mono', monospace;
+		min-width: 2.5rem;
+		padding: 0.6rem;
+		margin: 0.2rem;
 		color: $primary-blue-dark;
 		opacity: 0.85;
 		font-weight: 400;
+		font-size: 1.2rem;
 
 		&-selected {
 			font-weight: 700;

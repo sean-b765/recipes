@@ -82,9 +82,13 @@
 
 .btn--page {
   font-family: 'Ubunto Mono', monospace;
+  min-width: 2.5rem;
+  padding: 0.6rem;
+  margin: 0.2rem;
   color: #2f327a;
   opacity: 0.85;
   font-weight: 400;
+  font-size: 1.2rem;
 }
 
 .btn--page-selected {
@@ -766,11 +770,28 @@
   font-family: 'Overpass', sans-serif;
 }
 
-.filters > * select {
+.filters__perPage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.filters > * p, .filters__perPage p {
+  font-family: 'Overpass', sans-serif;
+  font-style: italic;
+}
+
+.filters > * select, .filters__perPage select {
   font-style: italic;
   background: #e6e6e6;
   margin: 0 4px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: 'Overpass', sans-serif;
   border-radius: none;
   border: none;
@@ -1376,7 +1397,7 @@
 }
 
 .discover__header__search label {
-  background: rgba(0, 0, 0, 0.103);
+  background: rgba(30, 255, 0, 0.322);
   position: absolute;
   right: 0;
   display: -webkit-box;
@@ -1393,7 +1414,7 @@
 }
 
 .discover__header__search label:hover {
-  background: rgba(0, 0, 0, 0.205);
+  background: rgba(19, 167, 0, 0.5);
 }
 
 .discover__header__search label input {
@@ -1416,6 +1437,19 @@
 
 .discover__pagination {
   padding: 3rem 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .discover__pagination__pages {
@@ -1428,6 +1462,61 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.discover__pagination__pages p {
+  font-family: 'Ubuntu Mono', monospace;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.discover__pagination__pages div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.discover__pagination__perPage {
+  margin: 1rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.discover__pagination__perPage label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.discover__pagination__perPage label p {
+  margin: 1rem 0 0.7rem 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -1439,6 +1528,15 @@
 @media screen and (max-width: 768px) {
   .discover {
     padding: 7rem 1rem;
+  }
+  .discover__pagination {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .discover__header {
     -webkit-box-orient: vertical;
@@ -1696,6 +1794,7 @@
 }
 
 .profile {
+  position: relative;
   padding: 7rem 3rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1706,6 +1805,34 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile__activity {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile__activity > div {
+  margin: 1rem;
+  width: 100% !important;
+  max-width: 500px;
 }
 
 .profile__card {

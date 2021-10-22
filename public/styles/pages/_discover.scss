@@ -44,7 +44,7 @@
 			}
 
 			label {
-				background: rgba(0, 0, 0, 0.103);
+				background: rgba(30, 255, 0, 0.322);
 				position: absolute;
 				right: 0;
 				display: flex;
@@ -53,7 +53,7 @@
 				transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 
 				&:hover {
-					background: rgba(0, 0, 0, 0.205);
+					background: rgba(19, 167, 0, 0.5);
 				}
 
 				input {
@@ -77,13 +77,44 @@
 
 	&__pagination {
 		padding: 3rem 0 0 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 
 		&__pages {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			flex-direction: column;
+
+			p {
+				font-family: 'Ubuntu Mono', monospace;
+				letter-spacing: 1px;
+				font-style: italic;
+			}
+
+			div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		}
+
 		&__perPage {
+			margin: 1rem 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			label {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				p {
+					margin: 1rem 0 0.7rem 0;
+				}
+			}
 		}
 	}
 
@@ -95,6 +126,11 @@
 
 	@media screen and (max-width: 768px) {
 		padding: 7rem 1rem;
+
+		&__pagination {
+			flex-direction: column;
+			justify-content: center;
+		}
 
 		&__header {
 			flex-direction: column;

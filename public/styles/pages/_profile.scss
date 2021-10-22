@@ -1,8 +1,25 @@
 .profile {
+	position: relative;
 	padding: 7rem $padding-minimum-inline;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+
+	&__activity {
+		position: relative;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		> div {
+			margin: 1rem;
+			width: 100% !important;
+			max-width: 500px;
+		}
+	}
 
 	&__card {
 		width: 100%;
