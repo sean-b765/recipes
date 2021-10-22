@@ -23,6 +23,8 @@ import {
 import Modal from './Modal'
 import { useState } from 'react'
 import { formatLargeNumber } from '../../util/util'
+import Spinner from '../../components/Spinner'
+import ProfilePosts from './ProfilePosts'
 
 const Profile = ({ id }) => {
 	// get the profile via id on mount (useEffect)
@@ -278,10 +280,12 @@ const Profile = ({ id }) => {
 						</article>
 					</div>
 				) : (
-					<p>Cannot find this user.</p>
+					<Spinner />
 				)}
 
-				<section className="profile__activity"></section>
+				<section className="profile__activity">
+					<ProfilePosts profile={profile} />
+				</section>
 			</motion.section>
 		</>
 	)
