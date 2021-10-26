@@ -2,14 +2,18 @@ import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDiscover } from '../../_actions/post'
+import { getDiscover, getPostsWithTags } from '../../_actions/post'
 import Filters from '../../components/Filters'
 import { formatFilters } from '../../util/util'
 import Item from '../../components/RecipeCard/Item'
 import Pages from './Pages'
+import { useHistory, useLocation } from 'react-router'
+import Tags from '../../components/Tags'
 
 const Discover = () => {
 	const dispatch = useDispatch()
+	const location = useLocation()
+	const history = useHistory()
 
 	const [filters, setFilters] = useState({
 		sort: 'rating',
@@ -17,37 +21,81 @@ const Discover = () => {
 		serves: [1, 12],
 		prepTime: [1, 120],
 		cookTime: [1, 240],
-		page: 0,
+		tags: [],
+		page: 1,
 		perPage: 25,
+		pageCount: 1,
 		query: '',
 	})
 
 	const posts = useSelector((state) => state.post.all)
 
+	// on location change
 	useEffect(() => {
-		getDiscover(
-			filters.query
-				? formatFilters(filters, filters.query)
-				: formatFilters(filters)
-		).then((res) => {
-			dispatch({
-				type: 'POST/SET_ALL',
-				payload: res.result,
+		// get tags from URL
+		let tags = []
+
+		try {
+			tags = location.search.replace('?tags=', '')
+
+			if (tags?.length !== 0) {
+				tags = tags.split(',')
+				filters.tags = tags
+			}
+		} catch (err) {
+			// error - url params are not correct
+		}
+
+		// get with tags
+		if (filters?.tags?.length >= 1) {
+			getPostsWithTags(formatFilters(filters))
+				.then((res) => {
+					setFilters({ ...filters, pageCount: Number(res?.pages || 1) })
+
+					dispatch({
+						type: 'POST/SET_ALL',
+						payload: res.result,
+					})
+				})
+				.catch((err) => {})
+			// get discover page
+		} else {
+			getDiscover(formatFilters(filters, filters.query)).then((res) => {
+				setFilters({ ...filters, pageCount: Number(res.pages) })
+
+				dispatch({
+					type: 'POST/SET_ALL',
+					payload: res.result,
+				})
 			})
-		})
-	}, [])
+		}
+	}, [location])
 
 	const handleSetFilters = (value) => {
 		setFilters(value)
 
-		console.log(value)
+		if (value?.tags?.length !== 0) {
+			// tags
+			getPostsWithTags(formatFilters(value, value.query)).then((res) => {
+				setFilters({ ...value, pageCount: Number(res.pages) || 0 })
 
-		getDiscover(formatFilters(value, filters.query)).then((res) => {
-			dispatch({
-				type: 'POST/SET_ALL',
-				payload: res.result,
+				dispatch({
+					type: 'POST/SET_ALL',
+					payload: res.result,
+				})
 			})
-		})
+		} else {
+			// discover
+
+			getDiscover(formatFilters(value, value.query)).then((res) => {
+				setFilters({ ...value, pageCount: Number(res.pages) || 0 })
+
+				dispatch({
+					type: 'POST/SET_ALL',
+					payload: res.result,
+				})
+			})
+		}
 	}
 
 	return (
@@ -67,6 +115,25 @@ const Discover = () => {
 					setFilters={handleSetFilters}
 					setFilterState={setFilters}
 				/>
+				<Tags
+					filters={filters}
+					setFilters={(val) => {
+						setFilters(val)
+
+						history.push(`/discover?tags=${val?.tags?.join(',')}`)
+					}}
+					onClickTag={(_tag) => {
+						const tags = filters?.tags?.filter((tag) => tag !== _tag)
+
+						setFilters({ ...filters, tags })
+
+						if (tags?.length === 0) {
+							history.push('/discover')
+						} else {
+							history.push(`/discover?tags=${tags.join(',')}`)
+						}
+					}}
+				/>
 			</header>
 			<section className="discover__grid">
 				{posts &&
@@ -76,22 +143,29 @@ const Discover = () => {
 			</section>
 			<footer className="discover__pagination">
 				<div className="discover__pagination__pages">
-					<Pages setFilters={setFilters} filters={filters} />
+					<div>
+						<Pages setFilters={handleSetFilters} filters={filters} />
+					</div>
+					<p>{filters.pageCount} pages total</p>
 				</div>
 				<div className="discover__pagination__perPage">
-					<form onSubmit={(e) => e.preventDefault()}>
+					<label className="filters__perPage">
 						<select
 							name="perPage"
 							aria-label="Amount of items per page"
 							onChange={(e) =>
-								setFilters({ ...filters, perPage: Number(e.target.value) })
+								handleSetFilters({
+									...filters,
+									perPage: Number(e.target.value),
+								})
 							}
 						>
 							<option value="25">25</option>
 							<option value="50">50</option>
 							<option value="100">100</option>
 						</select>
-					</form>
+						<p>Items per page</p>
+					</label>
 				</div>
 			</footer>
 		</motion.section>
