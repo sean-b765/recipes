@@ -13,6 +13,12 @@
 		color: white;
 	}
 
+	&--border {
+		background: none;
+		border: 1px solid $primary-blue-dark;
+		color: rgb(0, 0, 0);
+	}
+
 	&--comment-field {
 		border: 1px solid $primary-blue-dark;
 		background: none;

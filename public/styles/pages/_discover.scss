@@ -37,14 +37,14 @@
 				border: none;
 
 				&[type='text'] {
-					background: rgba(0, 0, 0, 0.082);
+					background: none;
 					height: 40px;
 					padding: 5px 10px;
+					border: 1px solid $primary-blue-dark;
 				}
 			}
 
 			label {
-				background: rgba(30, 255, 0, 0.322);
 				position: absolute;
 				right: 0;
 				display: flex;
@@ -52,18 +52,25 @@
 				justify-content: center;
 				transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 
-				&:hover {
-					background: rgba(19, 167, 0, 0.5);
+				svg {
+					position: absolute !important;
+					color: white !important;
+					font-size: 1.2rem !important;
+					cursor: pointer !important;
+
+					* {
+						cursor: pointer !important;
+					}
 				}
 
 				input {
+					background: $primary-blue-dark;
+					color: white !important;
 					cursor: pointer;
 					height: 40px;
 					width: 40px;
-					background: url('../images/search.svg');
-					background-position: center;
-					background-size: 20px 20px;
-					background-repeat: no-repeat;
+					min-width: 40px;
+					min-height: 40px;
 				}
 			}
 		}

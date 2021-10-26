@@ -736,6 +736,12 @@
   color: white;
 }
 
+.custom_input--border {
+  background: none;
+  border: 1px solid #2f327a;
+  color: black;
+}
+
 .custom_input--comment-field {
   border: 1px solid #2f327a;
   background: none;
@@ -1143,6 +1149,93 @@
   padding-left: 0.5rem;
 }
 
+.discover__header__tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-bottom: 1.5rem;
+}
+
+.discover__header__tags form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.discover__header__tags form input {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  padding: 0.4rem 0.8rem;
+}
+
+.discover__header__tags form input::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.842) !important;
+}
+
+.discover__header__tags form input:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.842) !important;
+}
+
+.discover__header__tags form input::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.842) !important;
+}
+
+.discover__header__tags form input::placeholder {
+  color: rgba(0, 0, 0, 0.842) !important;
+}
+
+.discover__header__tags div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.discover__header__tags div > .btn {
+  position: relative;
+  padding: 0.7rem !important;
+  margin: 0.3rem;
+  text-transform: lowercase;
+}
+
+.discover__header__tags div > .btn::before {
+  opacity: 0.5;
+  content: '#';
+  position: absolute;
+  -webkit-transform: translate(-30%, -50%);
+          transform: translate(-30%, -50%);
+  left: 0;
+  top: 50%;
+}
+
+.discover__header__tags div > .btn::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 2px;
+  background: black;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 1;
+  -webkit-transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.discover__header__tags div > .btn:hover::after {
+  width: 90%;
+}
+
 .home {
   position: relative;
   width: 100%;
@@ -1391,13 +1484,13 @@
 }
 
 .discover__header__search input[type='text'] {
-  background: rgba(0, 0, 0, 0.082);
+  background: none;
   height: 40px;
   padding: 5px 10px;
+  border: 1px solid #2f327a;
 }
 
 .discover__header__search label {
-  background: rgba(30, 255, 0, 0.322);
   position: absolute;
   right: 0;
   display: -webkit-box;
@@ -1413,18 +1506,25 @@
   transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.discover__header__search label:hover {
-  background: rgba(19, 167, 0, 0.5);
+.discover__header__search label svg {
+  position: absolute !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  cursor: pointer !important;
+}
+
+.discover__header__search label svg * {
+  cursor: pointer !important;
 }
 
 .discover__header__search label input {
+  background: #2f327a;
+  color: white !important;
   cursor: pointer;
   height: 40px;
   width: 40px;
-  background: url("../images/search.svg");
-  background-position: center;
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
+  min-width: 40px;
+  min-height: 40px;
 }
 
 .discover__grid {
@@ -2642,17 +2742,18 @@
 }
 
 .fullrecipe__editarea {
+  max-width: 1000px;
   width: 100%;
-  padding: 0 1rem 1.5rem 1rem;
+  padding: 0 1rem 1.5rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .fullrecipe__editarea > .btn {
@@ -2709,6 +2810,7 @@
 }
 
 .fullrecipe__header {
+  max-width: 1000px;
   position: relative;
   width: 100%;
   margin-bottom: 2rem;
