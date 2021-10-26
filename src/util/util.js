@@ -15,14 +15,27 @@ export const bufferToBase64 = (buffer) => {
  * @param {Object} filters
  * @returns {String}
  */
-export const formatFilters = (filters, search = '') =>
-	`?sort=${filters.sort}&period=${filters.period}&serves=${filters.serves[0]}-${
-		filters.serves[1]
-	}&prepTime=${filters.prepTime[0]}-${filters.prepTime[1]}&cookTime=${
-		filters.cookTime[0]
-	}-${filters.cookTime[1]}&page=${filters.page}&perPage=${filters.perPage}${
-		search !== '' ? `&terms=${search}` : ''
-	}`
+export const formatFilters = (filters) =>
+	filters.tags?.length >= 1
+		? `?include=${filters.tags?.join(',')}&sort=${filters.sort}&period=${
+				filters.period
+		  }&serves=${filters.serves[0]}-${filters.serves[1]}&prepTime=${
+				filters.prepTime[0]
+		  }-${filters.prepTime[1]}&cookTime=${filters.cookTime[0]}-${
+				filters.cookTime[1]
+		  }&page=${filters.page}&perPage=${filters.perPage}${
+				filters?.query !== '' ? `&terms=${filters?.query}` : ''
+		  }`
+		: `?sort=${filters.sort}&period=${filters.period}&serves=${
+				filters.serves[0]
+		  }-${filters.serves[1]}&prepTime=${filters.prepTime[0]}-${
+				filters.prepTime[1]
+		  }&cookTime=${filters.cookTime[0]}-${filters.cookTime[1]}&page=${
+				filters.page
+		  }&perPage=${filters.perPage}${
+				filters?.query !== '' ? `&terms=${filters?.query}` : ''
+		  }`
+
 const imagePattern = /(![\[][\w\d-_]{0,})[\]]/g
 
 /**
