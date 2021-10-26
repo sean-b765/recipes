@@ -18,7 +18,7 @@ const ProfilePosts = ({ profile }) => {
 	return (
 		<>
 			{posts.map((post, idx) => (
-				<Item delay={idx} object={post} key={idx} />
+				<Item delay={idx} object={post} key={idx} isOnProfile={true} />
 			))}
 		</>
 	)

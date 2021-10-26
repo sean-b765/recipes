@@ -45,7 +45,7 @@ const Recipe = ({ id }) => {
 					<TopMostLogger show={showLog} title={logTitle} message={logMessage} />
 
 					{post?.user?._id === user?._id && (
-						<div className="fullrecipe__editarea">
+						<section className="fullrecipe__editarea">
 							<Button
 								type="delete"
 								onClick={async () => {
@@ -84,7 +84,7 @@ const Recipe = ({ id }) => {
 									history.push('/edit')
 								}}
 							/>
-						</div>
+						</section>
 					)}
 
 					<header className="fullrecipe__header">
@@ -184,7 +184,7 @@ const Recipe = ({ id }) => {
 					<ul className="fullrecipe__tags">
 						{post.tags.map((tag, index) => (
 							<li key={index}>
-								<Link to="">#{tag}</Link>
+								<Link to={`/discover?tags=${tag}`}>#{tag}</Link>
 							</li>
 						))}
 					</ul>

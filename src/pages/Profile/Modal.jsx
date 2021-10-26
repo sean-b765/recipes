@@ -7,7 +7,9 @@ const Modal = ({ modal, closeModal }) => {
 		<div className={modal.showing ? 'modal modal--active' : 'modal'}>
 			<header className="modal__header">
 				<h1>{modal.title}</h1>
-				<IoMdClose onClick={() => closeModal()} />
+				<button className="btn btn--no-bg" aria-label="Close">
+					<IoMdClose onClick={() => closeModal()} />
+				</button>
 			</header>
 			<div className="modal__body">
 				{modal.children &&
