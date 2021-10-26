@@ -5,7 +5,7 @@ import { BsHeartFill } from 'react-icons/bs'
 import { BiTimeFive } from 'react-icons/bi'
 import { formatLargeNumber } from '../../util/util'
 
-const Item = ({ object: recipe, delay }) => {
+const Item = ({ object: recipe, delay, isOnProfile = false }) => {
 	return (
 		<div
 			className="recipe"
@@ -52,18 +52,20 @@ const Item = ({ object: recipe, delay }) => {
 							<BsHeartFill /> {formatLargeNumber(recipe?.likes?.length)}
 						</p>
 					</div>
-					<div className="avatar">
-						<Link to={`profiles/${recipe?.user?._id}`}>
-							<img
-								src={
-									recipe.user.imageUrl
-										? recipe.user.imageUrl
-										: '/images/default-avatar.png'
-								}
-								alt={`${recipe.user.username}'s avatar'`}
-							/>
-						</Link>
-					</div>
+					{!isOnProfile && (
+						<div className="avatar">
+							<Link to={`profiles/${recipe?.user?._id}`}>
+								<img
+									src={
+										recipe.user.imageUrl
+											? recipe.user.imageUrl
+											: '/images/default-avatar.png'
+									}
+									alt={`${recipe.user.username}'s avatar'`}
+								/>
+							</Link>
+						</div>
+					)}
 				</header>
 			)}
 
