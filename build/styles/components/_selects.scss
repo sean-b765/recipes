@@ -16,12 +16,24 @@
 		}
 	}
 
-	> * {
+	&__perPage {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	> *,
+	&__perPage {
+		p {
+			font-family: 'Overpass', sans-serif;
+			font-style: italic;
+		}
+
 		select {
 			font-style: italic;
 			background: rgb(230, 230, 230);
 			margin: 0 4px;
-			font-size: 1.2rem;
+			font-size: 1.1rem;
 			font-family: 'Overpass', sans-serif;
 			border-radius: none;
 			border: none;

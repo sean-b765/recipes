@@ -8,16 +8,70 @@
 		padding: 2rem 1rem;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
+		flex-direction: column;
 
 		h1 {
 			color: $primary-blue-dark;
 			font-weight: 400;
 			text-align: center;
+			margin-bottom: 2rem;
 
 			span {
 				font-family: 'Ubuntu mono', monospace;
 				font-size: 1.25em;
+			}
+		}
+
+		&__search {
+			// Search box
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 1rem;
+			max-width: 400px;
+
+			input {
+				width: 100%;
+				border: none;
+
+				&[type='text'] {
+					background: none;
+					height: 40px;
+					padding: 5px 10px;
+					border: 1px solid $primary-blue-dark;
+				}
+			}
+
+			label {
+				position: absolute;
+				right: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+				svg {
+					position: absolute !important;
+					color: white !important;
+					font-size: 1.2rem !important;
+					cursor: pointer !important;
+
+					* {
+						cursor: pointer !important;
+					}
+				}
+
+				input {
+					background: $primary-blue-dark;
+					color: white !important;
+					cursor: pointer;
+					height: 40px;
+					width: 40px;
+					min-width: 40px;
+					min-height: 40px;
+				}
 			}
 		}
 	}
@@ -29,6 +83,46 @@
 	}
 
 	&__pagination {
+		padding: 3rem 0 0 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		&__pages {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+
+			p {
+				font-family: 'Ubuntu Mono', monospace;
+				letter-spacing: 1px;
+				font-style: italic;
+			}
+
+			div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+
+		&__perPage {
+			margin: 1rem 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			label {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				p {
+					margin: 1rem 0 0.7rem 0;
+				}
+			}
+		}
 	}
 
 	@media screen and (min-width: 768px) {
@@ -39,6 +133,11 @@
 
 	@media screen and (max-width: 768px) {
 		padding: 7rem 1rem;
+
+		&__pagination {
+			flex-direction: column;
+			justify-content: center;
+		}
 
 		&__header {
 			flex-direction: column;

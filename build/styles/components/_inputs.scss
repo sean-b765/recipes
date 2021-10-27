@@ -3,9 +3,28 @@
 	padding: 9px 15px;
 	margin: 2px 2px 9px 2px;
 
+	&::placeholder {
+		color: rgba(255, 255, 255, 0.664);
+	}
+
 	&--underline {
 		background: none;
 		border-bottom: 1px solid white;
 		color: white;
+	}
+
+	&--border {
+		background: none;
+		border: 1px solid $primary-blue-dark;
+		color: rgb(0, 0, 0);
+	}
+
+	&--comment-field {
+		border: 1px solid $primary-blue-dark;
+		background: none;
+		color: black;
+		max-height: 200px !important;
+		min-height: 3rem !important;
+		margin: 0 !important;
 	}
 }

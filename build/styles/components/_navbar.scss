@@ -7,6 +7,7 @@
 	padding: 1rem $padding-minimum-inline;
 	background: rgb(255, 255, 255);
 	z-index: 999;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.17);
 
 	&__navigation {
 		&__mobile {
@@ -67,6 +68,7 @@
 		}
 	}
 	&__actions {
+		display: flex;
 		button {
 			color: $primary-blue-dark;
 		}
@@ -85,8 +87,49 @@
 		}
 	}
 
+	&__notif {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		svg {
+			font-size: 1.7rem;
+			margin-right: 2rem;
+			color: $primary-blue-dark;
+			cursor: pointer;
+
+			& > * {
+				cursor: pointer;
+			}
+		}
+
+		&__profile {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			border-radius: 50%;
+			overflow: hidden;
+			max-width: 50px;
+			max-height: 50px;
+			min-width: 50px;
+			min-height: 50px;
+
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+
 	@media screen and (max-width: 768px) {
 		padding: 1rem $padding-minimum-inline-mobile !important;
+
+		@media screen and (max-width: 430px) {
+			&__brand {
+				left: 40%;
+			}
+		}
 
 		&__navigation {
 			.menu {
@@ -135,6 +178,14 @@
 		&__actions {
 			button {
 				display: none;
+			}
+		}
+
+		&__notif {
+			svg {
+				margin-right: 20px;
+			}
+			&__profile {
 			}
 		}
 	}

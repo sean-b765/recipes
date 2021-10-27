@@ -19,12 +19,11 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			flex-direction: row-reverse;
+			flex-direction: column;
 
 			&__split {
-				flex: 1;
 				color: white;
-				padding: 5rem;
+				padding: 0 5rem 3rem 5rem;
 
 				&--center {
 					display: flex;
@@ -65,15 +64,17 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					flex-direction: column;
 					margin: 20px 0;
+					text-align: center;
 
 					svg,
 					h2 {
-						margin: 0 20px;
+						margin: 1rem 0;
 					}
 
 					svg {
-						font-size: 4rem;
+						font-size: 3rem;
 					}
 
 					h2 {
@@ -89,7 +90,7 @@
 				}
 
 				&:nth-child(odd) {
-					background: #2f327a;
+					background: #2f317abb;
 				}
 
 				// Mobile - flex-direction will be column reverse

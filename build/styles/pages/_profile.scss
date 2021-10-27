@@ -1,8 +1,25 @@
 .profile {
+	position: relative;
 	padding: 7rem $padding-minimum-inline;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+
+	&__activity {
+		position: relative;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		> div {
+			margin: 1rem;
+			width: 100% !important;
+			max-width: 500px;
+		}
+	}
 
 	&__card {
 		width: 100%;
@@ -18,15 +35,17 @@
 		}
 
 		&__bio {
-			padding: 0 2rem 2rem 2rem;
+			padding: 2rem 2rem 2rem 2rem;
 		}
 
 		&__actions {
+			padding: 2rem 2rem 0 2rem;
 			background: $primary-blue;
 			display: flex;
 
 			> button {
 				margin: 0 10px;
+
 				&:first-of-type {
 					margin: 0 10px 0 0;
 				}
@@ -78,7 +97,7 @@
 				height: 90px;
 				min-width: 90px;
 				min-height: 90px;
-				border-radius: 30px;
+				border-radius: 50%;
 				overflow: hidden;
 
 				img {
@@ -91,21 +110,31 @@
 
 			&__details {
 				display: flex;
-				align-items: flex-end;
+				align-items: center;
 				justify-content: center;
 				flex-direction: row;
 
+				* {
+					font-family: 'Overpass', sans-serif;
+				}
+
 				h1 {
-					margin: 0 10px;
-					font-family: 'Ubuntu mono', monospace;
+					margin: 0 1rem;
+				}
+
+				.score {
+					margin: 0 0.8rem;
 				}
 
 				&__stats {
 					display: flex;
 					flex-direction: row;
-					p {
-						font-family: 'Overpass', sans-serif;
+
+					button {
+						color: white;
+						font-size: 1rem;
 						margin: 0 10px;
+						cursor: pointer;
 					}
 				}
 			}
@@ -145,6 +174,11 @@
 
 					&__stats {
 						display: flex;
+						flex-wrap: wrap;
+
+						button {
+							margin: 0;
+						}
 
 						p {
 							text-align: center;

@@ -6,10 +6,23 @@
 	cursor: pointer;
 	white-space: nowrap;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
+
+	svg {
+		font-size: 1rem;
+	}
 
 	&--solid {
 		background: white;
-		color: black;
+		color: $primary-blue-dark;
+
+		&:hover {
+			color: white;
+			background: rgb(0, 0, 0);
+		}
 
 		&-blue {
 			background: $primary-blue-dark;
@@ -19,11 +32,6 @@
 				background: $btn-hover-blue;
 				color: rgb(255, 255, 255) !important;
 			}
-		}
-
-		&:hover {
-			color: white;
-			background: rgb(0, 0, 0);
 		}
 	}
 
@@ -42,9 +50,88 @@
 
 	&--pill {
 		border-radius: 40px;
+		color: $primary-blue-dark;
+
+		&:hover {
+			background: $primary-blue;
+			color: white;
+		}
+	}
+	&--round {
+		border-radius: 50%;
+		padding: 0.62rem !important;
+		box-shadow: 1px 4px 12px 3px rgba(0, 0, 0, 0.207);
+
+		&:hover {
+			transform: scale(1.04);
+		}
 	}
 
 	&--no-bg {
 		background: none;
+	}
+
+	&--page {
+		font-family: 'Ubunto Mono', monospace;
+		min-width: 2.5rem;
+		padding: 0.6rem;
+		margin: 0.2rem;
+		color: $primary-blue-dark;
+		opacity: 0.85;
+		font-weight: 400;
+		font-size: 1.2rem;
+
+		&-selected {
+			font-weight: 700;
+			opacity: 1;
+		}
+	}
+
+	&--tag {
+	}
+
+	&--red {
+		background: $primary-red !important;
+		color: white !important;
+
+		&:hover {
+			background: $btn-hover-red !important;
+		}
+	}
+
+	&--blue {
+		background: $primary-blue-dark !important;
+		color: white !important;
+
+		&:hover {
+			background: $btn-hover-blue !important;
+			color: rgb(255, 255, 255) !important;
+		}
+	}
+
+	&--green {
+		background: $primary-green !important;
+		color: white !important;
+
+		&:hover {
+			background: $btn-hover-green !important;
+			color: rgb(255, 255, 255) !important;
+		}
+	}
+
+	&--heart {
+		background: white !important;
+		color: $primary-red !important;
+
+		&:hover {
+			background: white !important;
+			color: $primary-red !important;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		&--round {
+			padding: 0.765rem !important;
+		}
 	}
 }

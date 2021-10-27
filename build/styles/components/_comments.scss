@@ -1,0 +1,74 @@
+.comments {
+	position: relative;
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+	padding: 2rem 0rem 3rem 0rem;
+
+	&__field {
+		position: relative;
+		width: 100%;
+		padding: 0 0 2rem 0;
+
+		form {
+			position: relative;
+			width: 100%;
+			display: flex;
+
+			.custom_input {
+				flex: 6;
+				&::placeholder {
+					color: rgba(0, 0, 0, 0.705) !important;
+				}
+			}
+			input[type='submit'] {
+				flex: 1;
+			}
+		}
+	}
+
+	&__comment {
+		position: relative;
+		margin: 0.5rem 0;
+		padding: 0.5rem;
+		width: 100%;
+
+		.btn {
+			z-index: 2;
+			right: 0;
+			top: 0;
+			position: absolute;
+			margin-right: 1rem;
+			font-size: 1.5rem;
+			cursor: pointer;
+			transition: all 0.09s ease-in-out;
+
+			* {
+				cursor: pointer;
+			}
+		}
+
+		header {
+			position: relative;
+			display: flex;
+			align-items: center;
+			margin-bottom: 1rem;
+
+			img {
+				$max: 28px;
+				margin-right: 0.4rem;
+				max-width: $max;
+				max-height: $max;
+				width: $max;
+				height: $max;
+				border-radius: 50%;
+			}
+		}
+
+		p {
+			padding-left: 0.5rem;
+		}
+	}
+}
