@@ -98,6 +98,8 @@ const Signup = ({ handleSignUp }) => {
 					onSuccessGoogle={(e) => {
 						const { tokenId, profileObj } = e
 
+						console.log(e)
+
 						googleSignin({
 							tokenId,
 							imageUrl: profileObj.imageUrl,
