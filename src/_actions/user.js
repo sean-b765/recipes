@@ -1,5 +1,6 @@
 import {
 	apiBlockUser,
+	apiEditUser,
 	apiFollowUser,
 	apiGetFollowers,
 	apiGetFollowing,
@@ -12,6 +13,17 @@ import {
 export const getUser = async (userId) => {
 	try {
 		const { data } = await apiGetUser(userId)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const editUser = async (userId, body) => {
+	try {
+		const { data } = await apiEditUser(body, userId)
 		return data
 	} catch (err) {
 		return {

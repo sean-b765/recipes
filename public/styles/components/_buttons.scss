@@ -10,9 +10,11 @@
 	align-items: center;
 	justify-content: center;
 	font-size: 1rem;
+	font-family: 'Poppins', sans-serif;
 
 	svg {
 		font-size: 1rem;
+		margin-right: 0.3rem;
 	}
 
 	&--solid {
@@ -51,9 +53,10 @@
 	&--pill {
 		border-radius: 40px;
 		color: $primary-blue-dark;
+		background: white;
 
 		&:hover {
-			background: $primary-blue;
+			background: $primary-blue-dark;
 			color: white;
 		}
 	}

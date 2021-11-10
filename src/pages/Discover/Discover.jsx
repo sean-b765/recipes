@@ -19,8 +19,8 @@ const Discover = () => {
 		sort: 'rating',
 		period: 'alltime',
 		serves: [1, 12],
-		prepTime: [1, 120],
-		cookTime: [1, 240],
+		prepTime: [0, 120],
+		cookTime: [0, 240],
 		tags: [],
 		page: 1,
 		perPage: 25,
@@ -32,6 +32,8 @@ const Discover = () => {
 
 	// on location change
 	useEffect(() => {
+		let isMounted = true
+
 		// get tags from URL
 		let tags = []
 
@@ -50,7 +52,8 @@ const Discover = () => {
 		if (filters?.tags?.length >= 1) {
 			getPostsWithTags(formatFilters(filters))
 				.then((res) => {
-					setFilters({ ...filters, pageCount: Number(res?.pages || 1) })
+					if (isMounted)
+						setFilters({ ...filters, pageCount: Number(res?.pages || 1) })
 
 					dispatch({
 						type: 'POST/SET_ALL',
@@ -61,7 +64,7 @@ const Discover = () => {
 			// get discover page
 		} else {
 			getDiscover(formatFilters(filters, filters.query)).then((res) => {
-				setFilters({ ...filters, pageCount: Number(res.pages) })
+				if (isMounted) setFilters({ ...filters, pageCount: Number(res.pages) })
 
 				dispatch({
 					type: 'POST/SET_ALL',
@@ -69,6 +72,8 @@ const Discover = () => {
 				})
 			})
 		}
+
+		return () => (isMounted = false)
 	}, [location])
 
 	const handleSetFilters = (value) => {

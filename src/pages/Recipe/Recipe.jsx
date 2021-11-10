@@ -102,7 +102,7 @@ const Recipe = ({ id }) => {
 								</span>
 							)}
 
-							{post.cookTime && (
+							{String(post.cookTime) && (
 								<span>
 									<span>{post.cookTime}min</span> Cook time
 								</span>
@@ -116,7 +116,11 @@ const Recipe = ({ id }) => {
 							<p className="user-username">{post?.user?.username}</p>
 							<p className="user-score">{post?.user?.score}</p>
 							<img
-								src={post?.user?.imageUrl}
+								src={
+									post?.user?.imageUrl
+										? post?.user?.imageUrl
+										: `/images/default-avatar.png`
+								}
 								alt={`${post?.user?.username}'s avatar`}
 							/>
 						</Link>
@@ -186,6 +190,12 @@ const Recipe = ({ id }) => {
 							<li key={index}>
 								<Link to={`/discover?tags=${tag}`}>#{tag}</Link>
 							</li>
+						))}
+					</ul>
+
+					<ul className="fullrecipe__ingredients">
+						{post?.ingredients?.map((ing, index) => (
+							<li key={index}>{ing}</li>
 						))}
 					</ul>
 					<Markdown

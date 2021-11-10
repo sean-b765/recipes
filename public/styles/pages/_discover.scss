@@ -11,6 +11,10 @@
 		justify-content: flex-start;
 		flex-direction: column;
 
+		&__tags {
+			align-self: center;
+		}
+
 		.custom_input {
 			&--num {
 				background: $primary-blue-dark !important;
@@ -56,8 +60,10 @@
 			input {
 				width: 100%;
 				border: none;
+				border-radius: none;
 
 				&[type='text'] {
+					border-radius: 0;
 					background: none;
 					height: 40px;
 					padding: 5px 10px;
@@ -72,6 +78,7 @@
 				align-items: center;
 				justify-content: center;
 				transition: background 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+				border-radius: 0;
 
 				svg {
 					position: absolute !important;
@@ -85,6 +92,7 @@
 				}
 
 				input {
+					border-radius: 0;
 					background: $primary-blue-dark;
 					color: white !important;
 					cursor: pointer;

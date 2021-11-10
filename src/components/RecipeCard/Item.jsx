@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { CgBowl } from 'react-icons/cg'
 import { BsHeartFill } from 'react-icons/bs'
 import { BiTimeFive } from 'react-icons/bi'
+import { GiForkKnifeSpoon } from 'react-icons/gi'
 import { formatLargeNumber } from '../../util/util'
 
 const Item = ({ object: recipe, delay, isOnProfile = false }) => {
@@ -15,10 +16,16 @@ const Item = ({ object: recipe, delay, isOnProfile = false }) => {
 			data-aos-anchor-placement="bottom"
 		>
 			<div
-				className="recipe__bg"
+				className={
+					recipe?.images[0]?.base64
+						? 'recipe__bg'
+						: 'recipe__bg recipe__bg--nobg'
+				}
 				style={{
 					backgroundImage: `url("${
-						recipe?.images[0]?.base64 ? recipe?.images[0]?.base64 : ''
+						recipe?.images[0]?.base64
+							? recipe?.images[0]?.base64
+							: './images/default-recipe.png'
 					}")`,
 				}}
 			>
@@ -33,7 +40,7 @@ const Item = ({ object: recipe, delay, isOnProfile = false }) => {
 							{`${recipe?.cookTime}m`}
 						</p>
 						<p>
-							<BiTimeFive />
+							<GiForkKnifeSpoon />
 							{`${recipe?.prepTime}m`}
 						</p>
 					</div>
@@ -70,10 +77,16 @@ const Item = ({ object: recipe, delay, isOnProfile = false }) => {
 			)}
 
 			<div
-				className="recipe__preview"
+				className={
+					recipe?.images[0]?.base64
+						? 'recipe__preview'
+						: 'recipe__preview recipe__preview--nobg'
+				}
 				style={{
 					backgroundImage: `url(${
-						recipe?.images[0]?.base64 ? recipe?.images[0]?.base64 : ''
+						recipe?.images[0]?.base64
+							? recipe?.images[0]?.base64
+							: './images/default-recipe.png'
 					})`,
 				}}
 			></div>

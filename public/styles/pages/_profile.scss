@@ -43,7 +43,8 @@
 			background: $primary-blue;
 			display: flex;
 
-			> button {
+			> button,
+			a {
 				margin: 0 10px;
 
 				&:first-of-type {

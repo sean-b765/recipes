@@ -8,11 +8,15 @@ const ProfilePosts = ({ profile }) => {
 	useEffect(() => {
 		if (!profile?._id) return
 
+		let isMounted = true
+
 		getUserPosts(profile?._id)
 			.then((res) => {
-				setPosts([...res.result])
+				if (isMounted) setPosts([...res.result])
 			})
 			.catch((err) => {})
+
+		return () => (isMounted = false)
 	}, [profile])
 
 	return (

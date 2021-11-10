@@ -75,7 +75,7 @@ class Create extends Component {
 
 			const { value } = this.ingredientsRef.current
 			if (
-				value.length > 20 ||
+				value.length > 50 ||
 				this.state.formData.ingredients.includes(value) ||
 				!value
 			)
@@ -100,7 +100,7 @@ class Create extends Component {
 			const { value } = this.tagsRef.current
 
 			if (
-				value.length > 20 ||
+				value.length > 30 ||
 				this.state.formData.tags.includes(value) ||
 				!value
 			)

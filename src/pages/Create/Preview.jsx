@@ -36,6 +36,12 @@ const Preview = ({ state }) => {
 					</li>
 				))}
 			</ul>
+
+			<ul className="fullrecipe__ingredients">
+				{state?.formData?.ingredients?.map((ing, index) => (
+					<li key={index}>{ing}</li>
+				))}
+			</ul>
 			<Markdown
 				className="fullrecipe__info"
 				content={placeImageInContent(state?.formData?.content, state?.files)}
