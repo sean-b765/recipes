@@ -10,7 +10,7 @@ import {
 import { IoOptionsOutline } from 'react-icons/io5'
 import { CgBlock, CgUnblock } from 'react-icons/cg'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {
 	blockUser,
 	followUser,
@@ -265,13 +265,14 @@ const Profile = ({ id }) => {
 									<AiOutlineLogout />
 									Logout
 								</button>
-								<button
+								<Link
 									className="btn btn--pill"
+									to="/settings"
 									aria-label="Message this user"
 								>
 									<IoOptionsOutline />
 									Settings
-								</button>
+								</Link>
 							</section>
 						)}
 

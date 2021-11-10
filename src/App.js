@@ -11,6 +11,7 @@ import { Route, Switch, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import Settings from './pages/Settings/Settings'
 
 function App() {
 	const dispatch = useDispatch()
@@ -48,6 +49,10 @@ function App() {
 						</Route>
 						<Route path="/signup">
 							<Auth />
+						</Route>
+
+						<Route path="/settings">
+							<Settings />
 						</Route>
 
 						<Route
