@@ -20,19 +20,19 @@ export const formatFilters = (filters) =>
 		? `?include=${filters.tags?.join(',')}&sort=${filters.sort}&period=${
 				filters.period
 		  }&serves=${filters.serves[0]}-${filters.serves[1]}&prepTime=${
-				filters.prepTime[0]
-		  }-${filters.prepTime[1]}&cookTime=${filters.cookTime[0]}-${
-				filters.cookTime[1]
+				filters.prepTime[0] || 0
+		  }-${filters.prepTime[1] || 120}&cookTime=${filters.cookTime[0] || 0}-${
+				filters.cookTime[1] || 240
 		  }&page=${filters.page}&perPage=${filters.perPage}${
 				filters?.query !== '' ? `&terms=${filters?.query}` : ''
 		  }`
 		: `?sort=${filters.sort}&period=${filters.period}&serves=${
 				filters.serves[0]
-		  }-${filters.serves[1]}&prepTime=${filters.prepTime[0]}-${
-				filters.prepTime[1]
-		  }&cookTime=${filters.cookTime[0]}-${filters.cookTime[1]}&page=${
-				filters.page
-		  }&perPage=${filters.perPage}${
+		  }-${filters.serves[1]}&prepTime=${filters.prepTime[0] || 0}-${
+				filters.prepTime[1] || 120
+		  }&cookTime=${filters.cookTime[0] || 0}-${
+				filters.cookTime[1] || 240
+		  }&page=${filters.page}&perPage=${filters.perPage}${
 				filters?.query !== '' ? `&terms=${filters?.query}` : ''
 		  }`
 
