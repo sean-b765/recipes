@@ -11,6 +11,27 @@
 		justify-content: flex-start;
 		flex-direction: column;
 
+		.custom_input {
+			&--num {
+				background: $primary-blue-dark !important;
+				color: white;
+			}
+		}
+
+		label {
+			p {
+				margin-bottom: 0.5rem;
+				margin-top: 1rem !important;
+
+				span {
+					opacity: 0.5;
+					margin-left: 0.5rem;
+					font-style: italic;
+					font-size: 0.85rem;
+				}
+			}
+		}
+
 		h1 {
 			color: $primary-blue-dark;
 			font-weight: 400;
