@@ -1,11 +1,13 @@
 import axios from 'axios'
 
+import emitter from '../_services/emitter'
+
 const API = axios.create({ baseURL: process.env.REACT_APP_BACKEND })
 
 API.interceptors.request.use((req) => {
-	const profile = localStorage.getItem('profile')
+	emitter.emit('REQUEST_START', true)
 
-	console.log(req.url, req.headers)
+	const profile = localStorage.getItem('profile')
 
 	if (profile) {
 		req.headers.Authorization = `Bearer ${JSON.parse(profile).token}`
@@ -13,6 +15,15 @@ API.interceptors.request.use((req) => {
 
 	return req
 })
+
+API.interceptors.response.use(
+	(res) => {
+		emitter.emit('RESPONSE_FINISH', res.data)
+
+		return res
+	},
+	(err) => emitter.emit('RESPONSE_ERROR', err)
+)
 
 // Auth
 export const apiSignIn = (body) => API.post('/auth/signin', body)
