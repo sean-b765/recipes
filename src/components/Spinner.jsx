@@ -1,41 +1,95 @@
 import React from 'react'
 
-const Spinner = () => {
-	return (
+const Spinner = ({ showing }) => {
+	return showing ? (
 		<div className="spinner">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
+				xmlnsXlink="http://www.w3.org/1999/xlink"
 				style={{
 					margin: 'auto',
-					background: 'rgba(255, 255, 255, 0) none repeat scroll 0% 0%',
+					background: 'none',
 					display: 'block',
+					shapeRendering: 'auto',
+					width: '5rem',
+					height: '5rem',
 				}}
-				width="4rem"
-				height="4rem"
 				viewBox="0 0 100 100"
 				preserveAspectRatio="xMidYMid"
 			>
-				<circle
-					cx="50"
-					cy="50"
-					r="32"
-					strokeWidth="8"
-					stroke="#112aa9"
-					strokeDasharray="50.26548245743669 50.26548245743669"
-					fill="none"
-					strokeLinecap="round"
-				>
-					<animateTransform
-						attributeName="transform"
-						type="rotate"
-						repeatCount="indefinite"
-						dur="1s"
-						keyTimes="0;1"
-						values="0 50 50;360 50 50"
-					></animateTransform>
-				</circle>
+				<g transform="translate(50 50)">
+					<g transform="scale(0.7)">
+						<g transform="translate(-50 -50)">
+							<g>
+								<animateTransform
+									attributeName="transform"
+									type="rotate"
+									repeatCount="indefinite"
+									values="0 50 50;360 50 50"
+									keyTimes="0;1"
+									dur="0.7575757575757576s"
+								></animateTransform>
+								<path
+									fillOpacity="0.8"
+									fill="#ea3f34"
+									d="M50 50L50 0A50 50 0 0 1 100 50Z"
+								></path>
+							</g>
+							<g>
+								<animateTransform
+									attributeName="transform"
+									type="rotate"
+									repeatCount="indefinite"
+									values="0 50 50;360 50 50"
+									keyTimes="0;1"
+									dur="1.0101010101010102s"
+								></animateTransform>
+								<path
+									fillOpacity="0.8"
+									fill="#f2982c"
+									d="M50 50L50 0A50 50 0 0 1 100 50Z"
+									transform="rotate(90 50 50)"
+								></path>
+							</g>
+							<g>
+								<animateTransform
+									attributeName="transform"
+									type="rotate"
+									repeatCount="indefinite"
+									values="0 50 50;360 50 50"
+									keyTimes="0;1"
+									dur="1.5151515151515151s"
+								></animateTransform>
+								<path
+									fillOpacity="0.8"
+									fill="#52a360"
+									d="M50 50L50 0A50 50 0 0 1 100 50Z"
+									transform="rotate(180 50 50)"
+								></path>
+							</g>
+							<g>
+								<animateTransform
+									attributeName="transform"
+									type="rotate"
+									repeatCount="indefinite"
+									values="0 50 50;360 50 50"
+									keyTimes="0;1"
+									dur="3.0303030303030303s"
+								></animateTransform>
+								<path
+									fillOpacity="0.8"
+									fill="#674794"
+									d="M50 50L50 0A50 50 0 0 1 100 50Z"
+									transform="rotate(270 50 50)"
+								></path>
+							</g>
+						</g>
+					</g>
+				</g>
 			</svg>
 		</div>
+	) : (
+		<></>
 	)
 }
 

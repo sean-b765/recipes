@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { bufferToBase64 } from '../../util/util'
 import { editUser } from '../../_actions/user'
 import TopMostLogger from '../../components/TopMostLogger'
+import ConfirmationModal from '../../components/ConfirmationModal'
 
 const Settings = () => {
 	const dispatch = useDispatch()
@@ -22,6 +23,10 @@ const Settings = () => {
 	const [message, setMessage] = useState('')
 	const [title, setTitle] = useState('')
 	const [showLog, setShowLog] = useState(false)
+
+	const [showConfirmation, setShowConfirmation] = useState(false)
+
+	const [showResetPassword, setShowResetPassword] = useState(false)
 
 	const [details, setDetails] = useState({
 		_id: user?._id || null,
@@ -34,15 +39,20 @@ const Settings = () => {
 	})
 
 	useEffect(() => {
-		setDetails({
-			_id: user?._id,
-			username: user?.username,
-			bio: user?.bio,
-			email: user?.email,
-			imageUrl: user?.imageUrl,
-			verified: user?.verified,
-			deactivated: user?.deactivated,
-		})
+		let isMounted = true
+
+		if (isMounted)
+			setDetails({
+				_id: user?._id,
+				username: user?.username,
+				bio: user?.bio,
+				email: user?.email,
+				imageUrl: user?.imageUrl,
+				verified: user?.verified,
+				deactivated: user?.deactivated,
+			})
+
+		return () => (isMounted = false)
 	}, [user])
 
 	const submitEdit = async () => {
@@ -84,6 +94,69 @@ const Settings = () => {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 		>
+			<ConfirmationModal
+				showing={showConfirmation}
+				title="Profile Visibility"
+				message={
+					user?.deactivated ? (
+						<>
+							<p>Your profile is currently private</p>
+						</>
+					) : (
+						<>
+							<p>Your profile is currently public</p>
+						</>
+					)
+				}
+				buttons={
+					user?.deactivated ? (
+						<>
+							<button className="btn btn--green btn--pill">Make Public</button>
+							<button
+								className="btn btn--blue btn--pill"
+								onClick={() => setShowConfirmation(false)}
+							>
+								Cancel
+							</button>
+						</>
+					) : (
+						<>
+							<button className="btn btn--green btn--pill">Make Private</button>
+							<button
+								className="btn btn--blue btn--pill"
+								onClick={() => setShowConfirmation(false)}
+							>
+								Cancel
+							</button>
+						</>
+					)
+				}
+			/>
+
+			<ConfirmationModal
+				title="Send Password Reset Link"
+				message={
+					<>
+						<p>
+							If you proceed, you will receive a one-time password reset link
+							via email
+						</p>
+					</>
+				}
+				showing={showResetPassword}
+				buttons={
+					<>
+						<button className="btn btn--pill btn--green">Reset Password</button>
+						<button
+							className="btn btn--pill btn--blue"
+							onClick={() => setShowResetPassword(false)}
+						>
+							Cancel
+						</button>
+					</>
+				}
+			/>
+
 			<TopMostLogger message={message} show={showLog} title={title} />
 			<div className="settings__container">
 				<div className="settings__edit">
@@ -176,12 +249,24 @@ const Settings = () => {
 							</p>
 						</>
 					)}
-					<Link to="/settings/privacy">Change visibility</Link>
+					<button
+						className="btn btn--blue styled-link"
+						onClick={() => setShowConfirmation(true)}
+					>
+						Change visibility
+					</button>
 				</div>
-				<div className="settings__password">
-					<RiLockPasswordLine />
-					<Link to="/settings/password">Reset password</Link>
-				</div>
+				{user?.verified && (
+					<div className="settings__password">
+						<RiLockPasswordLine />
+						<button
+							className="btn btn--blue styled-link"
+							onClick={() => setShowResetPassword(true)}
+						>
+							Reset password
+						</button>
+					</div>
+				)}
 			</div>
 		</motion.section>
 	)

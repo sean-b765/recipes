@@ -2,13 +2,15 @@ import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useLocation } from 'react-router'
 import { getDiscover, getPostsWithTags } from '../../_actions/post'
 import Filters from '../../components/Filters'
 import { formatFilters } from '../../util/util'
 import Item from '../../components/RecipeCard/Item'
 import Pages from './Pages'
-import { useHistory, useLocation } from 'react-router'
 import Tags from '../../components/Tags'
+
+import Spinner from '../../components/Spinner'
 
 const Discover = () => {
 	const dispatch = useDispatch()
@@ -27,6 +29,8 @@ const Discover = () => {
 		pageCount: 1,
 		query: '',
 	})
+
+	const [loading, setLoading] = useState(false)
 
 	const posts = useSelector((state) => state.post.all)
 
@@ -64,16 +68,19 @@ const Discover = () => {
 			// get discover page
 		} else {
 			getDiscover(formatFilters(filters, filters.query)).then((res) => {
-				if (isMounted) setFilters({ ...filters, pageCount: Number(res.pages) })
+				if (isMounted)
+					setFilters({ ...filters, pageCount: Number(res?.pages || 1) })
 
 				dispatch({
 					type: 'POST/SET_ALL',
-					payload: res.result,
+					payload: res?.result || null,
 				})
 			})
 		}
 
-		return () => (isMounted = false)
+		return () => {
+			isMounted = false
+		}
 	}, [location])
 
 	const handleSetFilters = (value) => {
@@ -111,6 +118,8 @@ const Discover = () => {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 		>
+			<Spinner showing={loading} />
+
 			<header className="discover__header">
 				<h1 data-aos="zoom-out">
 					<span>discover</span> a taste

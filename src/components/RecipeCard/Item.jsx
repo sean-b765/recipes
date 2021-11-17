@@ -13,7 +13,7 @@ const Item = ({ object: recipe, delay, isOnProfile = false }) => {
 			data-aos="zoom-in"
 			data-aos-delay={delay * 100}
 			data-aos-once="true"
-			data-aos-anchor-placement="bottom"
+			data-aos-anchor-placement="top-bottom"
 		>
 			<div
 				className={

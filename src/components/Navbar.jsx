@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import { IoNotificationsOutline } from 'react-icons/io5'
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false)
@@ -56,7 +55,7 @@ const Navbar = () => {
 								Login
 							</button>
 							<button
-								className="btn btn--pill btn--solid-blue"
+								className="btn btn--pill btn--pill-inverse btn--solid-blue"
 								onClick={() => history.push('/signup')}
 							>
 								Sign up
@@ -82,7 +81,7 @@ const Navbar = () => {
 						Login
 					</button>
 					<button
-						className="btn btn--pill btn--solid-blue"
+						className="btn btn--pill btn--pill-inverse btn--solid-blue"
 						onClick={() => history.push('/signup')}
 					>
 						Sign up
@@ -92,10 +91,6 @@ const Navbar = () => {
 			{/* See notification bell / user avatar when logged in */}
 			{user && (
 				<div className="navbar__notif">
-					<IoNotificationsOutline
-						aria-label="View your notifications"
-						onClick={() => {}}
-					/>
 					<div
 						className="navbar__notif__profile"
 						aria-label="Visit your profile"

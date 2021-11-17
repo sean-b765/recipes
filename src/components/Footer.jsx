@@ -29,7 +29,9 @@ const Footer = () => {
 					<Link to="/">Terms &amp; Conditions</Link>
 				</div>
 				<div className="footer__info__copyright">
-					<Link to="/">Copyright &copy; 2021 | Sean Boaden</Link>
+					<a href="https://github.com/sean-b765" target="_blank">
+						Copyright &copy; 2021 | Sean Boaden
+					</a>
 				</div>
 			</div>
 		</footer>

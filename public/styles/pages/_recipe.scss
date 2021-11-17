@@ -226,6 +226,34 @@
 		}
 	}
 
+	table {
+		border-collapse: collapse;
+		margin: 25px 0;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+		thead {
+			border-radius: 0.5rem 0.5rem 0 0;
+			tr {
+				background: $primary-blue;
+				color: white;
+			}
+		}
+
+		tbody {
+			tr {
+				border-bottom: thin solid rgb(212, 212, 212);
+			}
+			tr:last-of-type {
+				border-bottom: thin solid $primary-blue;
+			}
+		}
+
+		th,
+		td {
+			padding: 0.6rem 0.8rem;
+		}
+	}
+
 	@media screen and (max-width: 768px) {
 		width: 100%;
 		padding: 8rem 1rem 5rem 1rem;

@@ -21,14 +21,30 @@ const Home = () => {
 			<div className="home__wrapper">
 				<div className="home__wrapper__landing">
 					<header className="home__wrapper__landing__split">
-						<h1>Your favourite recipes,</h1>
-						<p>all in one place.</p>
+						<h1
+							data-aos="fade"
+							data-aos-duration="750"
+							data-aos-delay="500"
+							data-aos-timing=""
+						>
+							Your favourite recipes,
+						</h1>
+						<p
+							data-aos="fade-right"
+							data-aos-delay="800"
+							data-aos-duration="850"
+						>
+							all in one place.
+						</p>
 					</header>
 					{!user?._id && (
 						<div className="home__wrapper__landing__split home__wrapper__landing__split--center">
 							<button
 								className="btn btn--large"
 								onClick={() => history.push('/signup')}
+								data-aos-delay="1200"
+								data-aos-duration="500"
+								data-aos="zoom-in-up"
 							>
 								Get Started
 							</button>
@@ -38,11 +54,11 @@ const Home = () => {
 
 				<section className="home__wrapper__showcase">
 					<div className="home__wrapper__showcase__item home__wrapper__showcase__item--discover">
-						<header>
+						<header data-aos="fade" data-aos-duration="750">
 							<RiCompassDiscoverFill />
 							<h2>Discover new tastes</h2>
 						</header>
-						<article>
+						<article data-aos="zoom-in-up" data-aos-duration="750">
 							<p>
 								Lorem ipsum dolor, sit amet consectetur adipisicing elit.
 								Voluptatibus ratione facilis dolorum cupiditate rem enim non?
@@ -50,24 +66,24 @@ const Home = () => {
 						</article>
 					</div>
 					<div className="home__wrapper__showcase__item home__wrapper__showcase__item--reverse home__wrapper__showcase__item--search">
-						<article>
+						<article data-aos="zoom-in-up" data-aos-duration="750">
 							<p>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
 								dolorum voluptate sapiente.
 							</p>
 						</article>
-						<header>
+						<header data-aos="fade" data-aos-duration="750">
 							<AiOutlineSearch />
 							<h2>Search for a dish</h2>
 						</header>
 					</div>
 					<div className="home__wrapper__showcase__item home__wrapper__showcase__item--features">
 						<div className="split">
-							<header>
+							<header data-aos="fade" data-aos-duration="750">
 								<BiUserPlus />
 								<h2>Follow your friends</h2>
 							</header>
-							<article>
+							<article data-aos="zoom-in-up" data-aos-duration="750">
 								<p>
 									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 									Atque placeat rerum error consectetur minus nulla ad.
@@ -76,11 +92,11 @@ const Home = () => {
 						</div>
 
 						<div className="split">
-							<header>
+							<header data-aos="fade" data-aos-duration="750">
 								<AiOutlineShareAlt />
 								<h2>Share your own creations</h2>
 							</header>
-							<article>
+							<article data-aos="zoom-in-up" data-aos-duration="750">
 								<p>
 									Lorem ipsum dolor, sit amet consectetur adipisicing elit.
 									Illum, nam?

@@ -23,7 +23,6 @@ import {
 import Modal from './Modal'
 import { useState } from 'react'
 import { formatLargeNumber } from '../../util/util'
-import Spinner from '../../components/Spinner'
 import ProfilePosts from './ProfilePosts'
 
 const Profile = ({ id }) => {
@@ -44,7 +43,7 @@ const Profile = ({ id }) => {
 	useEffect(() => {
 		getUser(id).then((res) => {
 			// Skip if error
-			if (res.error) return
+			if (res?.error) return
 
 			dispatch({
 				type: 'USER/SET_USER',
@@ -54,14 +53,14 @@ const Profile = ({ id }) => {
 			getFollowers(id).then((response) => {
 				dispatch({
 					type: 'USER/SET_USER_FOLLOWERS',
-					payload: response.result,
+					payload: response?.result,
 				})
 			})
 
 			getFollowing(id).then((response) => {
 				dispatch({
 					type: 'USER/SET_USER_FOLLOWING',
-					payload: response.result,
+					payload: response?.result,
 				})
 			})
 		})
@@ -101,7 +100,7 @@ const Profile = ({ id }) => {
 	}
 
 	const _blockUser = async (_id) => {
-		const { user } = me.blockList.includes(profile._id)
+		const { user } = me?.blockList.includes(profile?._id)
 			? await unblockUser(_id)
 			: await blockUser(_id)
 
@@ -117,7 +116,7 @@ const Profile = ({ id }) => {
 	const showFollowers = () => {
 		let showing = false
 
-		if (profile._followers?.length === 0 || profile.followers?.length === 0) {
+		if (profile?._followers?.length === 0 || profile?.followers?.length === 0) {
 			showing = false
 		} else {
 			showing = true
@@ -127,14 +126,14 @@ const Profile = ({ id }) => {
 			...modal,
 			title: 'Followers',
 			showing,
-			children: profile._followers,
+			children: profile?._followers,
 		})
 	}
 
 	const showFollowing = () => {
 		let showing = false
 
-		if (profile._following?.length === 0) {
+		if (profile?._following?.length === 0) {
 			showing = false
 		} else {
 			showing = true
@@ -144,7 +143,7 @@ const Profile = ({ id }) => {
 			...modal,
 			title: 'Following',
 			showing,
-			children: profile._following,
+			children: profile?._following,
 		})
 	}
 
@@ -163,130 +162,133 @@ const Profile = ({ id }) => {
 				animate={{ opacity: 1 }}
 				exit={{ opacity: 0 }}
 			>
-				{profile && me ? (
-					<div className="profile__card">
-						<header className="profile__card__header">
-							<div className="profile__card__header__avatar">
-								<img
-									src={
-										profile.imageUrl
-											? profile.imageUrl
-											: '/images/default-avatar.png'
-									}
-									alt={`Picture of ${profile.username}`}
-								/>
-							</div>
-							<div className="profile__card__header__details">
-								<h1>{profile.username}</h1>
-								<span className="score">{profile?.score} Score</span>
-								<div className="profile__card__header__details__stats">
-									<button
-										aria-label={
-											profile?.followers?.length === 0
-												? '0 followers'
-												: `View ${profile?.followers?.length} followers`
+				{profile && (
+					<>
+						<div className="profile__card">
+							<header className="profile__card__header">
+								<div className="profile__card__header__avatar">
+									<img
+										src={
+											profile?.imageUrl
+												? profile?.imageUrl
+												: '/images/default-avatar.png'
 										}
-										className="btn btn--no-bg"
-										onClick={() => showFollowers()}
-									>
-										{formatLargeNumber(profile?.followers?.length)} Followers
-									</button>
-									<button
-										className="btn btn--no-bg"
-										onClick={() => showFollowing()}
-										aria-label={
-											profile.following.length === 0
-												? '0 following'
-												: `View ${profile.following.length} following`
-										}
-									>
-										{formatLargeNumber(profile.following.length)} Following
-									</button>
+										alt={`Picture of ${profile?.username}`}
+									/>
 								</div>
-							</div>
-						</header>
+								<div className="profile__card__header__details">
+									<h1>{profile?.username}</h1>
+									<span className="score">{profile?.score} Score</span>
+									<div className="profile__card__header__details__stats">
+										<button
+											aria-label={
+												profile?.followers?.length === 0
+													? '0 followers'
+													: `View ${profile?.followers?.length} followers`
+											}
+											className="btn btn--no-bg"
+											onClick={() => showFollowers()}
+										>
+											{formatLargeNumber(profile?.followers?.length)} Followers
+										</button>
+										<button
+											className="btn btn--no-bg"
+											onClick={() => showFollowing()}
+											aria-label={
+												profile?.following?.length === 0
+													? '0 following'
+													: `View ${profile?.following?.length} following`
+											}
+										>
+											{formatLargeNumber(profile?.following?.length)} Following
+										</button>
+									</div>
+								</div>
+							</header>
 
-						{me?._id !== id ? (
-							<section className="profile__card__actions">
-								<button
-									className="btn btn--pill"
-									aria-label={
-										profile.followers.includes(me._id)
-											? 'Unfollow this user'
-											: 'Follow this user'
-									}
-									onClick={() =>
-										profile.followers.includes(me._id)
-											? _unfollowUser(id)
-											: _followUser(id)
-									}
-								>
-									{profile.followers.includes(me._id) ? (
-										<AiOutlineUserDelete />
-									) : (
-										<AiOutlineUserAdd />
-									)}
-									{profile.followers.includes(me._id) ? 'Unfollow' : 'Follow'}
-								</button>
-								<button
-									className="btn btn--pill"
-									aria-label="Message this user"
-								>
-									<AiOutlineMessage />
-									Message
-								</button>
-								<button
-									className="btn btn--no-bg"
-									aria-label={
-										me.blockList.includes(profile._id)
-											? 'Unblock this user'
-											: 'Block this user'
-									}
-									onClick={() => _blockUser(id)}
-								>
-									{me.blockList.includes(profile._id) ? (
-										<CgUnblock />
-									) : (
-										<CgBlock />
-									)}
-									{me.blockList.includes(profile._id) ? 'Unblock' : 'Block'}
-								</button>
-							</section>
-						) : (
-							<section className="profile__card__actions">
-								<button
-									className="btn btn--no-bg"
-									aria-label="Logout"
-									onClick={() => {
-										dispatch({ type: 'AUTH/LOG_OUT' })
-										history.goBack()
-									}}
-								>
-									<AiOutlineLogout />
-									Logout
-								</button>
-								<Link
-									className="btn btn--pill"
-									to="/settings"
-									aria-label="Message this user"
-								>
-									<IoOptionsOutline />
-									Settings
-								</Link>
-							</section>
-						)}
+							{me && me?._id !== id && (
+								<section className="profile__card__actions">
+									<button
+										className="btn btn--pill"
+										aria-label={
+											profile?.followers.includes(me?._id)
+												? 'Unfollow this user'
+												: 'Follow this user'
+										}
+										onClick={() =>
+											profile?.followers.includes(me?._id)
+												? _unfollowUser(id)
+												: _followUser(id)
+										}
+									>
+										{profile?.followers.includes(me?._id) ? (
+											<AiOutlineUserDelete />
+										) : (
+											<AiOutlineUserAdd />
+										)}
+										{profile?.followers.includes(me?._id)
+											? 'Unfollow'
+											: 'Follow'}
+									</button>
+									<button
+										className="btn btn--pill"
+										aria-label="Message this user"
+									>
+										<AiOutlineMessage />
+										Message
+									</button>
+									<button
+										className="btn btn--no-bg btn--no-bg--red"
+										aria-label={
+											me?.blockList.includes(profile?._id)
+												? 'Unblock this user'
+												: 'Block this user'
+										}
+										onClick={() => _blockUser(id)}
+									>
+										{me?.blockList.includes(profile?._id) ? (
+											<CgUnblock />
+										) : (
+											<CgBlock />
+										)}
+										{me?.blockList.includes(profile?._id) ? 'Unblock' : 'Block'}
+									</button>
+								</section>
+							)}
 
-						<article className="profile__card__bio" aria-label="Profile bio">
-							{profile.bio}
-						</article>
-					</div>
-				) : (
-					<Spinner />
+							{me?._id === id && (
+								<section className="profile__card__actions">
+									<button
+										className="btn btn--no-bg btn--no-bg--red"
+										aria-label="Logout"
+										onClick={() => {
+											dispatch({ type: 'AUTH/LOG_OUT' })
+											history.goBack()
+										}}
+									>
+										<AiOutlineLogout />
+										Logout
+									</button>
+									<Link
+										className="btn btn--pill btn--small-margin"
+										to="/settings"
+										aria-label="Message this user"
+									>
+										<IoOptionsOutline />
+										Settings
+									</Link>
+								</section>
+							)}
+
+							<article className="profile__card__bio" aria-label="Profile bio">
+								{profile?.bio}
+							</article>
+						</div>
+						<section className="profile__activity">
+							<ProfilePosts profile={profile} />
+						</section>
+					</>
 				)}
-
-				<section className="profile__activity">
-					<ProfilePosts profile={profile} />
-				</section>
 			</motion.section>
 		</>
 	)

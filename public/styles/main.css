@@ -20,6 +20,9 @@
 
 .btn svg {
   font-size: 1rem;
+}
+
+.btn--small-margin svg {
   margin-right: 0.3rem;
 }
 
@@ -58,13 +61,23 @@
 
 .btn--pill {
   border-radius: 40px;
-  color: #2f327a;
+  color: #2f327a !important;
   background: white;
 }
 
 .btn--pill:hover {
   background: #2f327a;
-  color: white;
+  color: white !important;
+}
+
+.btn--pill-inverse {
+  background: #2f327a !important;
+  color: white !important;
+}
+
+.btn--pill-inverse:hover {
+  color: white !important;
+  background: #494ed1 !important;
 }
 
 .btn--round {
@@ -81,6 +94,11 @@
 
 .btn--no-bg {
   background: none;
+  color: rgba(255, 255, 255, 0.877);
+}
+
+.btn--no-bg--red:hover {
+  color: rgba(226, 106, 106, 0.877);
 }
 
 .btn--page {
@@ -312,15 +330,6 @@
   .navbar {
     padding: 1rem 2rem !important;
   }
-}
-
-@media screen and (max-width: 768px) and (max-width: 430px) {
-  .navbar__brand {
-    left: 40%;
-  }
-}
-
-@media screen and (max-width: 768px) {
   .navbar__navigation .menu {
     -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
@@ -803,6 +812,18 @@
   display: flex;
 }
 
+.filters form div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .filters header h2 {
   margin-right: 10px;
   font-size: 1.5rem;
@@ -872,6 +893,18 @@
     width: 100%;
     padding: 1rem;
     min-width: 0;
+  }
+  .filters form div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .filters form div label {
+    margin: 0.4rem 0;
   }
   .filters p {
     min-width: 200px !important;
@@ -1307,6 +1340,91 @@
 
 .discover__header__tags div > .btn:hover::after {
   width: 90%;
+}
+
+.confirmationModal {
+  background: white;
+  -webkit-box-shadow: 5px 5px 36px 5px #000000b2;
+          box-shadow: 5px 5px 36px 5px #000000b2;
+  position: fixed;
+  z-index: 999999999999;
+  top: 7rem;
+  left: 50%;
+  max-height: calc(100vh - 9rem);
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  padding: 2rem;
+  color: #2f327a;
+  overflow-x: hidden;
+  scrollbar-color: #2f327a #494ed1;
+  scrollbar-width: thin;
+}
+
+.confirmationModal h1 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.confirmationModal section {
+  margin: 1.5rem 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.confirmationModal section span {
+  margin: 0.2rem;
+  background: rgba(0, 0, 0, 0.137);
+  border-radius: 0.3rem;
+}
+
+.confirmationModal section ul li {
+  margin: 1.5rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+.confirmationModal footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.confirmationModal footer button {
+  margin: 0 0.5rem;
+}
+
+@media screen and (max-width: 480px) {
+  .confirmationModal {
+    width: calc(90%);
+  }
 }
 
 .home {
@@ -1748,15 +1866,6 @@
   .discover__header h1 {
     margin-bottom: 20px;
   }
-  .discover__header .discover__filters {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .discover__header .discover__filters > * {
-    margin: 6px 0;
-  }
   .discover__grid {
     -ms-grid-columns: (minmax(200px, 1fr))[auto-fit];
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -2087,23 +2196,6 @@
           justify-content: center;
   color: white;
   font-size: 1.2rem;
-}
-
-.profile__card__actions button:not(.btn--no-bg) {
-  background: rgba(255, 255, 255, 0.192);
-}
-
-.profile__card__actions button:not(.btn--no-bg):hover {
-  background: white;
-  color: #494ed1;
-}
-
-.profile__card__actions button.btn--no-bg {
-  color: rgba(255, 255, 255, 0.877);
-}
-
-.profile__card__actions button.btn--no-bg:hover {
-  color: rgba(226, 106, 106, 0.877);
 }
 
 .profile__card__actions button svg {
@@ -3141,6 +3233,35 @@
   color: #f54c4c;
 }
 
+.fullrecipe table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.fullrecipe table thead {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.fullrecipe table thead tr {
+  background: #494ed1;
+  color: white;
+}
+
+.fullrecipe table tbody tr {
+  border-bottom: thin solid #d4d4d4;
+}
+
+.fullrecipe table tbody tr:last-of-type {
+  border-bottom: thin solid #494ed1;
+}
+
+.fullrecipe table th,
+.fullrecipe table td {
+  padding: 0.6rem 0.8rem;
+}
+
 @media screen and (max-width: 768px) {
   .fullrecipe {
     width: 100%;
@@ -3318,7 +3439,7 @@
   font-size: 1.4rem;
 }
 
-.settings a {
+.settings .styled-link {
   color: rgba(255, 255, 255, 0.788);
   font-style: italic;
   letter-spacing: 1px;
@@ -3337,6 +3458,16 @@
 * :focus-visible {
   outline-style: dashed;
   outline-color: white;
+}
+
+*::-webkit-scrollbar {
+  background-color: #494ed1;
+  width: 10px;
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #2f327a;
 }
 
 html,

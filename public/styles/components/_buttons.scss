@@ -14,7 +14,12 @@
 
 	svg {
 		font-size: 1rem;
-		margin-right: 0.3rem;
+	}
+
+	&--small-margin {
+		svg {
+			margin-right: 0.3rem;
+		}
 	}
 
 	&--solid {
@@ -52,12 +57,21 @@
 
 	&--pill {
 		border-radius: 40px;
-		color: $primary-blue-dark;
+		color: $primary-blue-dark !important;
 		background: white;
 
 		&:hover {
 			background: $primary-blue-dark;
-			color: white;
+			color: white !important;
+		}
+
+		&-inverse {
+			background: $primary-blue-dark !important;
+			color: white !important;
+			&:hover {
+				color: white !important;
+				background: $primary-blue !important;
+			}
 		}
 	}
 	&--round {
@@ -72,6 +86,13 @@
 
 	&--no-bg {
 		background: none;
+		color: rgba(255, 255, 255, 0.877);
+
+		&--red {
+			&:hover {
+				color: rgba(226, 106, 106, 0.877);
+			}
+		}
 	}
 
 	&--page {

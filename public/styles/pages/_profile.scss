@@ -62,22 +62,6 @@
 				color: white;
 				font-size: 1.2rem;
 
-				&:not(.btn--no-bg) {
-					background: rgba(255, 255, 255, 0.192);
-
-					&:hover {
-						background: white;
-						color: $primary-blue;
-					}
-				}
-
-				&.btn--no-bg {
-					color: rgba(255, 255, 255, 0.877);
-					&:hover {
-						color: rgba(226, 106, 106, 0.877);
-					}
-				}
-
 				svg {
 					margin-right: 10px;
 					font-size: 1.3rem;

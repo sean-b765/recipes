@@ -9,6 +9,14 @@
 		display: flex;
 	}
 
+	form {
+		div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
 	header {
 		h2 {
 			margin-right: 10px;
@@ -67,6 +75,17 @@
 		width: 100%;
 		padding: 1rem;
 		min-width: 0;
+
+		form {
+			div {
+				display: flex;
+				flex-direction: column;
+
+				label {
+					margin: 0.4rem 0;
+				}
+			}
+		}
 
 		p {
 			min-width: 200px !important;

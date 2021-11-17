@@ -10,6 +10,7 @@ import { createRef } from 'react'
 import { createPost } from '../../_actions/post'
 import { bufferToBase64 } from '../../util/util'
 import { withRouter } from 'react-router'
+import ConfirmationModal from '../../components/ConfirmationModal'
 
 class Create extends Component {
 	constructor() {
@@ -28,6 +29,7 @@ class Create extends Component {
 			},
 			files: [],
 			posted: false,
+			modalShowing: false,
 		}
 
 		this.ingredientsRef = createRef()
@@ -176,6 +178,78 @@ class Create extends Component {
 				exit={{ opacity: 0 }}
 				className="create"
 			>
+				<ConfirmationModal
+					showing={this.state.modalShowing}
+					title="Format Syntax"
+					message={
+						<>
+							<ul>
+								<li>
+									<span>![image-name]</span> Insert an uploaded image
+								</li>
+								<li>
+									<span>**text**</span> Bold text
+								</li>
+								<li>
+									<span>*text*</span> Italic text
+								</li>
+								<li>
+									<span>
+										# Heading 1<br />
+										## Heading 2
+									</span>
+									Headings (Maximum depth = 6)
+								</li>
+								<li>
+									<span>
+										- List Item 1<br />- List Item 2
+									</span>
+									Bullet-point list
+								</li>
+								<li>
+									<span>
+										1. List Item 1<br />
+										2. List Item 2
+									</span>
+									Numbered list
+								</li>
+								<li>
+									<span>---</span>Horizontal line
+								</li>
+								<li>
+									<span>
+										| Col1 | Col2 |<br />| :---: | :---: |<br />| Cell1 | Cell2
+										|
+										<br />| Cell3 | Cell4 |
+									</span>
+									A table with centered columns. Use the following under column
+									definitions to change alignment:
+									<br />
+									:--- will left-align text.
+									<br />
+									:---: will center text.
+									<br />
+									---: will right-align.
+								</li>
+							</ul>
+						</>
+					}
+					buttons={
+						<>
+							<button
+								className="btn btn--pill btn--pill-inverse"
+								onClick={() =>
+									this.setState({
+										...this.state,
+										modalShowing: !this.state.modalShowing,
+									})
+								}
+							>
+								Okay
+							</button>
+						</>
+					}
+				/>
 				<header>
 					<h1>create a recipe</h1>
 					<ul>
@@ -190,7 +264,17 @@ class Create extends Component {
 							- Format recipe information and method with markdown syntax.
 						</li>
 					</ul>
-					<button className="btn btn--pill">View Formatting Help</button>
+					<button
+						className="btn btn--pill btn--pill-inverse"
+						onClick={() =>
+							this.setState({
+								...this.state,
+								modalShowing: !this.state.modalShowing,
+							})
+						}
+					>
+						View Formatting Help
+					</button>
 				</header>
 
 				<div className="create__container">
