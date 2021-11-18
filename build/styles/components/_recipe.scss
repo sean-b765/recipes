@@ -117,8 +117,12 @@
 				justify-content: flex-start;
 
 				p {
+					font-size: 1.1rem;
 					font-family: 'Ubuntu Mono', monospace;
-					margin-right: 0.5rem;
+					margin-right: 1rem;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 				}
 
 				svg {
@@ -137,6 +141,14 @@
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+		&--nobg {
+			background-size: 200px;
+			background-position: center;
+			background-repeat: repeat;
+			filter: brightness(0) invert(1);
+		}
 	}
 
 	@media screen and (min-width: 768px) {
@@ -151,6 +163,9 @@
 			.recipe__bg {
 				opacity: 1;
 				transform: scale(1);
+			}
+			.recipe__preview {
+				opacity: 0;
 			}
 		}
 	}

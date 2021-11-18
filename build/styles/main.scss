@@ -13,6 +13,16 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
+
+	&::-webkit-scrollbar {
+		background-color: $primary-blue;
+		width: 10px;
+		overflow: hidden;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $primary-blue-dark;
+	}
 }
 
 html,

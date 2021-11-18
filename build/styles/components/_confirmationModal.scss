@@ -1,0 +1,57 @@
+.confirmationModal {
+	background: white;
+	box-shadow: 5px 5px 36px 5px #000000b2;
+	position: fixed;
+	z-index: 999999999999;
+	top: 7rem;
+	left: 50%;
+	max-height: calc(100vh - 9rem);
+	transform: translate(-50%, 0);
+	padding: 2rem;
+	color: $primary-blue-dark;
+	overflow-x: hidden;
+	scrollbar-color: $primary-blue-dark $primary-blue;
+	scrollbar-width: thin;
+
+	h1 {
+		font-family: 'Poppins', sans-serif;
+	}
+
+	section {
+		margin: 1.5rem 0.5rem;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		flex-direction: column;
+
+		span {
+			margin: 0.2rem;
+			background: rgba(0, 0, 0, 0.137);
+			border-radius: 0.3rem;
+		}
+
+		ul {
+			li {
+				margin: 1.5rem 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				text-align: center;
+			}
+		}
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		button {
+			margin: 0 0.5rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		width: calc(90%);
+	}
+}

@@ -1,11 +1,20 @@
 .filters {
-	right: 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
+	min-width: 500px;
 
 	> div {
 		display: flex;
+	}
+
+	form {
+		div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 
 	header {
@@ -39,6 +48,47 @@
 			border: none;
 			padding: 10px 20px;
 			white-space: nowrap;
+		}
+	}
+
+	form {
+		position: relative;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		label {
+			width: auto;
+			position: relative;
+
+			p {
+				position: relative;
+				min-width: 400px;
+			}
+		}
+	}
+
+	@media screen and (max-width: 540px) {
+		right: 0;
+		width: 100%;
+		padding: 1rem;
+		min-width: 0;
+
+		form {
+			div {
+				display: flex;
+				flex-direction: column;
+
+				label {
+					margin: 0.4rem 0;
+				}
+			}
+		}
+
+		p {
+			min-width: 200px !important;
 		}
 	}
 }

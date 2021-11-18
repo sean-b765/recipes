@@ -13,6 +13,12 @@
 		color: white;
 	}
 
+	&--bio {
+		background: white;
+		border-bottom: 1px solid $primary-blue-dark;
+		color: black;
+	}
+
 	&--border {
 		background: none;
 		border: 1px solid $primary-blue-dark;
