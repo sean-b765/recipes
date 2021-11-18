@@ -41,31 +41,40 @@ const Auth = () => {
 			return
 		}
 
-		const res = await signUp(body)
+		let res
 
-		if (res.verificationSent) {
+		try {
+			res = await signUp(body)
+		} catch (err) {
+			console.log(err)
+			showDialog('Error', err?.message)
+		}
+
+		if (res?.verificationSent) {
 			showDialog('Alert', `Verification email sent to ${res.user.email}`, 3500)
 		}
 
 		// Show an error if a there was one, otherwise dispatch
-		if (!res.error) dispatch({ payload: res, type: 'AUTH/SIGN_UP' })
-		else showDialog('Error', res.error)
+		if (!res?.error) dispatch({ payload: res, type: 'AUTH/SIGN_UP' })
+		else showDialog('Error', res?.error)
 	}
 
 	const handleSignIn = async (e, body) => {
-		e.preventDefault()
+		try {
+			e.preventDefault()
 
-		if (!body?.email || !body?.password) {
-			showDialog('Error', 'Please fill in the required details.')
-			return
-		}
+			if (!body?.email || !body?.password) {
+				showDialog('Error', 'Please fill in the required details.')
+				return
+			}
 
-		const res = await signIn(body)
+			const res = await signIn(body)
 
-		if (!res.error) {
-			dispatch({ payload: res, type: 'AUTH/SIGN_IN' })
-			history.push('/discover')
-		} else showDialog('Error', res.error)
+			if (!res.error) {
+				dispatch({ payload: res, type: 'AUTH/SIGN_IN' })
+				history.push('/discover')
+			} else showDialog('Error', res.error)
+		} catch (err) {}
 	}
 
 	return (

@@ -11,12 +11,14 @@ import { createPost } from '../../_actions/post'
 import { bufferToBase64 } from '../../util/util'
 import { withRouter } from 'react-router'
 import ConfirmationModal from '../../components/ConfirmationModal'
+import TopMostLogger from '../../components/TopMostLogger'
 
 class Create extends Component {
 	constructor() {
 		super()
 
 		this.state = {
+			user: null,
 			formData: {
 				title: '',
 				serves: '',
@@ -30,6 +32,11 @@ class Create extends Component {
 			files: [],
 			posted: false,
 			modalShowing: false,
+			logger: {
+				message: '',
+				title: '',
+				showing: false,
+			},
 		}
 
 		this.ingredientsRef = createRef()
@@ -40,16 +47,20 @@ class Create extends Component {
 
 			let filesToAdd = []
 
+			let count = 1
+
 			for (let i = 0; i < _files?.length; i++) {
 				let file = _files[i]
-
-				const name = `image-${this.state.files.length + 1 + i}`
 
 				// Don't allow upload if more than 10 MB
 				if (file.size >= 10 * 1000 * 1000) return
 
 				// Only allow images
-				if (!file.type.includes('image')) return
+				if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+					continue
+				}
+
+				const name = `image-${this.state.files.length + count++}`
 
 				// Get buffer from File.arrayBuffer method
 				let bfr = await file.arrayBuffer()
@@ -64,6 +75,28 @@ class Create extends Component {
 				})
 			}
 
+			if (count - 1 < _files?.length) {
+				this.setState({
+					...this.state,
+					logger: {
+						message:
+							'Some files have been removed as they are not image files.',
+						title: 'Error',
+						showing: true,
+					},
+				})
+
+				setTimeout(() => {
+					this.setState({
+						...this.state,
+						logger: {
+							...this.state.logger,
+							showing: false,
+						},
+					})
+				}, 3000)
+			}
+
 			this.setState({
 				...this.state,
 				files: [...this.state.files, ...filesToAdd],
@@ -71,7 +104,27 @@ class Create extends Component {
 		}
 
 		this.addIngredient = () => {
-			if (this.state.formData.ingredients.length >= 30) return
+			if (this.state.formData.ingredients.length >= 30) {
+				this.setState({
+					...this.state,
+					logger: {
+						title: 'Error',
+						message: 'Maximum reached',
+						showing: true,
+					},
+				})
+
+				setTimeout(() => {
+					this.setState({
+						...this.state,
+						logger: {
+							...this.state.logger,
+							showing: false,
+						},
+					})
+				}, 2000)
+				return
+			}
 
 			if (!this.ingredientsRef) return
 
@@ -95,7 +148,27 @@ class Create extends Component {
 		}
 
 		this.addTag = () => {
-			if (this.state.formData.tags.length >= 6) return
+			if (this.state.formData.tags.length >= 6) {
+				this.setState({
+					...this.state,
+					logger: {
+						title: 'Error',
+						message: 'Maximum reached',
+						showing: true,
+					},
+				})
+
+				setTimeout(() => {
+					this.setState({
+						...this.state,
+						logger: {
+							...this.state.logger,
+							showing: false,
+						},
+					})
+				}, 2000)
+				return
+			}
 
 			if (!this.tagsRef) return
 
@@ -126,7 +199,27 @@ class Create extends Component {
 					files: this.state?.files,
 				})
 
-				if (!result?.post?.userFriendlyId) return
+				if (!result?.post?.userFriendlyId) {
+					this.setState({
+						...this.state,
+						logger: {
+							title: 'Error',
+							message: result?.error,
+							showing: true,
+						},
+					})
+
+					setTimeout(() => {
+						this.setState({
+							...this.state,
+							logger: {
+								...this.state.logger,
+								showing: false,
+							},
+						})
+					}, 2000)
+					return
+				}
 
 				this.setState({ ...this.state, posted: true })
 
@@ -159,7 +252,7 @@ class Create extends Component {
 
 	componentDidMount() {
 		window.addEventListener('beforeunload', this.setStorage)
-		this.props.formData && this.setState(this.props)
+		this.setState(this.props)
 	}
 
 	componentWillUnmount() {
@@ -178,6 +271,12 @@ class Create extends Component {
 				exit={{ opacity: 0 }}
 				className="create"
 			>
+				<TopMostLogger
+					message={this.state?.logger?.message}
+					title={this.state?.logger?.title}
+					show={this.state?.logger?.showing}
+				/>
+
 				<ConfirmationModal
 					showing={this.state.modalShowing}
 					title="Format Syntax"
@@ -251,7 +350,7 @@ class Create extends Component {
 					}
 				/>
 				<header>
-					<h1>create a recipe</h1>
+					<h1>{!this.props?.user && 'sign up to'} create a recipe</h1>
 					<ul>
 						<li>- Use up to 6 tags to gain a wider audience.</li>
 						<li>- Add up to 30 ingredients.</li>
@@ -264,298 +363,314 @@ class Create extends Component {
 							- Format recipe information and method with markdown syntax.
 						</li>
 					</ul>
-					<button
-						className="btn btn--pill btn--pill-inverse"
-						onClick={() =>
-							this.setState({
-								...this.state,
-								modalShowing: !this.state.modalShowing,
-							})
-						}
-					>
-						View Formatting Help
-					</button>
+					{this.props?.user && (
+						<button
+							className="btn btn--pill btn--pill-inverse"
+							onClick={() =>
+								this.setState({
+									...this.state,
+									modalShowing: !this.state.modalShowing,
+								})
+							}
+						>
+							View Formatting Help
+						</button>
+					)}
 				</header>
 
-				<div className="create__container">
-					<form
-						action=""
-						onSubmit={(e) => {
-							e.preventDefault()
-							this.post()
-						}}
-						className="create__form"
-					>
-						<label htmlFor="title" className="label label--title">
-							<input
-								className="custom_input custom_input--underline"
-								type="text"
-								name="title"
-								id="title"
-								placeholder="Title"
-								onKeyDownCapture={(e) =>
-									e.key === 'Enter' && e.preventDefault()
-								}
-								value={this.state.formData.title}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: { ...this.state.formData, title: e.target.value },
-									})
-								}
-							/>
-						</label>
+				{this.props?.user ? (
+					<div className="create__container">
+						<form
+							action=""
+							onSubmit={(e) => {
+								e.preventDefault()
+								this.post()
+							}}
+							className="create__form"
+						>
+							<label htmlFor="title" className="label label--title">
+								<input
+									className="custom_input custom_input--underline"
+									type="text"
+									name="title"
+									id="title"
+									placeholder="Title"
+									onKeyDownCapture={(e) =>
+										e.key === 'Enter' && e.preventDefault()
+									}
+									value={this.state.formData.title}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												title: e.target.value,
+											},
+										})
+									}
+								/>
+							</label>
 
-						<label htmlFor="serves" className="label label--serves">
-							<input
-								type="text"
-								className="custom_input custom_input--underline"
-								id="serves"
-								placeholder="Serves"
-								onKeyDownCapture={(e) =>
-									e.key === 'Enter' && e.preventDefault()
-								}
-								value={this.state.formData.serves}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											serves: e.target.value,
-										},
-									})
-								}
-							/>
-						</label>
-
-						<label htmlFor="prepTime" className="label label--preptime">
-							<input
-								type="text"
-								id="prepTime"
-								placeholder="Prep. Time"
-								className="custom_input custom_input--underline"
-								onKeyDownCapture={(e) =>
-									e.key === 'Enter' && e.preventDefault()
-								}
-								value={this.state.formData.prepTime}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											prepTime: e.target.value,
-										},
-									})
-								}
-							/>
-						</label>
-
-						<label htmlFor="cookTime" className="label label--cooktime">
-							<input
-								type="text"
-								id="cookTime"
-								placeholder="Cook Time"
-								onKeyDownCapture={(e) =>
-									e.key === 'Enter' && e.preventDefault()
-								}
-								className="custom_input custom_input--underline"
-								value={this.state.formData.cookTime}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											cookTime: e.target.value,
-										},
-									})
-								}
-							/>
-						</label>
-
-						<label htmlFor="ingredients" className="label label--ingredients">
-							<header>
+							<label htmlFor="serves" className="label label--serves">
 								<input
 									type="text"
-									name="ingredients"
-									id="ingredients"
-									placeholder="Add Ingredients..."
 									className="custom_input custom_input--underline"
-									ref={this.ingredientsRef}
-									onKeyPress={(e) => {
-										const enterPressed =
-											e.key === 'NumpadEnter' || e.key === 'Enter'
-										if (!enterPressed) return
-
-										this.addIngredient()
-										e.preventDefault()
-									}}
+									id="serves"
+									placeholder="Serves"
+									onKeyDownCapture={(e) =>
+										e.key === 'Enter' && e.preventDefault()
+									}
+									value={this.state.formData.serves}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												serves: e.target.value,
+											},
+										})
+									}
 								/>
-								<button
-									className="btn btn--no-bg"
-									aria-label="Add this ingredient"
-									onClick={() => this.addIngredient()}
-								>
-									<svg
-										stroke="currentColor"
-										fill="currentColor"
-										strokeWidth="0"
-										viewBox="0 0 24 24"
-										height="1em"
-										width="1em"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											fill="none"
-											stroke="#ffffff"
-											strokeWidth="2"
-											d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
-										></path>
-									</svg>
-								</button>
-							</header>
+							</label>
 
-							<ListIngredients
-								ingredients={this.state.formData.ingredients}
-								onClickIngredient={(item) => {
-									const newIngredients = this.state.formData.ingredients.filter(
-										(_item) => _item !== item
-									)
-
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											ingredients: newIngredients,
-										},
-									})
-								}}
-							/>
-						</label>
-
-						<label htmlFor="tags" className="label label--tags">
-							<header>
+							<label htmlFor="prepTime" className="label label--preptime">
 								<input
 									type="text"
-									name="tags"
-									id="tags"
-									placeholder="Add Tags..."
+									id="prepTime"
+									placeholder="Prep. Time"
 									className="custom_input custom_input--underline"
-									ref={this.tagsRef}
-									onKeyPress={(e) => {
-										const enterPressed =
-											e.key === 'NumpadEnter' || e.key === 'Enter'
-										if (!enterPressed) return
+									onKeyDownCapture={(e) =>
+										e.key === 'Enter' && e.preventDefault()
+									}
+									value={this.state.formData.prepTime}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												prepTime: e.target.value,
+											},
+										})
+									}
+								/>
+							</label>
 
-										this.addTag()
-										e.preventDefault()
+							<label htmlFor="cookTime" className="label label--cooktime">
+								<input
+									type="text"
+									id="cookTime"
+									placeholder="Cook Time"
+									onKeyDownCapture={(e) =>
+										e.key === 'Enter' && e.preventDefault()
+									}
+									className="custom_input custom_input--underline"
+									value={this.state.formData.cookTime}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												cookTime: e.target.value,
+											},
+										})
+									}
+								/>
+							</label>
+
+							<label htmlFor="ingredients" className="label label--ingredients">
+								<header>
+									<input
+										type="text"
+										name="ingredients"
+										id="ingredients"
+										placeholder="Add Ingredients..."
+										className="custom_input custom_input--underline"
+										ref={this.ingredientsRef}
+										onKeyPress={(e) => {
+											const enterPressed =
+												e.key === 'NumpadEnter' || e.key === 'Enter'
+											if (!enterPressed) return
+
+											this.addIngredient()
+											e.preventDefault()
+										}}
+									/>
+									<button
+										className="btn btn--no-bg"
+										aria-label="Add this ingredient"
+										onClick={(e) => {
+											e.preventDefault()
+											this.addIngredient()
+										}}
+									>
+										<svg
+											stroke="currentColor"
+											fill="currentColor"
+											strokeWidth="0"
+											viewBox="0 0 24 24"
+											height="1em"
+											width="1em"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fill="none"
+												stroke="#ffffff"
+												strokeWidth="2"
+												d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
+											></path>
+										</svg>
+									</button>
+								</header>
+
+								<ListIngredients
+									ingredients={this.state.formData.ingredients}
+									onClickIngredient={(item) => {
+										const newIngredients =
+											this.state.formData.ingredients.filter(
+												(_item) => _item !== item
+											)
+
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												ingredients: newIngredients,
+											},
+										})
 									}}
 								/>
-								<button
-									className="btn btn--no-bg"
-									aria-label="Add this tag"
-									onClick={() => this.addTag()}
-								>
-									<svg
-										stroke="currentColor"
-										fill="currentColor"
-										strokeWidth="0"
-										viewBox="0 0 24 24"
-										height="1em"
-										width="1em"
-										xmlns="http://www.w3.org/2000/svg"
+							</label>
+
+							<label htmlFor="tags" className="label label--tags">
+								<header>
+									<input
+										type="text"
+										name="tags"
+										id="tags"
+										placeholder="Add Tags..."
+										className="custom_input custom_input--underline"
+										ref={this.tagsRef}
+										onKeyPress={(e) => {
+											const enterPressed =
+												e.key === 'NumpadEnter' || e.key === 'Enter'
+											if (!enterPressed) return
+
+											this.addTag()
+											e.preventDefault()
+										}}
+									/>
+									<button
+										className="btn btn--no-bg"
+										aria-label="Add this tag"
+										onClick={(e) => {
+											e.preventDefault()
+											this.addTag()
+										}}
 									>
-										<path
-											fill="none"
-											stroke="#ffffff"
-											strokeWidth="2"
-											d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
-										></path>
-									</svg>
-								</button>
-							</header>
-							<ListTags
-								tags={this.state.formData.tags}
-								onClickTag={(item) => {
-									const newTags = this.state.formData.tags.filter(
-										(_item) => _item !== item
-									)
+										<svg
+											stroke="currentColor"
+											fill="currentColor"
+											strokeWidth="0"
+											viewBox="0 0 24 24"
+											height="1em"
+											width="1em"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fill="none"
+												stroke="#ffffff"
+												strokeWidth="2"
+												d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,18 L12,6 M6,12 L18,12"
+											></path>
+										</svg>
+									</button>
+								</header>
+								<ListTags
+									tags={this.state.formData.tags}
+									onClickTag={(item) => {
+										const newTags = this.state.formData.tags.filter(
+											(_item) => _item !== item
+										)
 
-									this.setState({
-										...this.state,
-										formData: { ...this.state.formData, tags: newTags },
-									})
-								}}
-							/>
-						</label>
+										this.setState({
+											...this.state,
+											formData: { ...this.state.formData, tags: newTags },
+										})
+									}}
+								/>
+							</label>
 
-						<label htmlFor="content" className="label label--content">
-							<textarea
-								cols="30"
-								rows="10"
-								name="content"
-								id="content"
-								placeholder="Recipe information... allergens, gluten-free, vegan-friendly?"
-								value={this.state.formData.content}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											content: e.target.value,
-										},
-									})
-								}
-								className="custom_input custom_input--underline"
-							></textarea>
-						</label>
+							<label htmlFor="content" className="label label--content">
+								<textarea
+									cols="30"
+									rows="10"
+									name="content"
+									id="content"
+									placeholder="Recipe information... allergens, gluten-free, vegan-friendly?"
+									value={this.state.formData.content}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												content: e.target.value,
+											},
+										})
+									}
+									className="custom_input custom_input--underline"
+								></textarea>
+							</label>
 
-						<label htmlFor="method" className="label label--method">
-							<textarea
-								cols="30"
-								rows="10"
-								name="method"
-								id="method"
-								placeholder="Recipe method... describe the steps needed to complete this recipe"
-								value={this.state.formData.method}
-								onChange={(e) =>
-									this.setState({
-										...this.state,
-										formData: {
-											...this.state.formData,
-											method: e.target.value,
-										},
-									})
-								}
-								className="custom_input custom_input--underline"
-							></textarea>
-						</label>
+							<label htmlFor="method" className="label label--method">
+								<textarea
+									cols="30"
+									rows="10"
+									name="method"
+									id="method"
+									placeholder="Recipe method... describe the steps needed to complete this recipe"
+									value={this.state.formData.method}
+									onChange={(e) =>
+										this.setState({
+											...this.state,
+											formData: {
+												...this.state.formData,
+												method: e.target.value,
+											},
+										})
+									}
+									className="custom_input custom_input--underline"
+								></textarea>
+							</label>
 
-						<label htmlFor="upload" className="label label--upload">
-							<p className="btn btn--pill btn--solid-blue" role="button">
-								<FiUpload style={{ margin: '0 10px 0 0' }} /> Upload
-							</p>
-							<input
-								type="file"
-								multiple
-								name="upload"
-								id="upload"
-								className="custom_input custom_input--underline"
-								encType="multipart/form-data"
-								style={{ display: 'none' }}
-								onChange={this.handleFiles}
-							/>
-						</label>
+							<label htmlFor="upload" className="label label--upload">
+								<p className="btn btn--pill btn--solid-blue" role="button">
+									<FiUpload style={{ margin: '0 10px 0 0' }} /> Upload
+								</p>
+								<input
+									type="file"
+									multiple
+									name="upload"
+									id="upload"
+									className="custom_input custom_input--underline"
+									encType="multipart/form-data"
+									style={{ display: 'none' }}
+									onChange={this.handleFiles}
+								/>
+							</label>
 
-						<input type="submit" className="btn btn--pill" value="Post" />
-					</form>
+							<input type="submit" className="btn btn--pill" value="Post" />
+						</form>
 
-					<FilePreview
-						files={this.state.files}
-						onFilesChange={(files) => {
-							this.setState({ ...this.state, files })
-						}}
-					/>
-				</div>
+						<FilePreview
+							files={this.state.files}
+							onFilesChange={(files) => {
+								this.setState({ ...this.state, files })
+							}}
+						/>
+					</div>
+				) : (
+					<></>
+				)}
 
 				<Preview state={this.state} />
 			</motion.section>
@@ -566,20 +681,25 @@ class Create extends Component {
 // On mount get state of redux and set props
 //  if redux has no postForm set, check localStorage
 const mapStateToProps = (state) => {
+	let _state = {}
+
 	if (
 		state?.postForm?.formData === null ||
 		state?.postForm?.files?.length === 0
 	) {
 		let _form = JSON.parse(localStorage.getItem('post_form'))
 
-		state = {
+		_state = {
 			postForm: _form,
 		}
 	}
 
+	_state = { ..._state, user: state?.auth?.user || null }
+
 	return {
-		formData: state?.postForm?.formData || null,
-		files: state?.postForm?.files || [],
+		formData: _state?.postForm?.formData || null,
+		files: _state?.postForm?.files || [],
+		user: _state?.user?._id,
 	}
 }
 

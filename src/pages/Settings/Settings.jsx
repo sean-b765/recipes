@@ -11,7 +11,7 @@ import {
 import { RiLockPasswordLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { bufferToBase64 } from '../../util/util'
-import { editUser } from '../../_actions/user'
+import { deactivateUser, editUser, reactivateUser } from '../../_actions/user'
 import TopMostLogger from '../../components/TopMostLogger'
 import ConfirmationModal from '../../components/ConfirmationModal'
 
@@ -86,6 +86,22 @@ const Settings = () => {
 		}
 	}
 
+	const deactivateProfile = async () => {
+		try {
+			const result = await deactivateUser(user?._id)
+
+			dispatch({ type: 'AUTH/EDIT_STORED_USER', payload: result })
+		} catch (err) {}
+	}
+
+	const reactivateProfile = async () => {
+		try {
+			const result = await reactivateUser(user?._id)
+
+			dispatch({ type: 'AUTH/EDIT_STORED_USER', payload: result })
+		} catch (error) {}
+	}
+
 	return (
 		<motion.section
 			className="settings"
@@ -111,7 +127,12 @@ const Settings = () => {
 				buttons={
 					user?.deactivated ? (
 						<>
-							<button className="btn btn--green btn--pill">Make Public</button>
+							<button
+								className="btn btn--green btn--pill"
+								onClick={reactivateProfile}
+							>
+								Make Public
+							</button>
 							<button
 								className="btn btn--blue btn--pill"
 								onClick={() => setShowConfirmation(false)}
@@ -121,7 +142,12 @@ const Settings = () => {
 						</>
 					) : (
 						<>
-							<button className="btn btn--green btn--pill">Make Private</button>
+							<button
+								className="btn btn--green btn--pill"
+								onClick={deactivateProfile}
+							>
+								Make Private
+							</button>
 							<button
 								className="btn btn--blue btn--pill"
 								onClick={() => setShowConfirmation(false)}
@@ -134,6 +160,7 @@ const Settings = () => {
 			/>
 
 			<ConfirmationModal
+				showing={showResetPassword}
 				title="Send Password Reset Link"
 				message={
 					<>
@@ -143,7 +170,6 @@ const Settings = () => {
 						</p>
 					</>
 				}
-				showing={showResetPassword}
 				buttons={
 					<>
 						<button className="btn btn--pill btn--green">Reset Password</button>
@@ -158,6 +184,7 @@ const Settings = () => {
 			/>
 
 			<TopMostLogger message={message} show={showLog} title={title} />
+
 			<div className="settings__container">
 				<div className="settings__edit">
 					<p
@@ -192,6 +219,22 @@ const Settings = () => {
 									if (e.target.files[0].size > 100 ** 6) return
 
 									const buffer = await e.target.files[0].arrayBuffer()
+
+									if (
+										!['image/webp', 'image/jpeg', 'image/png'].includes(
+											e.target.files[0].type
+										)
+									) {
+										setMessage('Invalid image format')
+										setTitle('Error')
+										setShowLog(true)
+
+										setTimeout(() => {
+											setShowLog(false)
+										}, 2000)
+
+										return
+									}
 
 									const b64 = `data:${
 										e.target.files[0].type
@@ -256,7 +299,7 @@ const Settings = () => {
 						Change visibility
 					</button>
 				</div>
-				{user?.verified && (
+				{user?.verified && !user?.googleId && (
 					<div className="settings__password">
 						<RiLockPasswordLine />
 						<button

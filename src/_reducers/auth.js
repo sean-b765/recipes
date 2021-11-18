@@ -12,7 +12,10 @@ export default (state = { user: null }, action) => {
 				user: action?.payload?.user,
 				token: action?.payload?.token,
 			}
+
 		case 'AUTH/EDIT_STORED_USER':
+			console.log(action?.payload)
+
 			localStorage.setItem(
 				'profile',
 				JSON.stringify({
@@ -25,6 +28,7 @@ export default (state = { user: null }, action) => {
 				...state,
 				user: action?.payload?.user,
 			}
+
 		case 'AUTH/SIGN_IN':
 			// Sign in (set localStorage)
 			localStorage.setItem(

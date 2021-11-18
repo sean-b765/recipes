@@ -43,16 +43,20 @@ class Create extends Component {
 
 			let filesToAdd = []
 
+			let count = 1
+
 			for (let i = 0; i < _files?.length; i++) {
 				let file = _files[i]
-
-				const name = `image-${this.state.files.length + 1 + i}`
 
 				// Don't allow upload if more than 10 MB
 				if (file.size >= 10 * 1000 * 1000) return
 
 				// Only allow images
-				if (!file.type.includes('image')) return
+				if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+					continue
+				}
+
+				const name = `image-${this.state.files.length + count++}`
 
 				// Get buffer from File.arrayBuffer method
 				let bfr = await file.arrayBuffer()

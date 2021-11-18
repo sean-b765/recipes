@@ -1,11 +1,13 @@
 import {
 	apiBlockUser,
+	apiDeactivateUser,
 	apiEditUser,
 	apiFollowUser,
 	apiGetFollowers,
 	apiGetFollowing,
 	apiGetPostsFromUser,
 	apiGetUser,
+	apiReactivateUser,
 	apiUnblockUser,
 	apiUnfollowUser,
 } from '../_api'
@@ -100,6 +102,28 @@ export const getFollowing = async (userId) => {
 export const getUserPosts = async (userId) => {
 	try {
 		const { data } = await apiGetPostsFromUser(userId)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const deactivateUser = async (userId) => {
+	try {
+		const { data } = await apiDeactivateUser(userId)
+		return data
+	} catch (err) {
+		return {
+			error: err?.response?.data?.message || err?.response?.data?.error,
+		}
+	}
+}
+
+export const reactivateUser = async (userId) => {
+	try {
+		const { data } = await apiReactivateUser(userId)
 		return data
 	} catch (err) {
 		return {

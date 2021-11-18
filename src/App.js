@@ -23,6 +23,10 @@ function App() {
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
+		setLoading(false)
+	}, [location])
+
+	useEffect(() => {
 		// Initialize the AUTH user state from browser's localstorage
 		dispatch({
 			type: 'AUTH/INIT',

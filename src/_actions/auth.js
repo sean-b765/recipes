@@ -15,6 +15,7 @@ export const signIn = async (body) => {
 export const signUp = async (body) => {
 	try {
 		const { data } = await apiSignUp(body)
+
 		return data
 	} catch (err) {
 		return {

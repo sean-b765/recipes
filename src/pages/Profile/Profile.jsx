@@ -69,12 +69,11 @@ const Profile = ({ id }) => {
 	const _followUser = async (_id) => {
 		const { user, target } = await followUser(_id)
 
+		console.log(user)
+
 		dispatch({
 			type: 'AUTH/EDIT_STORED_USER',
-			payload: {
-				user: user,
-				token: JSON.parse(localStorage.getItem('profile')).token,
-			},
+			payload: { user },
 		})
 
 		dispatch({
@@ -85,12 +84,11 @@ const Profile = ({ id }) => {
 	const _unfollowUser = async (_id) => {
 		const { user, target } = await unfollowUser(_id)
 
+		console.log(user)
+
 		dispatch({
 			type: 'AUTH/EDIT_STORED_USER',
-			payload: {
-				user: user,
-				token: JSON.parse(localStorage.getItem('profile')).token,
-			},
+			payload: { user },
 		})
 
 		dispatch({
@@ -106,10 +104,7 @@ const Profile = ({ id }) => {
 
 		dispatch({
 			type: 'AUTH/EDIT_STORED_USER',
-			payload: {
-				user,
-				token: JSON.parse(localStorage.getItem('profile')).token,
-			},
+			payload: { user },
 		})
 	}
 
@@ -230,13 +225,7 @@ const Profile = ({ id }) => {
 											? 'Unfollow'
 											: 'Follow'}
 									</button>
-									<button
-										className="btn btn--pill"
-										aria-label="Message this user"
-									>
-										<AiOutlineMessage />
-										Message
-									</button>
+
 									<button
 										className="btn btn--no-bg btn--no-bg--red"
 										aria-label={
@@ -263,7 +252,7 @@ const Profile = ({ id }) => {
 										aria-label="Logout"
 										onClick={() => {
 											dispatch({ type: 'AUTH/LOG_OUT' })
-											history.goBack()
+											history.push('/discover')
 										}}
 									>
 										<AiOutlineLogout />

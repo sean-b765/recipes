@@ -126,8 +126,13 @@ const Discover = () => {
 				</h1>
 				<Filters
 					filters={filters}
-					setFilters={handleSetFilters}
-					setFilterState={setFilters}
+					setFilters={(newVal) => {
+						console.log(newVal)
+						handleSetFilters(newVal)
+					}}
+					setFilterState={(newVal) => {
+						setFilters(newVal)
+					}}
 				/>
 				<Tags
 					filters={filters}

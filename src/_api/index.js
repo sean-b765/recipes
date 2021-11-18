@@ -22,7 +22,10 @@ API.interceptors.response.use(
 
 		return res
 	},
-	(err) => emitter.emit('RESPONSE_ERROR', err)
+	(err) => {
+		emitter.emit('RESPONSE_ERROR', err)
+		throw err
+	}
 )
 
 // Auth
